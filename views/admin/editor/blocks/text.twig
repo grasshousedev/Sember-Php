@@ -1,5 +1,6 @@
 <textarea
-    hx-post="/admin/api/post/{{ post.data.id }}/block/{{ block.id }}/update"
-    hx-trigger="input changed delay:250ms">
-    {{ block.value }}
-</textarea>
+        name="value"
+        hx-post="/admin/api/post/{{ post.data.id }}/blocks/{{ block.id }}"
+        hx-trigger="input changed delay:250ms">{{ block.value }}</textarea>
+
+{% include 'admin/editor/edit-block.twig' %}

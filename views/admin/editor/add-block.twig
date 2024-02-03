@@ -1,0 +1,10 @@
+<div class="add-block">
+
+<button type="button"
+        hx-post="/admin/api/post/{{ post.data.id }}/blocks/add/text/{{ position }}"
+        hx-swap="innerHTML"
+        hx-target=".blocks">
+    Add block
+</button>
+
+</div>

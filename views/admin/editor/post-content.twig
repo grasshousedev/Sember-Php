@@ -1,8 +1,1 @@
 {% include 'admin/editor/blocks.twig' %}
-
-<button type="button"
-        hx-post="/admin/api/post/{{ post.data.id }}/blocks/add"
-        hx-swap="innerHTML"
-        hx-target=".blocks">
-    Add block
-</button>

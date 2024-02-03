@@ -21,4 +21,17 @@ class ArrayHelper
 
         return false;
     }
+
+    public static function insertAfter(array $items, callable $predicate_fn, mixed $item): array
+    {
+        $index = self::findIndex($items, $predicate_fn);
+
+        if ($index === false) {
+            return $items;
+        }
+
+        array_splice($items, $index + 1, 0, [$item]);
+
+        return $items;
+    }
 }
