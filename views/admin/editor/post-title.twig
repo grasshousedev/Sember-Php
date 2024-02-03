@@ -1,0 +1,6 @@
+<input type="text"
+       name="title"
+       value="{{ post.data.title }}"
+       hx-post="/admin/api/post/{{ post.data.id }}/update-title"
+       hx-trigger="input changed delay:250ms"
+/>

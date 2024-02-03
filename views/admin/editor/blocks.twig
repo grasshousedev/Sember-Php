@@ -1,0 +1,9 @@
+<div class="blocks">
+    {% for block in blocks %}
+        <div class="block">
+            {% if block.type == "text" %}
+                {% include 'admin/editor/blocks/text.twig' %}
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>

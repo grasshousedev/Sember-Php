@@ -72,22 +72,25 @@ class DB
      *
      * @param Model $model
      * @return void
-     * @throws Exception
      */
     public static function update(Model $model): void
     {
-        $id = $model->get('id');
-        $storage_name = $model->getStorageName();
-        $storage_path = NTH_ROOT . "/storage/data/{$storage_name}/{$id}.json";
+        try {
+            $id = $model->get('id');
+            $storage_name = $model->getStorageName();
+            $storage_path = NTH_ROOT . "/storage/data/{$storage_name}/{$id}.json";
 
-        self::validatePermissions($storage_path);
+            self::validatePermissions($storage_path);
 
-        $serde = new SerdeCommon();
-        $data = $serde->serialize($model, format: 'json');
+            $serde = new SerdeCommon();
+            $data = $serde->serialize($model, format: 'json');
 
-        file_put_contents($storage_path, $data);
+            file_put_contents($storage_path, $data);
 
-        self::updateCacheForModel($model);
+            self::updateCacheForModel($model);
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+        }
     }
 
     /**
@@ -239,7 +242,8 @@ class DB
             }
 
             $serde = new SerdeCommon();
-            $deserialized_model = $serde->deserialize($found_items[0], from: 'array', to: $model);
+            $first_key = array_key_first($found_items);
+            $deserialized_model = $serde->deserialize($found_items[$first_key], from: 'array', to: $model);
             $deserialized_model->setStorageName($storage_name);
 
             return $deserialized_model;

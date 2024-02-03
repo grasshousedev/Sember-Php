@@ -24,4 +24,9 @@ class SiteController
             'posts' => $posts,
         ]);
     }
+
+    public function notFound(Response $response): Response
+    {
+        return $response->view('site/404');
+    }
 }

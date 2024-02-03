@@ -1,3 +1,9 @@
-<div class="page-heading">
-    <h2>Edit Post</h2>
+<script src="https://unpkg.com/htmx.org@1.9.10"></script>
+<script src="/assets/admin/js/editor.js"></script>
+
+<div id="editor"
+     hx-get="/admin/api/post/{{ id }}/editor"
+     hx-trigger="load"
+     hx-swap="innerHTML">
+    Loading ...
 </div>

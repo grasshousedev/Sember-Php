@@ -1,5 +1,6 @@
 <?php
 
+use Asko\Nth\Controllers\AdminAPIController;
 use Asko\Nth\Controllers\AdminController;
 use Asko\Nth\Controllers\AuthenticationController;
 use Asko\Nth\Controllers\SetupController;
@@ -15,6 +16,11 @@ return function(\Asko\Router\Router $router) {
     $router->get('/admin/posts/new', [AdminController::class, 'createPost']);
     $router->get('/admin/posts/edit/{id}', [AdminController::class, 'editPost']);
 
+    // Admin API
+    $router->get('/admin/api/post/{id}/editor', [AdminAPIController::class, 'editor']);
+    $router->post('/admin/api/post/{id}/update-title', [AdminAPIController::class, 'updateTitle']);
+    $router->post('/admin/api/post/{id}/blocks/add', [AdminAPIController::class, 'addBlock']);
+
     // Setup
     $router->get('/setup/account', [SetupController::class, 'account']);
     $router->post('/setup/account', [SetupController::class, 'account']);
@@ -24,4 +30,7 @@ return function(\Asko\Router\Router $router) {
     // Site
     $router->get('/', [SiteController::class, 'home']);
     $router->get('/{slug}', [SiteController::class, 'post']);
+
+    // Not found
+    $router->notFound([SiteController::class, 'notFound']);
 };

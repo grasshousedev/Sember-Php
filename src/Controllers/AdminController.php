@@ -44,7 +44,7 @@ class AdminController extends Controller
     public function createPost(Response $response): Response
     {
         if ($id = DB::create(new Post([
-            'title' => 'New post',
+            'title' => 'Untitled ...',
             'slug' => '',
             'content' => 'New post content',
             'status' => 'draft',
@@ -57,10 +57,8 @@ class AdminController extends Controller
 
     public function editPost(Response $response, string $id): Response
     {
-        $post = DB::find(Post::class, ['id' => $id]);
-
         return $response->view('admin/edit-post', [
-            'post' => $post,
+            'id' => $id,
         ]);
     }
 
