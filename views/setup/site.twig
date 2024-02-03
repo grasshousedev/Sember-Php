@@ -1,0 +1,30 @@
+<div class="step-legend">
+    <h3>Step</h3>
+
+    <ul>
+        <li>1</li>
+        <li class="active">2</li>
+    </ul>
+</div>
+
+<h2>Site info</h2>
+
+{% if errors %}
+    <div class="errors">
+        {% for error in errors %}
+            <p>{{ error }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<form method="post">
+    {{ csrf_field() | raw }}
+
+    <label for="site_name">E-mail</label>
+    <input type="text" name="site_name" id="site_name" required>
+
+    <label for="site_description">Site description</label>
+    <textarea name="site_description" id="site_description"></textarea>
+
+    <button type="submit">Finish</button>
+</form>

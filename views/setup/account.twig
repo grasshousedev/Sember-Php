@@ -1,0 +1,33 @@
+<div class="step-legend">
+    <h3>Step</h3>
+
+    <ul>
+        <li class="active">1</li>
+        <li>2</li>
+    </ul>
+</div>
+
+<h2>Account info</h2>
+
+{% if errors %}
+    <div class="errors">
+        {% for error in errors %}
+            <p>{{ error }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<form method="post">
+    {{ csrf_field() | raw }}
+
+    <label for="email">E-mail</label>
+    <input type="email" name="email" id="email" value="{{ email }}" required>
+
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" required>
+
+    <label for="password_confirm">Repeat password</label>
+    <input type="password" name="password_confirm" id="password_confirm" required>
+
+    <button type="submit">Continue</button>
+</form>
