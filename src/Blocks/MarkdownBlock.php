@@ -25,10 +25,8 @@ class MarkdownBlock implements Block
      */
     public static function editable(Post $post, array $block): string
     {
-        $post = $post->toArray();
-
         return (new Response)->view('admin/editor/blocks/markdown', [
-            'post' => $post,
+            'post' => $post->toArray(),
             'block' => $block,
         ])->send();
     }
