@@ -2,6 +2,8 @@
 
 namespace Asko\Nth\Helpers;
 
+use Asko\Nth\Config;
+use Asko\Nth\Models\Model;
 use Ramsey\Uuid\Uuid;
 
 class BlockHelper
@@ -13,5 +15,17 @@ class BlockHelper
             'type' => $type,
             'value' => '',
         ];
+    }
+
+    public static function editableBlocks(Model $post, array $blocks): array
+    {
+        return array_map(function ($block) use($post) {
+            $class = Config::getBlock($block['type'], 'markdown');
+
+            return [
+                ...$block,
+                'render' => call_user_func([$class, 'editable'], $post, $block),
+            ];
+        }, $blocks);
     }
 }

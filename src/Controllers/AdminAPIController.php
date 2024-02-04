@@ -32,9 +32,18 @@ class AdminAPIController extends Controller
     {
         $post = DB::find(Post::class, ['id' => $id]);
 
+        if (!$post) {
+            return $response->json([
+                'status' => 'error',
+                'message' => 'Post not found.'
+            ]);
+        }
+
+        $blocks = json_decode($post->get('content'), true) ?? [];
+
         return $response->view('admin/editor', [
             'post' => $post,
-            'blocks' => json_decode($post->get('content'), true) ?? []
+            'blocks' => BlockHelper::editableBlocks($post, $blocks),
         ]);
     }
 
@@ -86,7 +95,7 @@ class AdminAPIController extends Controller
 
         return $response->view('admin/editor/blocks', [
             'post' => $post,
-            'blocks' => $blocks,
+            'blocks' => BlockHelper::editableBlocks($post, $blocks),
         ]);
     }
 
@@ -107,6 +116,14 @@ class AdminAPIController extends Controller
     ): Response
     {
         $post = DB::find(Post::class, ['id' => $id]);
+
+        if (!$post) {
+            return $response->json([
+                'status' => 'error',
+                'message' => 'Post not found.'
+            ]);
+        }
+
         $blocks = json_decode($post->get('content'), true) ?? [];
         $block_index = ArrayHelper::findIndex($blocks, fn ($block) => $block['id'] === $blockId);
         $block = $blocks[$block_index];
@@ -129,6 +146,14 @@ class AdminAPIController extends Controller
     public function deleteBlock(Response $response, string $id, string $blockId): Response
     {
         $post = DB::find(Post::class, ['id' => $id]);
+
+        if (!$post) {
+            return $response->json([
+                'status' => 'error',
+                'message' => 'Post not found.'
+            ]);
+        }
+
         $blocks = json_decode($post->get('content'), true) ?? [];
         $blocks = array_filter($blocks, fn ($block) => $block['id'] !== $blockId);
         $post->set('content', json_encode($blocks));
@@ -137,7 +162,7 @@ class AdminAPIController extends Controller
 
         return $response->view('admin/editor/blocks', [
             'post' => DB::find(Post::class, ['id' => $id]),
-            'blocks' => $blocks,
+            'blocks' => BlockHelper::editableBlocks($post, $blocks),
         ]);
     }
 }

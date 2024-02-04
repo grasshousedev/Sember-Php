@@ -2,12 +2,7 @@
     {% include 'admin/editor/add-block.twig' with {'position': 'beginning' } %}
 
     {% for block in blocks %}
-        <div class="block">
-            {% if block.type == "text" %}
-                {% include 'admin/editor/blocks/text.twig' %}
-            {% endif %}
-        </div>
-
+        {{ block.render | raw }}
         {% include 'admin/editor/add-block.twig' with {'position': block.id } %}
     {% endfor %}
 </div>
