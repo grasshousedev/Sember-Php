@@ -22,6 +22,37 @@ class ArrayHelper
         return false;
     }
 
+    /**
+     * Insert an item before the first item in an array that passes a truth test.
+     * If no item passes the test, the item will not be inserted.
+     *
+     * @param array $items
+     * @param callable $predicate_fn
+     * @param mixed $item
+     * @return array
+     */
+    public static function insertBefore(array $items, callable $predicate_fn, mixed $item): array
+    {
+        $index = self::findIndex($items, $predicate_fn);
+
+        if ($index === false) {
+            return $items;
+        }
+
+        array_splice($items, $index, 0, [$item]);
+
+        return $items;
+    }
+
+    /**
+     * Insert an item after the first item in an array that passes a truth test.
+     * If no item passes the test, the item will not be inserted.
+     *
+     * @param array $items
+     * @param callable $predicate_fn
+     * @param mixed $item
+     * @return array
+     */
     public static function insertAfter(array $items, callable $predicate_fn, mixed $item): array
     {
         $index = self::findIndex($items, $predicate_fn);
