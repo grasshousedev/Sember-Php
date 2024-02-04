@@ -3,6 +3,7 @@
 namespace Asko\Nth\Blocks;
 
 use Asko\Nth\Models\Post;
+use Asko\Nth\Response;
 
 /**
  * The Markdown block.
@@ -13,7 +14,7 @@ use Asko\Nth\Models\Post;
 class MarkdownBlock implements Block
 {
     // The name of the block.
-    protected string $name = 'Markdown';
+    public string $name = 'Markdown';
 
     /**
      * Returns the editable Markdown block.
@@ -26,14 +27,10 @@ class MarkdownBlock implements Block
     {
         $post = $post->toArray();
 
-        return <<<HTML
-            <div class="block markdown-block" data-id="{$block['id']}">
-                <textarea 
-                    name="value"
-                    hx-post="/admin/api/post/{$post['id']}/blocks/{$block['id']}"
-                    hx-trigger="input changed delay:250ms">{$block['value']}</textarea>
-            </div>
-        HTML;
+        return (new Response)->view('admin/editor/blocks/markdown', [
+            'post' => $post,
+            'block' => $block,
+        ])->send();
     }
 
     /**

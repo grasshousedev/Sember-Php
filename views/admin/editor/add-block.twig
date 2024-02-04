@@ -1,10 +1,19 @@
 <div class="add-block">
+    <button type="button"
+            hx-post="/admin/api/post/{{ post.data.id }}/blocks/add/text/{{ position }}"
+            hx-swap="outerHTML"
+            hx-target=".blocks">
+        Add block
+    </button>
 
-<button type="button"
-        hx-post="/admin/api/post/{{ post.data.id }}/blocks/add/text/{{ position }}"
-        hx-swap="outerHTML"
-        hx-target=".blocks">
-    Add block
-</button>
-
+    <div class="block-options">
+        {% for block in block_opts %}
+            <button type="button"
+                    hx-post="/admin/api/post/{{ post.data.id }}/blocks/add/{{ block.key }}/{{ position }}"
+                    hx-swap="outerHTML"
+                    hx-target=".blocks">
+                {{ block.name }}
+            </button>
+        {% endfor %}
+    </div>
 </div>

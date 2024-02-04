@@ -44,6 +44,7 @@ class AdminAPIController extends Controller
         return $response->view('admin/editor', [
             'post' => $post,
             'blocks' => BlockHelper::editableBlocks($post, $blocks),
+            'block_opts' => BlockHelper::opts(),
         ]);
     }
 
@@ -96,6 +97,7 @@ class AdminAPIController extends Controller
         return $response->view('admin/editor/blocks', [
             'post' => $post,
             'blocks' => BlockHelper::editableBlocks($post, $blocks),
+            'block_opts' => BlockHelper::opts(),
         ]);
     }
 
@@ -163,6 +165,7 @@ class AdminAPIController extends Controller
         return $response->view('admin/editor/blocks', [
             'post' => DB::find(Post::class, ['id' => $id]),
             'blocks' => BlockHelper::editableBlocks($post, $blocks),
+            'block_opts' => BlockHelper::opts(),
         ]);
     }
 }

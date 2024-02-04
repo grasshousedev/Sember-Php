@@ -25,4 +25,13 @@ class Config
 
         return $config[$key] ?? $config[$default];
     }
+
+    public static function getBlocks(): array
+    {
+        if (!file_exists(__DIR__ . '/config/blocks.php')) {
+            return [];
+        }
+
+        return require __DIR__ . '/config/blocks.php';
+    }
 }
