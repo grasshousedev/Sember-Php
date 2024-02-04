@@ -15,6 +15,7 @@ return function(\Asko\Router\Router $router) {
     $router->get('/admin/posts', [AdminController::class, 'posts']);
     $router->get('/admin/posts/new', [AdminController::class, 'createPost']);
     $router->get('/admin/posts/edit/{id}', [AdminController::class, 'editPost']);
+    $router->get('/admin/posts/delete/{id}', [AdminController::class, 'deletePost']);
 
     // Admin API
     $router->get('/admin/api/post/{id}/editor', [AdminAPIController::class, 'editor']);

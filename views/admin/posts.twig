@@ -6,5 +6,6 @@
 {% for post in posts %}
     <div class="post">
         <h3><a href="/admin/posts/edit/{{ post.data.id }}">{{ post.data.title }}</a></h3>
+        <a href="/admin/posts/delete/{{ post.data.id }}" class="btn btn-danger">Delete</a>
     </div>
 {% endfor %}

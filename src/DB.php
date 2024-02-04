@@ -94,6 +94,29 @@ class DB
     }
 
     /**
+     * Deletes a record corresponding to `$model`.
+     *
+     * @param Model $model
+     * @return void
+     */
+    public static function delete(Model $model): void
+    {
+        try {
+            $id = $model->get('id');
+            $storage_name = $model->getStorageName();
+            $storage_path = NTH_ROOT . "/storage/data/{$storage_name}/{$id}.json";
+
+            self::validatePermissions($storage_path);
+
+            unlink($storage_path);
+
+            self::updateCacheForModel($model, action: 'delete');
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+        }
+    }
+
+    /**
      * Attempts to find the `$model` corresponding to `$query`.
      *
      * @param string $model
@@ -376,7 +399,7 @@ class DB
      * @return void
      * @throws Exception
      */
-    private static function updateCacheForModel(Model $model): void
+    private static function updateCacheForModel(Model $model, string $action = 'update'): void
     {
         $storage_name = $model->getStorageName();
         $storage_dir = NTH_ROOT . "/storage/cache";
@@ -386,6 +409,11 @@ class DB
 
         $serde = new SerdeCommon();
         $data = $serde->serialize($model, format: 'array');
+
+        // If cache does not exist and we're deleting, we don't need to do anything.
+        if (!file_exists($storage_path) && $action === 'delete') {
+            return;
+        }
 
         // No cache yet, let's create it.
         if (!file_exists($storage_path)) {
@@ -398,16 +426,23 @@ class DB
         $raw_cache = file_get_contents($storage_path);
         $cache = json_decode($raw_cache, true);
 
-        // If the item is not in cache, let's add it.
-        if (empty(self::findItemsByQuery($cache, ['id' => $data['id']]))) {
+        // If the item is not in cache, and we're updating, let's add it.
+        if ($action === 'update' && empty(self::findItemsByQuery($cache, ['id' => $data['id']]))) {
             file_put_contents($storage_path, json_encode([...$cache, $data]));
 
             return;
         }
 
-        // If the item is in cache, let's update it.
-        if ($index = ArrayHelper::findIndex($cache, fn ($item) => $item['id'] === $data['id'])) {
+        // If the item is in cache, and we're updating, let's update it.
+        $index = ArrayHelper::findIndex($cache, fn ($item) => $item['id'] === $data['id']);
+
+        if ($index !== false && $action === 'update') {
             $cache[$index] = $data;
+        }
+
+        // If the item is in cache, and we're deleting, let's remove it.
+        if ($index !== false && $action === 'delete') {
+            array_splice($cache, $index, 1);
         }
 
         file_put_contents($storage_path, json_encode($cache));

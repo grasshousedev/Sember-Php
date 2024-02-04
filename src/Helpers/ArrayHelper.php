@@ -2,6 +2,12 @@
 
 namespace Asko\Nth\Helpers;
 
+/**
+ * The array helper.
+ *
+ * @package Asko\Nth\Helpers
+ * @since 0.1.0
+ */
 class ArrayHelper
 {
     /**

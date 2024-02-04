@@ -6,8 +6,20 @@ use Asko\Nth\Config;
 use Asko\Nth\Models\Model;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * The block helper.
+ *
+ * @package Asko\Nth\Helpers
+ * @since 0.1.0
+ */
 class BlockHelper
 {
+    /**
+     * Returns a new block.
+     *
+     * @param string $type
+     * @return array
+     */
     public static function new(string $type): array
     {
         return [
@@ -17,6 +29,13 @@ class BlockHelper
         ];
     }
 
+    /**
+     * Returns the editable blocks.
+     *
+     * @param Model $post
+     * @param array $blocks
+     * @return array
+     */
     public static function editableBlocks(Model $post, array $blocks): array
     {
         return array_map(function ($block) use($post) {
@@ -29,6 +48,13 @@ class BlockHelper
         }, $blocks);
     }
 
+    /**
+     * Returns the viewable blocks.
+     *
+     * @param Model $post
+     * @param array $blocks
+     * @return array
+     */
     public static function viewableBlocks(Model $post, array $blocks): array
     {
         return array_map(function ($block) use($post) {
@@ -41,6 +67,11 @@ class BlockHelper
         }, $blocks);
     }
 
+    /**
+     * Returns the block options.
+     *
+     * @return array
+     */
     public static function opts(): array
     {
         $opts = [];

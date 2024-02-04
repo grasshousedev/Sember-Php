@@ -4,11 +4,9 @@ namespace Asko\Nth\Controllers;
 
 use Asko\Nth\DB;
 use Asko\Nth\Models\Post;
-use Asko\Nth\Models\User;
 use Asko\Nth\Request;
 use Asko\Nth\Response;
 use Exception;
-use Ramsey\Uuid\Uuid;
 
 class AdminController extends Controller
 {
@@ -62,4 +60,16 @@ class AdminController extends Controller
         ]);
     }
 
+    public function deletePost(Response $response, string $id): Response
+    {
+        $post = DB::find(Post::class, ['id' => $id]);
+
+        if (!$post) {
+            return $response->redirect('/admin/posts');
+        }
+
+        DB::delete($post);
+
+        return $response->redirect('/admin/posts');
+    }
 }
