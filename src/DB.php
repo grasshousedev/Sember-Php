@@ -335,7 +335,7 @@ class DB
             return null;
         }
 
-        $raw_data = file_get_contents($storage_path . "/{$file}");
+        $raw_data = file_get_contents( "{$storage_path}/{$file}");
         $data = json_decode($raw_data, true);
 
         if (!self::itemMatchesQuery($data, $query)) {

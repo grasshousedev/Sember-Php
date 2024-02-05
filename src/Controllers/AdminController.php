@@ -19,6 +19,14 @@ class AdminController extends Controller
         $this->authenticatedGuard();
     }
 
+    /**
+     * Redirect to the posts page if authenticated. Otherwise, redirect
+     * to the sign-in page.
+     *
+     * @param Request $request
+     * @param Response $response
+     * @return Response
+     */
     public function index(Request $request, Response $response): Response
     {
         if (!$request->session()->has('auth_token')) {
@@ -28,6 +36,12 @@ class AdminController extends Controller
         return $response->redirect('/admin/posts');
     }
 
+    /**
+     * List all posts.
+     *
+     * @param Response $response
+     * @return Response
+     */
     public function posts(Response $response): Response
     {
         $posts = DB::findAll(Post::class)
@@ -39,6 +53,12 @@ class AdminController extends Controller
         ]);
     }
 
+    /**
+     * Create a new post.
+     *
+     * @param Response $response
+     * @return Response
+     */
     public function createPost(Response $response): Response
     {
         if ($id = DB::create(new Post([
@@ -53,6 +73,13 @@ class AdminController extends Controller
         return $response->redirect("/admin/posts");
     }
 
+    /**
+     * Edit a post.
+     *
+     * @param Response $response
+     * @param string $id
+     * @return Response
+     */
     public function editPost(Response $response, string $id): Response
     {
         return $response->view('admin/edit-post', [
@@ -60,6 +87,13 @@ class AdminController extends Controller
         ]);
     }
 
+    /**
+     * Delete a post.
+     *
+     * @param Response $response
+     * @param string $id
+     * @return Response
+     */
     public function deletePost(Response $response, string $id): Response
     {
         $post = DB::find(Post::class, ['id' => $id]);
