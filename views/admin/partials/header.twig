@@ -4,5 +4,9 @@
     <meta charset="utf-8">
     <title>{{ page_title }} &mdash; Nth</title>
     <link rel="stylesheet" href="/assets/admin/css/style.css">
+    {% if editor %}
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="/assets/admin/js/editor.js"></script>
+    {% endif %}
 </head>
 <body>

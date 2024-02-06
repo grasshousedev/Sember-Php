@@ -17,14 +17,14 @@ class BlockHelper
     /**
      * Returns a new block.
      *
-     * @param string $type
+     * @param string $key
      * @return array
      */
-    public static function new(string $type): array
+    public static function new(string $key): array
     {
         return [
             'id' => Uuid::uuid4()->toString(),
-            'type' => $type,
+            'key' => $key,
             'value' => '',
         ];
     }
@@ -38,7 +38,7 @@ class BlockHelper
     public static function editableBlocks(Model $post): array
     {
         return array_map(function ($block) use($post) {
-            $class = Config::getBlock($block['type'], 'markdown');
+            $class = Config::getBlock($block['key'], 'markdown');
 
             return [
                 ...$block,
@@ -57,7 +57,7 @@ class BlockHelper
     public static function viewableBlocks(Model $post, array $blocks): array
     {
         return array_map(function ($block) use($post) {
-            $class = Config::getBlock($block['type'], 'markdown');
+            $class = Config::getBlock($block['key'], 'markdown');
 
             return [
                 ...$block,

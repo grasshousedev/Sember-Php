@@ -15,6 +15,11 @@ body {
     min-height: 100vh;
 }
 
+input, textarea, select {
+    font-family: system-ui, sans-serif;
+    font-size: 16px;
+}
+
 .wrap {
     display: grid;
     grid-template-columns: 175px auto;
@@ -32,7 +37,7 @@ body {
     color: #333;
     border: 1px solid #ddd;
     border-radius: 25px;
-    padding: 4px 12px;
+    padding: 3px 10px;
 }
 
 .btn-primary {
@@ -127,7 +132,7 @@ body {
 
 .posts .post .meta {
     font-size: 11px;
-    font-weight: 500;
+    font-weight: 400;
     color: #888;
     text-transform: uppercase;
 }
@@ -136,4 +141,115 @@ body {
     font-size: 11px;
     color: #999;
     text-transform: uppercase;
+}
+
+/** EDITOR */
+#editor .post-title {
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+#editor .post-title label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #777;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+#editor .post-title input {
+    width: 100%;
+    height: 40px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #111;
+    box-shadow: inset 3px 3px 3px rgba(0,0,0,.03), 0 1px 2px rgba(0,0,0,.05);
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#editor .add-block {
+    width: 100%;
+    height: 14px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+#editor .add-block > button {
+    display: none !important;
+}
+
+#editor .add-block:hover {
+    border: 1px dashed #ddd;
+    border-radius: 2px;
+}
+
+#editor .add-block:hover > button {
+    display: block !important;
+}
+
+#editor .add-block > button {
+    display: block;
+    width: 32px;
+    height: 32px;
+    font-size: 24px;
+    border: 0;
+    color: #fff;
+    background: #111;
+    box-shadow: 0 1px 12px rgba(0,0,0,.1);
+    border-radius: 6px;
+    cursor: pointer;
+    z-index: 10;
+    position: absolute;
+    top: -9px;
+    left: calc(50% - 16px);
+}
+
+#editor .add-block .block-options {
+    display: none;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 25px;
+    width: 400px;
+    background: #333;
+    box-shadow: 0 1px 8px rgba(0,0,0,.15);
+    border-radius: 4px;
+    z-index: 9;
+    position: absolute;
+    top: 10px;
+    left: calc(50% - 200px);
+    padding: 25px;
+}
+
+#editor .add-block .block-options.active {
+    display: grid;
+}
+
+#editor .add-block .block-options button {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    border-radius: 4px;
+    color: #ddd;
+    background: transparent;
+    border: 1px solid #555;
+    cursor: pointer;
+    padding: 15px;
+}
+
+#editor .add-block .block-options button:hover {
+    color: #fff;
+    border: 1px solid #666;
+}
+
+    /** BLOCKS */
+#editor .block[data-block="markdown"] textarea {
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    resize: none;
+    border: 0;
 }
