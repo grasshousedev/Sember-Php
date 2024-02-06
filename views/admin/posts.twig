@@ -12,8 +12,16 @@
         <div class="posts">
             {% for post in posts %}
                 <div class="post">
-                    <h3><a href="/admin/posts/edit/{{ post.data.id }}">{{ post.data.title }}</a></h3>
-                    <a href="/admin/posts/delete/{{ post.data.id }}" class="btn btn-danger">Delete</a>
+                    <div class="row">
+                        <h3 class="title"><a href="/admin/posts/edit/{{ post.data.id }}">{{ post.data.title }}</a></h3>
+                        <a href="/admin/posts/delete/{{ post.data.id }}" class="btn btn-danger">Delete</a>
+                    </div>
+
+                    <div class="row">
+                        <div class="meta">
+                            Not published. Created on {{ post.data.created_at|date('d/m/Y') }}. Last updated on {{ post.data.updated_at|date('d/m/Y') }}.
+                        </div>
+                    </div>
                 </div>
             {% endfor %}
         </div>

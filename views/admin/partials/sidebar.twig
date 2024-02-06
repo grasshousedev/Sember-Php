@@ -1,5 +1,9 @@
 <div class="sidebar">
     <ul class="nav">
+        <li {% if active is same as 'about' %} class="active" {% endif %}>
+            <a href="/admin/about">About</a>
+        </li>
+
         <li {% if active is same as 'posts' %} class="active" {% endif %}>
             <a href="/admin/posts">Posts</a>
         </li>

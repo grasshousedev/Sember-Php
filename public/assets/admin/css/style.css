@@ -31,8 +31,8 @@ body {
     text-decoration: none;
     color: #333;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 4px 8px;
+    border-radius: 25px;
+    padding: 4px 12px;
 }
 
 .btn-primary {
@@ -80,7 +80,7 @@ body {
     display: flex;
     align-items: center;
     gap: 25px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #ddd;
     padding-bottom: 25px;
     margin-bottom: 25px;
 }
@@ -95,9 +95,29 @@ body {
 /** POSTS */
 .posts {}
 .posts .post {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #eee;
     padding-bottom: 25px;
     margin-bottom: 25px;
+}
+
+.posts .post .row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.posts .post .title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111;
+    letter-spacing: -0.5px;
+}
+
+.posts .post .title a {
+    text-decoration: none;
+    color: #111;
+}
+
+.posts .post .meta {
+    font-size: 13px;
+    color: #888;
 }

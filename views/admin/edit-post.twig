@@ -1,9 +1,23 @@
-<script src="https://unpkg.com/htmx.org@1.9.10"></script>
-<script src="/assets/admin/js/editor.js"></script>
+{% include 'admin/partials/header.twig' with {'page_title': 'Edit Post'} %}
 
-<div id="editor"
-     hx-get="/admin/api/post/{{ id }}/editor"
-     hx-trigger="load"
-     hx-swap="innerHTML">
-    Loading ...
+<div class="wrap">
+    {% include 'admin/partials/sidebar.twig' %}
+
+    <div class="content-area">
+        <div class="page-heading">
+            <h2 class="title">Edit Post</h2>
+        </div>
+
+        <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+        <script src="/assets/admin/js/editor.js"></script>
+
+        <div id="editor"
+             hx-get="/admin/api/post/{{ id }}/editor"
+             hx-trigger="load"
+             hx-swap="innerHTML">
+            Loading ...
+        </div>
+    </div>
 </div>
+
+{% include 'admin/partials/footer.twig' %}
