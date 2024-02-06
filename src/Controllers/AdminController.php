@@ -64,8 +64,11 @@ class AdminController extends Controller
         if ($id = DB::create(new Post([
             'title' => 'Untitled ...',
             'slug' => '',
-            'content' => 'New post content',
+            'content' => [],
             'status' => 'draft',
+            'created_at' => time(),
+            'updated_at' => time(),
+            'published_at' => null,
         ]))) {
             return $response->redirect("/admin/posts/edit/{$id}");
         };

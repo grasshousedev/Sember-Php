@@ -33,10 +33,9 @@ class BlockHelper
      * Returns the editable blocks.
      *
      * @param Model $post
-     * @param array $blocks
      * @return array
      */
-    public static function editableBlocks(Model $post, array $blocks): array
+    public static function editableBlocks(Model $post): array
     {
         return array_map(function ($block) use($post) {
             $class = Config::getBlock($block['type'], 'markdown');
@@ -45,7 +44,7 @@ class BlockHelper
                 ...$block,
                 'render' => call_user_func([$class, 'editable'], $post, $block),
             ];
-        }, $blocks);
+        }, $post->get('content'));
     }
 
     /**

@@ -39,11 +39,9 @@ class AdminAPIController extends Controller
             ]);
         }
 
-        $blocks = json_decode($post->get('content'), true) ?? [];
-
         return $response->view('admin/editor', [
             'post' => $post,
-            'blocks' => BlockHelper::editableBlocks($post, $blocks),
+            'blocks' => BlockHelper::editableBlocks($post),
             'block_opts' => BlockHelper::opts(),
         ]);
     }
@@ -83,20 +81,21 @@ class AdminAPIController extends Controller
     ): Response {
         $post = DB::find(Post::class, ['id' => $id]);
         $block = BlockHelper::new($type);
-        $blocks = json_decode($post->get('content'), true) ?? [];
         $blocks = match ($position) {
-            'beginning' => [$block, ...$blocks],
-            'end' => [...$blocks, $block],
-            default => ArrayHelper::insertAfter($blocks, fn ($block) => $block['id'] === $position, $block),
+            'beginning' => [$block, ...$post->get('content')],
+            'end' => [...$post->get('content'), $block],
+            default => ArrayHelper::insertAfter($post->get('content'), function ($block) use ($position) {
+                return $block['id'] === $position;
+            }, $block),
         };
 
-        $post->set('content', json_encode($blocks));
+        $post->set('content', $blocks);
 
         DB::update($post);
 
         return $response->view('admin/editor/blocks', [
             'post' => $post,
-            'blocks' => BlockHelper::editableBlocks($post, $blocks),
+            'blocks' => BlockHelper::editableBlocks($post),
             'block_opts' => BlockHelper::opts(),
         ]);
     }
@@ -126,11 +125,11 @@ class AdminAPIController extends Controller
             ]);
         }
 
-        $blocks = json_decode($post->get('content'), true) ?? [];
+        $blocks = $post->get('content');
         $block_index = ArrayHelper::findIndex($blocks, fn ($block) => $block['id'] === $blockId);
         $block = $blocks[$block_index];
         $blocks[$block_index] = [...$block, 'value' => $request->input('value')];
-        $post->set('content', json_encode($blocks));
+        $post->set('content', $blocks);
 
         DB::update($post);
 
@@ -156,15 +155,14 @@ class AdminAPIController extends Controller
             ]);
         }
 
-        $blocks = json_decode($post->get('content'), true) ?? [];
-        $blocks = array_filter($blocks, fn ($block) => $block['id'] !== $blockId);
-        $post->set('content', json_encode($blocks));
+        $blocks = array_filter($post->get('content'), fn ($block) => $block['id'] !== $blockId);
+        $post->set('content', $blocks);
 
         DB::update($post);
 
         return $response->view('admin/editor/blocks', [
             'post' => DB::find(Post::class, ['id' => $id]),
-            'blocks' => BlockHelper::editableBlocks($post, $blocks),
+            'blocks' => BlockHelper::editableBlocks($post),
             'block_opts' => BlockHelper::opts(),
         ]);
     }
