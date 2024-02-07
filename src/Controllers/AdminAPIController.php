@@ -42,7 +42,7 @@ class AdminAPIController extends Controller
         return $response->view('admin/editor', [
             'post' => $post,
             'blocks' => BlockHelper::editableBlocks($post),
-            'block_opts' => BlockHelper::opts(),
+            'block_list' => BlockHelper::list(),
         ]);
     }
 
@@ -96,7 +96,7 @@ class AdminAPIController extends Controller
         return $response->view('admin/editor/blocks', [
             'post' => $post,
             'blocks' => BlockHelper::editableBlocks($post),
-            'block_opts' => BlockHelper::opts(),
+            'block_list' => BlockHelper::list(),
         ]);
     }
 
@@ -161,9 +161,49 @@ class AdminAPIController extends Controller
         DB::update($post);
 
         return $response->view('admin/editor/blocks', [
-            'post' => DB::find(Post::class, ['id' => $id]),
+            'post' => $post,
             'blocks' => BlockHelper::editableBlocks($post),
-            'block_opts' => BlockHelper::opts(),
+            'block_list' => BlockHelper::list(),
+        ]);
+    }
+
+    /**
+     * Move a block in a post.
+     *
+     * @param Response $response
+     * @param string $id
+     * @param string $blockId
+     * @param string $direction
+     * @return Response
+     */
+    public function moveBlock(
+        Response $response,
+        string $id,
+        string $blockId,
+        string $direction
+    ): Response
+    {
+        $post = DB::find(Post::class, ['id' => $id]);
+
+        if (!$post) {
+            return $response->json([
+                'status' => 'error',
+                'message' => 'Post not found.'
+            ]);
+        }
+
+        $post->set('content', match($direction) {
+            'up' => ArrayHelper::moveUp($post->get('content'), fn ($block) => $block['id'] === $blockId),
+            'down' => ArrayHelper::moveDown($post->get('content'), fn ($block) => $block['id'] === $blockId),
+            default => $post->get('content'),
+        });
+
+        DB::update($post);
+
+        return $response->view('admin/editor/blocks', [
+            'post' => $post,
+            'blocks' => BlockHelper::editableBlocks($post),
+            'block_list' => BlockHelper::list(),
         ]);
     }
 }

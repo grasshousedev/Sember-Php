@@ -1,0 +1,5 @@
+<textarea
+        name="value"
+        placeholder="Medium heading ..."
+        hx-post="/admin/api/post/{{ post.id }}/blocks/{{ block.id }}"
+        hx-trigger="input changed delay:250ms">{{ block.value }}</textarea>

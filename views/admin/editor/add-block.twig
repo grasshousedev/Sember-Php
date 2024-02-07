@@ -1,8 +1,8 @@
 <div class="add-block">
-    <button class="toggle-block-options">+</button>
+    <button class="toggle-block-list">+</button>
 
-    <div class="block-options">
-        {% for block in block_opts %}
+    <div class="block-list">
+        {% for block in block_list %}
             <button type="button"
                     hx-post="/admin/api/post/{{ post.data.id }}/blocks/add/{{ block.key }}/{{ position }}"
                     hx-swap="outerHTML"

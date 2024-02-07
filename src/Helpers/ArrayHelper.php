@@ -71,4 +71,52 @@ class ArrayHelper
 
         return $items;
     }
+
+    /**
+     * Move the first item in an array that passes a truth test to
+     * above the item before it, if there is one.
+     *
+     * @param array $items
+     * @param callable $predicate_fn
+     * @return array
+     */
+    public static function moveUp(array $items, callable $predicate_fn): array
+    {
+        $index = self::findIndex($items, $predicate_fn);
+
+        if ($index === false || $index === 0) {
+            return $items;
+        }
+
+        $item_before = $items[$index - 1];
+        $item = $items[$index];
+        $items[$index - 1] = $item;
+        $items[$index] = $item_before;
+
+        return $items;
+    }
+
+    /**
+     * Move the first item in an array that passes a truth test to
+     * below the item after it, if there is one.
+     *
+     * @param array $items
+     * @param callable $predicate_fn
+     * @return array
+     */
+    public static function moveDown(array $items, callable $predicate_fn): array
+    {
+        $index = self::findIndex($items, $predicate_fn);
+
+        if ($index === false || $index === count($items)) {
+            return $items;
+        }
+
+        $item = $items[$index];
+        $item_after = $items[$index + 1];
+        $items[$index] = $item_after;
+        $items[$index + 1] = $item;
+
+        return $items;
+    }
 }

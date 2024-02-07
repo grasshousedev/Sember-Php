@@ -67,11 +67,11 @@ class BlockHelper
     }
 
     /**
-     * Returns the block options.
+     * Returns the block list.
      *
      * @return array
      */
-    public static function opts(): array
+    public static function list(): array
     {
         $opts = [];
 
