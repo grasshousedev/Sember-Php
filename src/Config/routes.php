@@ -20,6 +20,7 @@ return function(\Asko\Router\Router $router) {
     // Admin API
     $router->get('/admin/api/post/{id}/editor', [AdminAPIController::class, 'editor']);
     $router->post('/admin/api/post/{id}/update-title', [AdminAPIController::class, 'updateTitle']);
+    $router->post('/admin/api/post/{id}/update-slug', [AdminAPIController::class, 'updateSlug']);
     $router->post('/admin/api/post/{id}/blocks/add/{type}/{position}', [AdminAPIController::class, 'addBlock']);
     $router->post('/admin/api/post/{id}/blocks/{blockId}', [AdminAPIController::class, 'updateBlock']);
     $router->delete('/admin/api/post/{id}/blocks/{blockId}', [AdminAPIController::class, 'deleteBlock']);

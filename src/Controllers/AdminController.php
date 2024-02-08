@@ -3,6 +3,7 @@
 namespace Asko\Nth\Controllers;
 
 use Asko\Nth\DB;
+use Asko\Nth\Helpers\BlockHelper;
 use Asko\Nth\Models\Post;
 use Asko\Nth\Request;
 use Asko\Nth\Response;
@@ -63,8 +64,8 @@ class AdminController extends Controller
     {
         if ($id = DB::create(new Post([
             'title' => 'Untitled ...',
-            'slug' => '',
-            'content' => [],
+            'slug' => 'untitled',
+            'content' => [BlockHelper::new('markdown')],
             'status' => 'draft',
             'created_at' => time(),
             'updated_at' => time(),
@@ -85,8 +86,15 @@ class AdminController extends Controller
      */
     public function editPost(Response $response, string $id): Response
     {
+        $post = DB::find(Post::class, ['id' => $id]);
+
+        if (!$post) {
+            return $response->redirect('/admin/posts');
+        }
+
         return $response->view('admin/edit-post', [
             'id' => $id,
+            'post' => $post,
         ]);
     }
 

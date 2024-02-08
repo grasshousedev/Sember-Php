@@ -1,0 +1,8 @@
+<div class="post-slug">
+    <span>https://example.com/</span>
+    <input type="text"
+           name="slug"
+           hx-post="/admin/api/post/{{ post.data.id }}/update-slug"
+           hx-trigger="input changed delay:250ms"
+           value="{{ post.data.slug }}">
+</div>

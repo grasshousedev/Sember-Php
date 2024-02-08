@@ -65,6 +65,24 @@ class AdminAPIController extends Controller
     }
 
     /**
+     * Update the slug of a post.
+     *
+     * @param Request $request
+     * @param Response $response
+     * @param string $id
+     * @return Response
+     */
+    public function updateSlug(Request $request, Response $response, string $id): Response
+    {
+        $post = DB::find(Post::class, ['id' => $id]);
+        $post->set('slug', $request->input('slug'));
+
+        DB::update($post);
+
+        return $response->json(['status' => 'success']);
+    }
+
+    /**
      * Add a block to a post.
      *
      * @param Response $response
@@ -155,7 +173,7 @@ class AdminAPIController extends Controller
             ]);
         }
 
-        $blocks = array_filter($post->get('content'), fn ($block) => $block['id'] !== $blockId);
+        $blocks = array_values(array_filter($post->get('content'), fn ($block) => $block['id'] !== $blockId));
         $post->set('content', $blocks);
 
         DB::update($post);

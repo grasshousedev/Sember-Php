@@ -4,7 +4,21 @@
 <div class="wrap">
     {% include 'admin/partials/sidebar.twig' %}
 
-    <div class="content-area">
+    <div class="content-area edit-post">
+        <div class="post-meta">
+            <div class="post-status">
+                <select name="status">
+                    <option value="draft" {% if post.data.status is same as 'draft' %} selected {% endif %}>Draft</option>
+                    <option value="published" {% if post.data.status is same as 'published' %} selected {% endif %}>Published</option>
+                </select>
+            </div>
+
+            <div class="post-published-date">
+                <input type="date" name="published_at" value="{{ post.data.published_at|date('Y-m-d H:i') }}">
+            </div>
+
+            <a href="/admin/posts/delete/{{ id }}" class="delete-post">Delete post</a>
+        </div>
 
         <div id="editor"
              hx-get="/admin/api/post/{{ id }}/editor"
