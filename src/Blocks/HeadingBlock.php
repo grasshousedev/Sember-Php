@@ -40,7 +40,7 @@ class HeadingBlock implements Block
      *
      * @param Post $post
      * @param array $block
-     * @return array[]
+     * @return array
      */
     public static function options(Post $post, array $block): array
     {
