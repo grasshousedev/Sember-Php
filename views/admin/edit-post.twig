@@ -5,19 +5,36 @@
     {% include 'admin/partials/sidebar.twig' %}
 
     <div class="content-area edit-post">
-        <div class="post-meta">
-            <div class="post-status">
-                <select name="status">
-                    <option value="draft" {% if post.data.status is same as 'draft' %} selected {% endif %}>Draft</option>
-                    <option value="published" {% if post.data.status is same as 'published' %} selected {% endif %}>Published</option>
-                </select>
-            </div>
+        <div class="page-heading">
+            <h2 class="title">Edit Post</h2>
 
-            <div class="post-published-date">
-                <input type="date" name="published_at" value="{{ post.data.published_at|date('Y-m-d H:i') }}">
-            </div>
+            <div class="post-meta">
+                <button type="button" class="toggle-post-settings">
+                    {{ post.data.status }}
+                    <i class="fas fa-cog"></i>
+                </button>
 
-            <a href="/admin/posts/delete/{{ id }}" class="delete-post">Delete post</a>
+                <div class="post-settings">
+                    <div class="post-status">
+                        <label for="status">Status</label>
+                        <select name="status" id="status">
+                            <option value="draft" {% if post.data.status is same as 'draft' %} selected {% endif %}>Draft</option>
+                            <option value="published" {% if post.data.status is same as 'published' %} selected {% endif %}>Published</option>
+                        </select>
+                    </div>
+
+                    <hr />
+
+                    <div class="post-published-date">
+                        <label for="published-at">Published at</label>
+                        <input type="datetime-local" id="published-at" name="published_at" value="{{ post.data.published_at|date('Y-m-d H:i') }}">
+                    </div>
+
+                    <hr />
+
+                    <a href="/admin/posts/delete/{{ id }}" class="btn btn-warning">Delete post</a>
+                </div>
+            </div>
         </div>
 
         <div id="editor"

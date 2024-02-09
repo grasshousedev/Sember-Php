@@ -13,6 +13,7 @@ function autogrow(els) {
 }
 
 htmx.onLoad(() => {
+  // Block list
   const toggles = document.querySelectorAll('.toggle-block-list');
 
   toggles.forEach(el => {
@@ -47,6 +48,18 @@ htmx.onLoad(() => {
       el.parentElement.querySelector('.block-options-menu').addEventListener('mouseleave', () => {
         el.parentElement.querySelector('.block-options-menu').classList.remove('active');
       })
+    });
+  });
+
+  // Post settings
+  const postSettingsToggle = document.querySelector('.toggle-post-settings');
+  const postSettings = document.querySelector('.post-settings');
+
+  postSettingsToggle.addEventListener('click', () => {
+    postSettings.classList.add('active');
+
+    postSettings.addEventListener('mouseleave', () => {
+      postSettings.classList.remove('active');
     });
   });
 
