@@ -4,7 +4,6 @@ namespace Asko\Nth\Controllers;
 
 use Asko\Nth\DB;
 use Asko\Nth\Models\Post;
-use Asko\Nth\Models\User;
 use Asko\Nth\Response;
 use Exception;
 
@@ -16,8 +15,13 @@ class SiteController
     public function home(Response $response): Response
     {
         $posts = DB::findAll(Post::class)
-            ->where('status', 'public')
+            ->where('status', 'published')
             ->orderBy('created_at', 'desc')
+            ->map(function (Post $post) {
+                $post->set('html', $post->renderHtml());
+
+                return $post;
+            })
             ->toArray();
 
         return $response->view('site/home', [

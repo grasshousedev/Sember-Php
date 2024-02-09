@@ -26,7 +26,7 @@ class HeadingBlock implements Block
     /**
      * Returns the data model for the heading block.
      *
-     * @return string[]
+     * @return array
      */
     public static function model(): array
     {
@@ -123,10 +123,16 @@ class HeadingBlock implements Block
      */
     public static function viewable(Post $post, array $block): string
     {
+        $size = match ($block['size']) {
+            'big' => 'h1',
+            'medium' => 'h2',
+            'small' => 'h3',
+        };
+
         return <<<HTML
-            <h4 class="block heading-block">
+            <{$size} class="block heading-block">
                 {$block['value']}
-            </h4>
+            </{$size}>
         HTML;
     }
 }
