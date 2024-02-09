@@ -2,6 +2,7 @@
 
 namespace Asko\Nth\Controllers;
 
+use Asko\Nth\Config;
 use Asko\Nth\DB;
 use Asko\Nth\Helpers\ArrayHelper;
 use Asko\Nth\Helpers\BlockHelper;
@@ -299,5 +300,30 @@ class AdminAPIController extends Controller
             'blocks' => BlockHelper::editableBlocks($post),
             'block_list' => BlockHelper::list(),
         ]);
+    }
+
+    public function blockOption(
+        Response $response,
+        string $id,
+        string $blockId,
+        string $fn,
+        string $arg
+    ): Response
+    {
+        $post = DB::find(Post::class, ['id' => $id]);
+
+        if (!$post) {
+            return $response->json([
+                'status' => 'error',
+                'message' => 'Post not found.'
+            ]);
+        }
+
+        $blocks = $post->get('content');
+        $block_index = ArrayHelper::findIndex($blocks, fn ($block) => $block['id'] === $blockId);
+        $block = $blocks[$block_index];
+        $class = Config::getBlock($block['key']);
+
+        return call_user_func([$class, $fn], $post, $block, $arg);
     }
 }

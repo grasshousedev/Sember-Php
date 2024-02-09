@@ -1,5 +1,6 @@
 <textarea
+        class="size-{{ block.size ?? 'big' }}"
         name="value"
-        placeholder="Big heading ..."
+        placeholder="Heading ..."
         hx-post="/admin/api/post/{{ post.id }}/blocks/{{ block.id }}"
         hx-trigger="input changed delay:250ms">{{ block.value }}</textarea>

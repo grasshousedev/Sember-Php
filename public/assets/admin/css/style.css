@@ -42,21 +42,21 @@ input, textarea, select {
 }
 
 .btn-primary {
-    background: #111;
-    border: 1px solid transparent;
+    background: rgb(51 65 85);
+    border: 1px solid rgb(30 41 59);
     color: #fff;
 }
 
 .btn-warning {
-    background: #f11a1a;
-    border: 1px solid transparent;
+    background-color: rgb(225 29 72);
+    border: 1px solid rgb(190 18 60);
     color: #fff;
 }
 
 /** SIDEBAR */
 .sidebar {
     min-height: 100vh;
-    border-right: 1px solid #ddd;
+    border-right: 1px solid #ccc;
     padding-top: 25px;
 }
 
@@ -93,7 +93,7 @@ input, textarea, select {
     display: flex;
     align-items: center;
     gap: 25px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #ccc;
     padding-bottom: 25px;
     margin-bottom: 25px;
 }
@@ -158,8 +158,8 @@ input, textarea, select {
     gap: 10px;
     align-content: center;
     color: #444;
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 500;
     background: transparent;
     border: 0;
     cursor: pointer;
@@ -357,7 +357,8 @@ input, textarea, select {
     text-align: center;
     border-radius: 4px;
     color: #444;
-    background: transparent;
+    background: linear-gradient(#fff, #fafafa);
+    box-shadow: 0 1px 8px rgba(0,0,0,.05);
     border: 1px solid #e5e5e5;
     cursor: pointer;
     padding: 15px;
@@ -366,6 +367,21 @@ input, textarea, select {
 #editor .add-block .block-list button:hover {
     color: #111;
     border: 1px solid #ccc;
+}
+
+#editor .add-block .block-list button i {
+    display: block;
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+#editor .add-block .block-list button .name {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+    line-height: 1.3;
+    margin-top: 10px;
 }
 
 /** BLOCK OPTIONS */
@@ -462,7 +478,7 @@ input, textarea, select {
     border: 0;
 }
 
-#editor .block[data-block="big_heading"] textarea {
+#editor .block[data-block="heading"] textarea.size-big {
     display: block;
     width: 100%;
     height: 0;
@@ -475,7 +491,7 @@ input, textarea, select {
     border: 0;
 }
 
-#editor .block[data-block="medium_heading"] textarea {
+#editor .block[data-block="heading"] textarea.size-medium {
     display: block;
     width: 100%;
     height: 0;
@@ -488,7 +504,7 @@ input, textarea, select {
     border: 0;
 }
 
-#editor .block[data-block="small_heading"] textarea {
+#editor .block[data-block="heading"] textarea.size-small {
     display: block;
     width: 100%;
     height: 0;

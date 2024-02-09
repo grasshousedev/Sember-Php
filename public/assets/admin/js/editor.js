@@ -66,12 +66,6 @@ htmx.onLoad(() => {
   // Markdown blocks
   autogrow(document.querySelectorAll('.markdown-block'));
 
-  // Big Heading blocks
-  autogrow(document.querySelectorAll('.big_heading-block'));
-
-  // Medium Heading blocks
-  autogrow(document.querySelectorAll('.medium_heading-block'));
-
-  // Small Heading blocks
-  autogrow(document.querySelectorAll('.small_heading-block'));
+  // Heading blocks
+  autogrow(document.querySelectorAll('.heading-block'));
 });

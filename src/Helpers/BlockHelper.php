@@ -22,10 +22,13 @@ class BlockHelper
      */
     public static function new(string $key): array
     {
+        $class = Config::getBlock($key);
+
         return [
             'id' => Uuid::uuid4()->toString(),
             'key' => $key,
             'value' => '',
+            ...call_user_func([$class, 'model']),
         ];
     }
 
@@ -43,6 +46,7 @@ class BlockHelper
             return [
                 ...$block,
                 'render' => call_user_func([$class, 'editable'], $post, $block),
+                'options' => call_user_func([$class, 'options'], $post, $block),
             ];
         }, $post->get('content'));
     }
@@ -76,9 +80,12 @@ class BlockHelper
         $opts = [];
 
         foreach(Config::getBlocks() as $key => $block) {
+            $instance = new $block;
+
             $opts[] = [
                 'key' => $key,
-                'name' => (new $block)->name,
+                'name' => $instance->name,
+                'icon' => $instance->icon,
             ];
         }
 

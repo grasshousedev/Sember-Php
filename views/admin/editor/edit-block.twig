@@ -3,6 +3,12 @@
         <i class="fas fa-cog"></i>
     </button>
     <div class="block-options-menu">
+        {% for opt in block.options %}
+            <button class="{% if opt.active %}active{% endif %}"
+                    hx-post="{{ opt.url }}"
+                    hx-swap="{{ opt.swap }}"
+                    hx-target="{{ opt.target }}"><i class="{{ opt.icon }}"></i> {{ opt.name }}</button>
+        {% endfor %}
         {% if not loop.first %}
             <button hx-post="/admin/api/post/{{ post.data.id }}/blocks/{{ block.id }}/move/up"
                     hx-swap="outerHTML"

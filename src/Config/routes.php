@@ -28,6 +28,7 @@ return function(\Asko\Router\Router $router) {
     $router->post('/admin/api/post/{id}/blocks/{blockId}', [AdminAPIController::class, 'updateBlock']);
     $router->delete('/admin/api/post/{id}/blocks/{blockId}', [AdminAPIController::class, 'deleteBlock']);
     $router->post('/admin/api/post/{id}/blocks/{blockId}/move/{direction}', [AdminAPIController::class, 'moveBlock']);
+    $router->post('/admin/api/post/{id}/blocks/{blockId}/opt/{fn}/{arg}', [AdminAPIController::class, 'blockOption']);
 
     // Setup
     $router->get('/setup/account', [SetupController::class, 'account']);
