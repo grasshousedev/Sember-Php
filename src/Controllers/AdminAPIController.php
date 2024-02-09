@@ -47,6 +47,50 @@ class AdminAPIController extends Controller
     }
 
     /**
+     * Get the status of a post.
+     *
+     * @param Response $response
+     * @param string $id
+     * @return Response
+     */
+    public function status(Response $response, string $id): Response
+    {
+        $post = DB::find(Post::class, ['id' => $id]);
+
+        if (!$post) {
+            return $response->json([
+                'status' => 'error',
+                'message' => 'Post not found.'
+            ]);
+        }
+
+        return $response->make($post->get('status'));
+    }
+
+    /**
+     * Get the published at for a post.
+     *
+     * @param Response $response
+     * @param string $id
+     * @return Response
+     */
+    public function publishedAt(Response $response, string $id): Response
+    {
+        $post = DB::find(Post::class, ['id' => $id]);
+
+        if (!$post) {
+            return $response->json([
+                'status' => 'error',
+                'message' => 'Post not found.'
+            ]);
+        }
+
+        return $response->view('admin/editor/post-published-at', [
+            'post' => $post,
+        ]);
+    }
+
+    /**
      * Update the title of a post.
      *
      * @param Request $request
@@ -80,6 +124,38 @@ class AdminAPIController extends Controller
         DB::update($post);
 
         return $response->json(['status' => 'success']);
+    }
+
+    /**
+     * Update the status of a post.
+     *
+     * @param Request $request
+     * @param Response $response
+     * @param string $id
+     * @return Response
+     */
+    public function updateStatus(Request $request, Response $response, string $id): Response
+    {
+        $post = DB::find(Post::class, ['id' => $id]);
+
+        if (!$post) {
+            return $response->json([
+                'status' => 'error',
+                'message' => 'Post not found.'
+            ]);
+        }
+
+        $post->set('status', $request->input('status'));
+
+        DB::update($post);
+
+        if ($post->get('status') !== 'published') {
+            return $response->make('');
+        }
+
+        return $response->view('admin/editor/post-published-at', [
+            'post' => $post,
+        ]);
     }
 
     /**

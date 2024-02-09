@@ -8,27 +8,33 @@
         <div class="page-heading">
             <h2 class="title">Edit Post</h2>
 
-            <div class="post-meta">
+            <div class="post-meta" hx-ext="path-deps">
                 <button type="button" class="toggle-post-settings">
-                    {{ post.data.status }}
+                    <span class="js-post-status"
+                          hx-get="/admin/api/post/{{ id }}/status"
+                          hx-trigger="path-deps"
+                          path-deps="/admin/api/post/{{ id }}/update-status"
+                          hx-swap="innerHTML">{{ post.data.status }}</span>
                     <i class="fas fa-cog"></i>
                 </button>
 
                 <div class="post-settings">
                     <div class="post-status">
                         <label for="status">Status</label>
-                        <select name="status" id="status">
+                        <select name="status"
+                                id="status"
+                                hx-post="/admin/api/post/{{ id }}/update-status"
+                                hx-swap="innerHTML"
+                                hx-target=".post-published-date">
                             <option value="draft" {% if post.data.status is same as 'draft' %} selected {% endif %}>Draft</option>
                             <option value="published" {% if post.data.status is same as 'published' %} selected {% endif %}>Published</option>
                         </select>
                     </div>
 
-                    <hr />
-
-                    <div class="post-published-date">
-                        <label for="published-at">Published at</label>
-                        <input type="datetime-local" id="published-at" name="published_at" value="{{ post.data.published_at|date('Y-m-d H:i') }}">
-                    </div>
+                    <div class="post-published-date"
+                         hx-get="/admin/api/post/{{ id }}/published-at"
+                         hx-trigger="load"
+                         hx-swap="innerHTML"></div>
 
                     <hr />
 

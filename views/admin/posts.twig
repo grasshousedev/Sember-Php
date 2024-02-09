@@ -18,7 +18,13 @@
 
                     <div class="row">
                         <div class="meta">
-                            {{ post.data.status }} &mdash; Updated {{ post.data.updated_at|date('M jS, Y') }}
+                            {% if post.data.status is same as 'published' %}
+                                Published {{ post.data.published_at|date('M jS, Y') }}
+                            {% else %}
+                                {{ post.data.status }}
+                            {% endif %}
+
+                            &mdash; Updated {{ post.data.updated_at|date('M jS, Y') }}
                         </div>
 
                         <div class="stats">
