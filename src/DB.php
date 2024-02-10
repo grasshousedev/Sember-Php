@@ -1,9 +1,9 @@
 <?php
 
-namespace Asko\Nth;
+namespace Asko\Sember;
 
-use Asko\Nth\Helpers\ArrayHelper;
-use Asko\Nth\Models\Model;
+use Asko\Sember\Helpers\ArrayHelper;
+use Asko\Sember\Models\Model;
 use Crell\Serde\SerdeCommon;
 use Exception;
 use Ramsey\Uuid\Uuid;

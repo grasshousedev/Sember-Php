@@ -1,14 +1,14 @@
 <?php
 
-namespace Asko\Nth\Controllers;
+namespace Asko\Sember\Controllers;
 
-use Asko\Nth\Config;
-use Asko\Nth\DB;
-use Asko\Nth\Helpers\ArrayHelper;
-use Asko\Nth\Helpers\BlockHelper;
-use Asko\Nth\Models\Post;
-use Asko\Nth\Request;
-use Asko\Nth\Response;
+use Asko\Sember\Config;
+use Asko\Sember\DB;
+use Asko\Sember\Helpers\ArrayHelper;
+use Asko\Sember\Helpers\BlockHelper;
+use Asko\Sember\Models\Post;
+use Asko\Sember\Request;
+use Asko\Sember\Response;
 use Exception;
 
 class AdminAPIController extends Controller

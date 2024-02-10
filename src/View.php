@@ -1,6 +1,6 @@
 <?php
 
-namespace Asko\Nth;
+namespace Asko\Sember;
 
 use Ramsey\Uuid\Uuid;
 use Twig\Environment;

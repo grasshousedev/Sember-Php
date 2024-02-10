@@ -1,11 +1,11 @@
 <?php
 
-namespace Asko\Nth\Controllers;
+namespace Asko\Sember\Controllers;
 
-use Asko\Nth\DB;
-use Asko\Nth\Models\Meta;
-use Asko\Nth\Models\Post;
-use Asko\Nth\Response;
+use Asko\Sember\DB;
+use Asko\Sember\Models\Meta;
+use Asko\Sember\Models\Post;
+use Asko\Sember\Response;
 
 class SiteController
 {

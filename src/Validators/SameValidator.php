@@ -1,14 +1,14 @@
 <?php
 
-namespace Asko\Nth\Validators;
+namespace Asko\Sember\Validators;
 
 use Asko\Hird\Validators\Validator;
 
-class SameValidator implements Validator
+readonly class SameValidator implements Validator
 {
     public function __construct(
-        private readonly array $fields,
-        private readonly array $fieldNames,
+        private array $fields,
+        private array $fieldNames,
     ) {}
 
     public function validate(string $field, mixed $value, mixed $modifier = null): bool

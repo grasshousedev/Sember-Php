@@ -1,6 +1,6 @@
 <?php
 
-namespace Asko\Nth;
+namespace Asko\Sember;
 
 /**
  * @package Asko\Nth

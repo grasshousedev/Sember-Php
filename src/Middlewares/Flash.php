@@ -1,8 +1,8 @@
 <?php
 
-namespace Asko\Nth\Middlewares;
+namespace Asko\Sember\Middlewares;
 
-use Asko\Nth\Request;
+use Asko\Sember\Request;
 
 class Flash
 {

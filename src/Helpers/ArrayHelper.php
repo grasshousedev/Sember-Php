@@ -1,6 +1,6 @@
 <?php
 
-namespace Asko\Nth\Helpers;
+namespace Asko\Sember\Helpers;
 
 /**
  * The array helper.

@@ -1,12 +1,12 @@
 <?php
 
-namespace Asko\Nth\Controllers;
+namespace Asko\Sember\Controllers;
 
-use Asko\Nth\DB;
-use Asko\Nth\Models\Meta;
-use Asko\Nth\Models\User;
-use Asko\Nth\Request;
-use Asko\Nth\Response;
+use Asko\Sember\DB;
+use Asko\Sember\Models\Meta;
+use Asko\Sember\Models\User;
+use Asko\Sember\Request;
+use Asko\Sember\Response;
 use Exception;
 
 class Controller

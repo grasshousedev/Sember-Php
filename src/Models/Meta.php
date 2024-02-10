@@ -1,6 +1,6 @@
 <?php
 
-namespace Asko\Nth\Models;
+namespace Asko\Sember\Models;
 
 class Meta extends Model
 {

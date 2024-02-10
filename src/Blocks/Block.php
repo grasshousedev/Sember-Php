@@ -1,8 +1,8 @@
 <?php
 
-namespace Asko\Nth\Blocks;
+namespace Asko\Sember\Blocks;
 
-use Asko\Nth\Models\Post;
+use Asko\Sember\Models\Post;
 
 interface Block
 {

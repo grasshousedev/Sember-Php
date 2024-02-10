@@ -1,11 +1,11 @@
 {
-    "name": "asko/nth",
+    "name": "asko/sember",
     "type": "project",
     "version": "0.1.0",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Asko\\Nth\\": "src/"
+            "Asko\\Sember\\": "src/"
         }
     },
     "authors": [

@@ -1,13 +1,13 @@
 <?php
 
-namespace Asko\Nth\Blocks;
+namespace Asko\Sember\Blocks;
 
-use Asko\Nth\Blocks\Block;
-use Asko\Nth\DB;
-use Asko\Nth\Helpers\ArrayHelper;
-use Asko\Nth\Helpers\BlockHelper;
-use Asko\Nth\Models\Post;
-use Asko\Nth\Response;
+use Asko\Sember\Blocks\Block;
+use Asko\Sember\DB;
+use Asko\Sember\Helpers\ArrayHelper;
+use Asko\Sember\Helpers\BlockHelper;
+use Asko\Sember\Models\Post;
+use Asko\Sember\Response;
 
 /**
  * The heading block.

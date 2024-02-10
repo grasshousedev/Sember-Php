@@ -1,9 +1,9 @@
 <?php
 
-namespace Asko\Nth\Middlewares;
+namespace Asko\Sember\Middlewares;
 
-use Asko\Nth\Request;
-use Asko\Nth\Response;
+use Asko\Sember\Request;
+use Asko\Sember\Response;
 
 class CSRF
 {

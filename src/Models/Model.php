@@ -1,6 +1,6 @@
 <?php
 
-namespace Asko\Nth\Models;
+namespace Asko\Sember\Models;
 
 use Crell\Serde\Attributes as Serde;
 

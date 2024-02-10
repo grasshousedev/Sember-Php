@@ -1,10 +1,10 @@
 <?php
 
-use Asko\Nth\Controllers\AdminAPIController;
-use Asko\Nth\Controllers\AdminController;
-use Asko\Nth\Controllers\AuthenticationController;
-use Asko\Nth\Controllers\SetupController;
-use Asko\Nth\Controllers\SiteController;
+use Asko\Sember\Controllers\AdminAPIController;
+use Asko\Sember\Controllers\AdminController;
+use Asko\Sember\Controllers\AuthenticationController;
+use Asko\Sember\Controllers\SetupController;
+use Asko\Sember\Controllers\SiteController;
 
 return function(\Asko\Router\Router $router) {
     // Admin

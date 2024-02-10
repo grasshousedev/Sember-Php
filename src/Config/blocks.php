@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'markdown' => \Asko\Nth\Blocks\MarkdownBlock::class,
-    'heading' => \Asko\Nth\Blocks\HeadingBlock::class,
-    'code' => \Asko\Nth\Blocks\CodeBlock::class,
+    'markdown' => \Asko\Sember\Blocks\MarkdownBlock::class,
+    'heading' => \Asko\Sember\Blocks\HeadingBlock::class,
+    'code' => \Asko\Sember\Blocks\CodeBlock::class,
 ];

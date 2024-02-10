@@ -1,9 +1,9 @@
 <?php
 
-namespace Asko\Nth;
+namespace Asko\Sember;
 
 use Asko\Hird\Hird;
-use Asko\Nth\Validators\SameValidator;
+use Asko\Sember\Validators\SameValidator;
 
 class Validator extends Hird
 {

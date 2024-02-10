@@ -1,9 +1,9 @@
 <?php
 
-namespace Asko\Nth\Helpers;
+namespace Asko\Sember\Helpers;
 
-use Asko\Nth\Config;
-use Asko\Nth\Models\Model;
+use Asko\Sember\Config;
+use Asko\Sember\Models\Model;
 use Ramsey\Uuid\Uuid;
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'csrf' => \Asko\Nth\Middlewares\CSRF::class,
-    'flash' => \Asko\Nth\Middlewares\Flash::class,
+    'csrf' => \Asko\Sember\Middlewares\CSRF::class,
+    'flash' => \Asko\Sember\Middlewares\Flash::class,
 ];

@@ -1,8 +1,8 @@
 <?php
 
-namespace Asko\Nth\Models;
+namespace Asko\Sember\Models;
 
-use Asko\Nth\Config;
+use Asko\Sember\Config;
 
 class Post extends Model
 {

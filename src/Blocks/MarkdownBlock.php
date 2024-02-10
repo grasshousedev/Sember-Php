@@ -1,9 +1,9 @@
 <?php
 
-namespace Asko\Nth\Blocks;
+namespace Asko\Sember\Blocks;
 
-use Asko\Nth\Models\Post;
-use Asko\Nth\Response;
+use Asko\Sember\Models\Post;
+use Asko\Sember\Response;
 
 /**
  * The Markdown block.
