@@ -24,9 +24,6 @@ class BlockHelper
     {
         $class = Config::getBlock($key);
 
-        var_dump($key);
-        var_dump($class);
-
         return [
             'id' => Uuid::uuid4()->toString(),
             'key' => $key,
