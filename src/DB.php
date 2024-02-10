@@ -162,7 +162,7 @@ class DB
             return new Collection([]);
         } catch(Exception $e) {
             error_log($e->getMessage());
-            return null;
+            return new Collection([]);
         }
     }
 
@@ -404,6 +404,10 @@ class DB
         $storage_name = $model->getStorageName();
         $storage_dir = NTH_ROOT . "/storage/cache";
         $storage_path = NTH_ROOT . "/storage/cache/{$storage_name}.json";
+
+        if (!is_dir($storage_dir) && !mkdir($storage_dir, recursive: true)) {
+            throw new Exception("Could not create storage directory {$storage_dir}.");
+        }
 
         self::validatePermissions($storage_dir);
 

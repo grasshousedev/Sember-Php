@@ -25,10 +25,13 @@ class SiteController
                 $post->set('html', $post->renderHtml());
 
                 return $post;
-            })
-            ->toArray();
+            })->toArray();
 
         $site = DB::find(Meta::class, ['meta_name' => 'site_config']);
+
+        if (!$site) {
+            return $this->notFound($response);
+        }
 
         return $response->view('site/home', [
             'page_title' => false,
@@ -54,6 +57,10 @@ class SiteController
 
         $post->set('html', $post->renderHtml());
         $site = DB::find(Meta::class, ['meta_name' => 'site_config']);
+
+        if (!$site) {
+            return $this->notFound($response);
+        }
 
         return $response->view('site/post', [
             'page_title' => $post->get('title'),
