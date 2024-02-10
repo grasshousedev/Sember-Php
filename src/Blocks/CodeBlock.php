@@ -6,23 +6,26 @@ use Asko\Nth\Models\Post;
 use Asko\Nth\Response;
 
 /**
- * The Markdown block.
+ * The code block.
  *
  * @package Asko\Nth\Blocks
  * @since 0.1.0
  */
-class MarkdownBlock implements Block
+class CodeBlock implements Block
 {
     // The name of the block.
-    public string $name = 'Markdown';
+    public string $name = 'Code';
 
     // The icon of the block.
-    public string $icon = 'fa-brands fa-markdown';
+    public string $icon = 'fa-solid fa-code';
+
+    // Injected JS
+    public array $js = ['/assets/admin/js/blocks/code.js'];
 
     /**
      * Returns the data model for the heading block.
      *
-     * @return string[]
+     * @return array
      */
     public static function model(): array
     {
@@ -30,11 +33,11 @@ class MarkdownBlock implements Block
     }
 
     /**
-     * Returns the options for the Markdown block.
+     * Returns the options for the heading block.
      *
      * @param Post $post
      * @param array $block
-     * @return array[]
+     * @return array
      */
     public static function options(Post $post, array $block): array
     {
@@ -42,7 +45,7 @@ class MarkdownBlock implements Block
     }
 
     /**
-     * Returns the editable Markdown block.
+     * Returns the editable heading block.
      *
      * @param Post $post
      * @param array $block
@@ -50,14 +53,14 @@ class MarkdownBlock implements Block
      */
     public static function editable(Post $post, array $block): string
     {
-        return (new Response)->view('admin/editor/blocks/markdown', [
+        return (new Response)->view('admin/editor/blocks/code', [
             'post' => $post->toArray(),
             'block' => $block,
         ])->send();
     }
 
     /**
-     * Returns the viewable Markdown block.
+     * Returns the viewable heading block.
      *
      * @param Post $post
      * @param array $block
@@ -65,6 +68,10 @@ class MarkdownBlock implements Block
      */
     public static function viewable(Post $post, array $block): string
     {
-        return (new \Parsedown())->text($block['value']);
+        return <<<HTML
+            <pre class="block code-block">
+                <code>{$block['value']}</code>
+            </pre>
+        HTML;
     }
 }

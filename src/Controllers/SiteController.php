@@ -3,6 +3,7 @@
 namespace Asko\Nth\Controllers;
 
 use Asko\Nth\DB;
+use Asko\Nth\Models\Meta;
 use Asko\Nth\Models\Post;
 use Asko\Nth\Response;
 
@@ -27,8 +28,12 @@ class SiteController
             })
             ->toArray();
 
+        $site = DB::find(Meta::class, ['meta_name' => 'site_config']);
+
         return $response->view('site/home', [
+            'page_title' => false,
             'posts' => $posts,
+            ...$site->toArray(),
         ]);
     }
 
@@ -48,9 +53,12 @@ class SiteController
         }
 
         $post->set('html', $post->renderHtml());
+        $site = DB::find(Meta::class, ['meta_name' => 'site_config']);
 
         return $response->view('site/post', [
+            'page_title' => $post->get('title'),
             'post' => $post,
+            ...$site->toArray(),
         ]);
     }
 

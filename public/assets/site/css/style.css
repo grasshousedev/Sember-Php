@@ -1,0 +1,15 @@
+/** RESET */
+
+/** OVERALL */
+body {
+    width: 600px;
+    margin: 50px;
+}
+
+h1 {
+    margin-bottom: 100px;
+}
+
+article {
+    margin-bottom: 150px;
+}

@@ -1,5 +1,9 @@
+{% include 'site/partials/header.twig' %}
+
 <article class="post">
-    <h2 class="title"><a href="/{{ post.data.slug }}">{{ post.data.title }}</a></h2>
-    <div class="date">{{ post.data.date | date('F jS, Y') }}</div>
+    <h2 class="title">{{ post.data.title }}</h2>
+    <div class="date"><a href="/{{ post.data.slug }}">{{ post.data.date | date('F jS, Y') }}</a></div>
     <div class="body">{{ post.data.html | raw }}</div>
 </article>
+
+{% include 'site/partials/footer.twig' %}

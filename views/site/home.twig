@@ -1,9 +1,13 @@
+{% include 'site/partials/header.twig' %}
+
 <div class="posts">
     {% for post in posts %}
         <article class="post">
             <h2 class="title"><a href="/{{ post.data.slug }}">{{ post.data.title }}</a></h2>
-            <div class="date">{{ post.data.date | date('F jS, Y') }}</div>
+            <div class="date"><a href="/{{ post.data.slug }}">{{ post.data.date | date('F jS, Y') }}</a></div>
             <div class="body">{{ post.data.html | raw }}</div>
         </article>
     {% endfor %}
 </div>
+
+{% include 'site/partials/footer.twig' %}

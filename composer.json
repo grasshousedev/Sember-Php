@@ -22,6 +22,7 @@
         "symfony/yaml": "^7.0",
         "ramsey/uuid": "^4.7",
         "twig/twig": "^3.0",
-        "asko/hird": "^2.1"
+        "asko/hird": "^2.1",
+        "erusev/parsedown": "^1.7"
     }
 }

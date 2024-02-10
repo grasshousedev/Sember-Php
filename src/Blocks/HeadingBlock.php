@@ -124,9 +124,9 @@ class HeadingBlock implements Block
     public static function viewable(Post $post, array $block): string
     {
         $size = match ($block['size']) {
-            'big' => 'h1',
-            'medium' => 'h2',
-            'small' => 'h3',
+            'big' => 'h2',
+            'medium' => 'h3',
+            'small' => 'h4',
         };
 
         return <<<HTML
