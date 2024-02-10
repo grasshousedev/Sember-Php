@@ -1,4 +1,4 @@
-# A blog system
+# Sember
 
 A flat-file blog system with a focus on performance and ease of use.
 
