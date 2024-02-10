@@ -38,12 +38,7 @@ class Controller
     public function notSetupGuard(): ?Response
     {
         $user = DB::find(User::class, ['role' => 'admin']);
-
-        var_dump($user);
-
         $site_meta = DB::find(Meta::class, ['meta_name' => 'site_config']);
-
-        var_dump($site_meta);
 
         if ($user && $site_meta) {
             return (new Response)->redirect('/admin');
