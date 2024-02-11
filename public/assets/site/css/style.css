@@ -2,8 +2,9 @@
 
 /** OVERALL */
 body {
-    width: 600px;
-    margin: 50px;
+    line-height: 1.5;
+    width: 550px;
+    margin: 100px;
 }
 
 h1 {
