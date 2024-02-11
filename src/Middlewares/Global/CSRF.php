@@ -1,6 +1,6 @@
 <?php
 
-namespace Asko\Sember\Middlewares;
+namespace Asko\Sember\Middlewares\Global;
 
 use Asko\Sember\Request;
 use Asko\Sember\Response;

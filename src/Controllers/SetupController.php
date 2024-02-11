@@ -14,15 +14,8 @@ use Exception;
  * @package Asko\Nth\Controllers
  * @since 0.1.0
  */
-class SetupController extends Controller
+class SetupController
 {
-    /**
-     * @throws Exception
-     */
-    public function __construct() {
-        $this->notSetupGuard();
-    }
-
     /**
      * Account set-up.
      *

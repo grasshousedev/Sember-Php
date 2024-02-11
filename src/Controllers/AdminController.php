@@ -9,17 +9,8 @@ use Asko\Sember\Request;
 use Asko\Sember\Response;
 use Exception;
 
-class AdminController extends Controller
+class AdminController
 {
-    /**
-     * @throws Exception
-     */
-    public function __construct()
-    {
-        $this->setupGuard();
-        $this->authenticatedGuard();
-    }
-
     /**
      * Redirect to the posts page if authenticated. Otherwise, redirect
      * to the sign-in page.
@@ -35,6 +26,20 @@ class AdminController extends Controller
         }
 
         return $response->redirect('/admin/posts');
+    }
+
+    /**
+     * Signs the user out.
+     *
+     * @param Request $request
+     * @param Response $response
+     * @return Response
+     */
+    public function signOut(Request $request, Response $response): Response
+    {
+        $request->session()->remove('auth_token');
+
+        return $response->redirect('/admin/signin');
     }
 
     /**

@@ -9,16 +9,8 @@ use Asko\Sember\Response;
 use Exception;
 use Ramsey\Uuid\Uuid;
 
-class AuthenticationController extends Controller
+class AuthenticationController
 {
-    /**
-     * @throws Exception
-     */
-    public function __construct()
-    {
-        $this->setupGuard();
-    }
-
     /**
      * @throws Exception
      */

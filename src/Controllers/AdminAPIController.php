@@ -11,17 +11,8 @@ use Asko\Sember\Request;
 use Asko\Sember\Response;
 use Exception;
 
-class AdminAPIController extends Controller
+class AdminAPIController
 {
-    /**
-     * @throws Exception
-     */
-    public function __construct()
-    {
-        $this->setupGuard();
-        $this->authenticatedGuard();
-    }
-
     /**
      * Get the editor for a post.
      *
