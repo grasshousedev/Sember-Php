@@ -163,6 +163,33 @@ class AdminAPIController extends Controller
     }
 
     /**
+     * Update the published at of a post.
+     *
+     * @param Request $request
+     * @param Response $response
+     * @param string $id
+     * @return Response
+     */
+    public function updatePublishedAt(Request $request, Response $response, string $id): Response
+    {
+        $post = DB::find(Post::class, ['id' => $id]);
+
+        if (!$post) {
+            return $response->json([
+                'status' => 'error',
+                'message' => 'Post not found.'
+            ]);
+        }
+
+        $post->set('published_at', strtotime($request->input('published_at')));
+        $post->set('updated_at', time());
+
+        DB::update($post);
+
+        return $response->json(['status' => 'success']);
+    }
+
+    /**
      * Add a block to a post.
      *
      * @param Response $response

@@ -2,5 +2,9 @@
     <hr />
 
     <label for="published-at">Published at</label>
-    <input type="datetime-local" id="published-at" name="published_at" value="{{ post.data.published_at|date('Y-m-d H:i') }}">
+    <input type="datetime-local"
+           id="published-at"
+           name="published_at"
+           hx-post="/admin/api/post/{{ post.data.id }}/update-published-at"
+           value="{{ post.data.published_at|date('Y-m-d H:i') }}">
 {% endif %}

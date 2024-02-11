@@ -24,6 +24,7 @@ return function(\Asko\Router\Router $router) {
     $router->post('/admin/api/post/{id}/update-title', [AdminAPIController::class, 'updateTitle']);
     $router->post('/admin/api/post/{id}/update-slug', [AdminAPIController::class, 'updateSlug']);
     $router->post('/admin/api/post/{id}/update-status', [AdminAPIController::class, 'updateStatus']);
+    $router->post('/admin/api/post/{id}/update-published-at', [AdminAPIController::class, 'updatePublishedAt']);
     $router->post('/admin/api/post/{id}/blocks/add/{type}/{position}', [AdminAPIController::class, 'addBlock']);
     $router->post('/admin/api/post/{id}/blocks/{blockId}', [AdminAPIController::class, 'updateBlock']);
     $router->delete('/admin/api/post/{id}/blocks/{blockId}', [AdminAPIController::class, 'deleteBlock']);
