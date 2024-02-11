@@ -408,7 +408,7 @@ input, textarea, select {
     border: 0;
     border-radius: 25px;
     cursor: pointer;
-    margin-left: 15px;
+    margin-left: 5px;
 }
 
 #editor .block-options .block-options-menu {
@@ -418,6 +418,7 @@ input, textarea, select {
     border-radius: 4px;
     z-index: 10;
     box-shadow: 0 1px 8px rgba(0,0,0,.05);
+    position: absolute;
     margin-top: -30px;
     right: -15px;
 }
