@@ -103,6 +103,7 @@ class AdminAPIController extends Controller
     {
         $post = DB::find(Post::class, ['id' => $id]);
         $post->set('title', $request->input('title'));
+        $post->set('updated_at', time());
 
         DB::update($post);
 
@@ -121,6 +122,7 @@ class AdminAPIController extends Controller
     {
         $post = DB::find(Post::class, ['id' => $id]);
         $post->set('slug', $request->input('slug'));
+        $post->set('updated_at', time());
 
         DB::update($post);
 
@@ -147,6 +149,7 @@ class AdminAPIController extends Controller
         }
 
         $post->set('status', $request->input('status'));
+        $post->set('updated_at', time());
 
         DB::update($post);
 
@@ -185,6 +188,7 @@ class AdminAPIController extends Controller
         };
 
         $post->set('content', $blocks);
+        $post->set('updated_at', time());
 
         DB::update($post);
 
@@ -225,6 +229,7 @@ class AdminAPIController extends Controller
         $block = $blocks[$block_index];
         $blocks[$block_index] = [...$block, 'value' => $request->input('value')];
         $post->set('content', $blocks);
+        $post->set('updated_at', time());
 
         DB::update($post);
 
@@ -252,6 +257,7 @@ class AdminAPIController extends Controller
 
         $blocks = array_values(array_filter($post->get('content'), fn ($block) => $block['id'] !== $blockId));
         $post->set('content', $blocks);
+        $post->set('updated_at', time());
 
         DB::update($post);
 
@@ -292,6 +298,8 @@ class AdminAPIController extends Controller
             'down' => ArrayHelper::moveDown($post->get('content'), fn ($block) => $block['id'] === $blockId),
             default => $post->get('content'),
         });
+
+        $post->set('updated_at', time());
 
         DB::update($post);
 
