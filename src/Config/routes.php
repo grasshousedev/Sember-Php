@@ -9,122 +9,23 @@ use Asko\Sember\Middlewares\Route\IsAuthenticatedMiddleware;
 use Asko\Sember\Middlewares\Route\RequiresNotSetupMiddleware;
 use Asko\Sember\Middlewares\Route\RequiresSetupMiddleware;
 
-return function(\Asko\Router\Router $router) {
-    // -------------------------------------
-    // Routes
-    // -------------------------------------
-    $router
-        ->get('/admin', [AdminController::class, 'index'])
-        ->middleware(RequiresSetupMiddleware::class);
+return function (\Asko\Router\Router $router) {
+    $routes = [
+        ...require(__DIR__ . '/routes/admin.php'),
+        ...require(__DIR__ . '/routes/admin-api.php'),
+        ...require(__DIR__ . '/routes/setup.php'),
+        ...require(__DIR__ . '/routes/site.php')
+    ];
 
-    $router
-        ->get('/admin/signin', [AuthenticationController::class, 'signIn'])
-        ->middleware(RequiresSetupMiddleware::class);
+    foreach ($routes as $route) {
+        if (isset($route['path'])) {
+            call_user_func([$router, $route['method']], $route['path'], $route['callable']);
+        } else {
+            call_user_func([$router, $route['method']], $route['callable']);
+        }
 
-    $router
-        ->post('/admin/signin', [AuthenticationController::class, 'signIn'])
-        ->middleware(RequiresSetupMiddleware::class);
-
-    $router
-        ->get('/admin/signout', [AdminController::class, 'signOut'])
-        ->middleware([RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]);
-
-    $router
-        ->get('/admin/posts', [AdminController::class, 'posts'])
-        ->middleware([RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]);
-
-    $router
-        ->get('/admin/posts/new', [AdminController::class, 'createPost'])
-        ->middleware([RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]);
-
-    $router
-        ->get('/admin/posts/edit/{id}', [AdminController::class, 'editPost'])
-        ->middleware([RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]);
-
-    $router
-        ->get('/admin/posts/delete/{id}', [AdminController::class, 'deletePost'])
-        ->middleware([RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]);
-
-    // -------------------------------------
-    // Admin API
-    // -------------------------------------
-    $router
-        ->get('/admin/api/post/{id}/editor', [AdminAPIController::class, 'editor'])
-        ->middleware([RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]);
-
-    $router
-        ->get('/admin/api/post/{id}/status', [AdminAPIController::class, 'status'])
-        ->middleware([RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]);
-
-    $router
-        ->get('/admin/api/post/{id}/published-at', [AdminAPIController::class, 'publishedAt'])
-        ->middleware([RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]);
-
-    $router
-        ->post('/admin/api/post/{id}/update-title', [AdminAPIController::class, 'updateTitle'])
-        ->middleware([RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]);
-
-    $router
-        ->post('/admin/api/post/{id}/update-slug', [AdminAPIController::class, 'updateSlug'])
-        ->middleware([RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]);
-
-    $router
-        ->post('/admin/api/post/{id}/update-status', [AdminAPIController::class, 'updateStatus'])
-        ->middleware([RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]);
-
-    $router
-        ->post('/admin/api/post/{id}/update-published-at', [AdminAPIController::class, 'updatePublishedAt'])
-        ->middleware([RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]);
-
-    $router
-        ->post('/admin/api/post/{id}/blocks/add/{type}/{position}', [AdminAPIController::class, 'addBlock'])
-        ->middleware([RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]);
-
-    $router
-        ->post('/admin/api/post/{id}/blocks/{blockId}', [AdminAPIController::class, 'updateBlock'])
-        ->middleware([RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]);
-
-    $router
-        ->delete('/admin/api/post/{id}/blocks/{blockId}', [AdminAPIController::class, 'deleteBlock'])
-        ->middleware([RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]);
-
-    $router
-        ->post('/admin/api/post/{id}/blocks/{blockId}/move/{direction}', [AdminAPIController::class, 'moveBlock'])
-        ->middleware([RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]);
-
-    $router
-        ->post('/admin/api/post/{id}/blocks/{blockId}/opt/{fn}/{arg}', [AdminAPIController::class, 'blockOption'])
-        ->middleware([RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]);
-
-    // -------------------------------------
-    // Setup
-    // -------------------------------------
-    $router
-        ->get('/setup/account', [SetupController::class, 'account'])
-        ->middleware(RequiresNotSetupMiddleware::class);
-
-    $router
-        ->post('/setup/account', [SetupController::class, 'account'])
-        ->middleware(RequiresNotSetupMiddleware::class);
-
-    $router
-        ->get('/setup/site', [SetupController::class, 'site'])
-        ->middleware(RequiresNotSetupMiddleware::class);
-
-    $router
-        ->post('/setup/site', [SetupController::class, 'site'])
-        ->middleware(RequiresNotSetupMiddleware::class);
-
-    // -------------------------------------
-    // Site
-    // -------------------------------------
-    $router
-        ->get('/', [SiteController::class, 'home'])
-        ->middleware(RequiresSetupMiddleware::class);
-
-    $router
-        ->get('/{slug}', [SiteController::class, 'post'])
-        ->middleware(RequiresSetupMiddleware::class);
-
-    $router->notFound([SiteController::class, 'notFound']);
+        if (isset($route['middleware'])) {
+            call_user_func([$router, 'middleware'], $route['middleware']);
+        }
+    }
 };
