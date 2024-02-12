@@ -40,7 +40,7 @@ class BlockHelper
      */
     public static function editableBlocks(Model $post): array
     {
-        return array_map(function ($block) use($post) {
+        return array_map(function ($block) use ($post) {
             $class = Config::getBlock($block['key'], 'markdown');
 
             return [
@@ -52,6 +52,38 @@ class BlockHelper
     }
 
     /**
+     * Returns the injected JS.
+     *
+     * @return array
+     */
+    public static function injectedJs(): array
+    {
+        $js = [];
+
+        foreach (Config::getBlocks() as $block) {
+            $js = array_merge($js, (new $block)->js);
+        }
+
+        return $js;
+    }
+
+    /**
+     * Returns the injected CSS.
+     *
+     * @return array
+     */
+    public static function injectedCss(): array
+    {
+        $css = [];
+
+        foreach (Config::getBlocks() as $block) {
+            $css = array_merge($css, (new $block)->css);
+        }
+
+        return $css;
+    }
+
+    /**
      * Returns the viewable blocks.
      *
      * @param Model $post
@@ -60,7 +92,7 @@ class BlockHelper
      */
     public static function viewableBlocks(Model $post, array $blocks): array
     {
-        return array_map(function ($block) use($post) {
+        return array_map(function ($block) use ($post) {
             $class = Config::getBlock($block['key'], 'markdown');
 
             return [
@@ -79,7 +111,7 @@ class BlockHelper
     {
         $opts = [];
 
-        foreach(Config::getBlocks() as $key => $block) {
+        foreach (Config::getBlocks() as $key => $block) {
             $instance = new $block;
 
             $opts[] = [

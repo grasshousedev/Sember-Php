@@ -20,7 +20,14 @@ class CodeBlock implements Block
     public string $icon = 'fa-solid fa-code';
 
     // Injected JS
-    public array $js = ['/assets/admin/js/blocks/code.js'];
+    public array $js = [
+        '/assets/admin/js/blocks/code.js'
+    ];
+
+    // Injected CSS
+    public array $css = [
+        '/assets/admin/css/blocks/code.css'
+    ];
 
     /**
      * Returns the data model for the heading block.

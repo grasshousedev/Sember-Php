@@ -19,6 +19,16 @@ class MarkdownBlock implements Block
     // The icon of the block.
     public string $icon = 'fa-brands fa-markdown';
 
+    // Injected JS
+    public array $js = [
+        '/assets/admin/js/blocks/markdown.js'
+    ];
+
+    // Injected CSS
+    public array $css = [
+        '/assets/admin/css/blocks/markdown.css'
+    ];
+
     /**
      * Returns the data model for the heading block.
      *

@@ -23,6 +23,16 @@ class HeadingBlock implements Block
     // The icon of the block.
     public string $icon = 'fa-solid fa-heading';
 
+    // Injected JS
+    public array $js = [
+        '/assets/admin/js/blocks/heading.js'
+    ];
+
+    // Injected CSS
+    public array $css = [
+        '/assets/admin/css/blocks/heading.css'
+    ];
+
     /**
      * Returns the data model for the heading block.
      *
@@ -85,7 +95,7 @@ class HeadingBlock implements Block
     public static function size(Post $post, array $block, string $size): Response
     {
         $blocks = $post->get('content');
-        $block_index = ArrayHelper::findIndex($blocks, fn ($i) => $i['id'] === $block['id']);
+        $block_index = ArrayHelper::findIndex($blocks, fn($i) => $i['id'] === $block['id']);
         $block = $blocks[$block_index];
         $blocks[$block_index] = [...$block, 'size' => $size];
         $post->set('content', $blocks);

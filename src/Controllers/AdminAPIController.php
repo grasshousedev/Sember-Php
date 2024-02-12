@@ -191,10 +191,11 @@ class AdminAPIController
      */
     public function addBlock(
         Response $response,
-        string $id,
-        string $type,
-        string $position
-    ): Response {
+        string   $id,
+        string   $type,
+        string   $position
+    ): Response
+    {
         $post = DB::find(Post::class, ['id' => $id]);
         $block = BlockHelper::new($type);
         $blocks = match ($position) {
@@ -227,10 +228,10 @@ class AdminAPIController
      * @return Response
      */
     public function updateBlock(
-        Request $request,
+        Request  $request,
         Response $response,
-        string $id,
-        string $blockId
+        string   $id,
+        string   $blockId
     ): Response
     {
         $post = DB::find(Post::class, ['id' => $id]);
@@ -243,7 +244,7 @@ class AdminAPIController
         }
 
         $blocks = $post->get('content');
-        $block_index = ArrayHelper::findIndex($blocks, fn ($block) => $block['id'] === $blockId);
+        $block_index = ArrayHelper::findIndex($blocks, fn($block) => $block['id'] === $blockId);
         $block = $blocks[$block_index];
         $blocks[$block_index] = [...$block, 'value' => $request->input('value')];
         $post->set('content', $blocks);
@@ -273,7 +274,7 @@ class AdminAPIController
             ]);
         }
 
-        $blocks = array_values(array_filter($post->get('content'), fn ($block) => $block['id'] !== $blockId));
+        $blocks = array_values(array_filter($post->get('content'), fn($block) => $block['id'] !== $blockId));
         $post->set('content', $blocks);
         $post->set('updated_at', time());
 
@@ -297,9 +298,9 @@ class AdminAPIController
      */
     public function moveBlock(
         Response $response,
-        string $id,
-        string $blockId,
-        string $direction
+        string   $id,
+        string   $blockId,
+        string   $direction
     ): Response
     {
         $post = DB::find(Post::class, ['id' => $id]);
@@ -311,9 +312,9 @@ class AdminAPIController
             ]);
         }
 
-        $post->set('content', match($direction) {
-            'up' => ArrayHelper::moveUp($post->get('content'), fn ($block) => $block['id'] === $blockId),
-            'down' => ArrayHelper::moveDown($post->get('content'), fn ($block) => $block['id'] === $blockId),
+        $post->set('content', match ($direction) {
+            'up' => ArrayHelper::moveUp($post->get('content'), fn($block) => $block['id'] === $blockId),
+            'down' => ArrayHelper::moveDown($post->get('content'), fn($block) => $block['id'] === $blockId),
             default => $post->get('content'),
         });
 
@@ -330,10 +331,10 @@ class AdminAPIController
 
     public function blockOption(
         Response $response,
-        string $id,
-        string $blockId,
-        string $fn,
-        string $arg
+        string   $id,
+        string   $blockId,
+        string   $fn,
+        string   $arg
     ): Response
     {
         $post = DB::find(Post::class, ['id' => $id]);
@@ -346,7 +347,7 @@ class AdminAPIController
         }
 
         $blocks = $post->get('content');
-        $block_index = ArrayHelper::findIndex($blocks, fn ($block) => $block['id'] === $blockId);
+        $block_index = ArrayHelper::findIndex($blocks, fn($block) => $block['id'] === $blockId);
         $block = $blocks[$block_index];
         $class = Config::getBlock($block['key']);
 

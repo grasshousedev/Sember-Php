@@ -5,10 +5,18 @@
     <title>{{ page_title }} &mdash; Nth</title>
     <link rel="stylesheet" href="/assets/shared/fa/css/all.min.css">
     <link rel="stylesheet" href="/assets/admin/css/style.css">
+    {% for css in injectedCss %}
+        <link rel="stylesheet" href="{{ css }}">
+    {% endfor %}
+
     {% if editor %}
         <script src="https://unpkg.com/htmx.org@1.9.10"></script>
         <script src="https://unpkg.com/htmx.org/dist/ext/path-deps.js"></script>
         <script src="/assets/admin/js/editor.js"></script>
     {% endif %}
+
+    {% for js in injectedJs %}
+        <script src="{{ js }}"></script>
+    {% endfor %}
 </head>
 <body>

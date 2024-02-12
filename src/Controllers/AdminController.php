@@ -100,6 +100,8 @@ class AdminController
         return $response->view('admin/edit-post', [
             'id' => $id,
             'post' => $post,
+            'injectedJs' => BlockHelper::injectedJs(),
+            'injectedCss' => BlockHelper::injectedCss(),
         ]);
     }
 
