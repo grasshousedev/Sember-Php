@@ -11,19 +11,19 @@
         {% endfor %}
         {% if not loop.first %}
             <button hx-post="/admin/api/post/{{ post.data.id }}/blocks/{{ block.id }}/move/up"
-                    hx-swap="innerHTML"
-                    hx-target="#editor"><i class="fas fa-chevron-up"></i> Move up
+                    hx-swap="outerHTML"
+                    hx-target=".blocks"><i class="fas fa-chevron-up"></i> Move up
             </button>
         {% endif %}
         {% if not loop.last %}
             <button hx-post="/admin/api/post/{{ post.data.id }}/blocks/{{ block.id }}/move/down"
-                    hx-swap="innerHTML"
-                    hx-target="#editor"><i class="fas fa-chevron-down"></i> Move down
+                    hx-swap="outerHTML"
+                    hx-target=".blocks"><i class="fas fa-chevron-down"></i> Move down
             </button>
         {% endif %}
         <button hx-delete="/admin/api/post/{{ post.data.id }}/blocks/{{ block.id }}"
-                hx-swap="innerHTML"
-                hx-target="#editor"><i class="fas fa-trash-alt"></i> Delete
+                hx-swap="outerHTML"
+                hx-target=".blocks"><i class="fas fa-trash-alt"></i> Delete
         </button>
     </div>
 </div>

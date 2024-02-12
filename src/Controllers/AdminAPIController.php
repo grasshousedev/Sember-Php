@@ -31,7 +31,7 @@ class AdminAPIController
             ]);
         }
 
-        return $response->view('admin/editor', [
+        return $response->view('admin/editor/blocks', [
             'url' => $request->protocol() . '://' . $request->hostname(),
             'post' => $post,
             'blocks' => BlockHelper::editableBlocks($post),
@@ -191,6 +191,7 @@ class AdminAPIController
      * @return Response
      */
     public function addBlock(
+        Request  $request,
         Response $response,
         string   $id,
         string   $type,
@@ -213,6 +214,7 @@ class AdminAPIController
         DB::update($post);
 
         return $response->view('admin/editor/blocks', [
+            'url' => $request->protocol() . '://' . $request->hostname(),
             'post' => $post,
             'blocks' => BlockHelper::editableBlocks($post),
             'block_list' => BlockHelper::list(),
@@ -264,7 +266,12 @@ class AdminAPIController
      * @param string $blockId
      * @return Response
      */
-    public function deleteBlock(Response $response, string $id, string $blockId): Response
+    public function deleteBlock(
+        Request  $request,
+        Response $response,
+        string   $id,
+        string   $blockId
+    ): Response
     {
         $post = DB::find(Post::class, ['id' => $id]);
 
@@ -282,6 +289,7 @@ class AdminAPIController
         DB::update($post);
 
         return $response->view('admin/editor/blocks', [
+            'url' => $request->protocol() . '://' . $request->hostname(),
             'post' => $post,
             'blocks' => BlockHelper::editableBlocks($post),
             'block_list' => BlockHelper::list(),
@@ -298,6 +306,7 @@ class AdminAPIController
      * @return Response
      */
     public function moveBlock(
+        Request  $request,
         Response $response,
         string   $id,
         string   $blockId,
@@ -324,6 +333,7 @@ class AdminAPIController
         DB::update($post);
 
         return $response->view('admin/editor/blocks', [
+            'url' => $request->protocol() . '://' . $request->hostname(),
             'post' => $post,
             'blocks' => BlockHelper::editableBlocks($post),
             'block_list' => BlockHelper::list(),

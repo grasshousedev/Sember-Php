@@ -26,8 +26,12 @@
                                 hx-post="/admin/api/post/{{ id }}/update-status"
                                 hx-swap="innerHTML"
                                 hx-target=".post-published-date">
-                            <option value="draft" {% if post.data.status is same as 'draft' %} selected {% endif %}>Draft</option>
-                            <option value="published" {% if post.data.status is same as 'published' %} selected {% endif %}>Published</option>
+                            <option value="draft" {% if post.data.status is same as 'draft' %} selected {% endif %}>
+                                Draft
+                            </option>
+                            <option value="published" {% if post.data.status is same as 'published' %} selected {% endif %}>
+                                Published
+                            </option>
                         </select>
                     </div>
 
@@ -36,18 +40,25 @@
                          hx-trigger="load"
                          hx-swap="innerHTML"></div>
 
-                    <hr />
+                    <hr/>
 
                     <a href="/admin/posts/delete/{{ id }}" class="btn btn-warning">Delete post</a>
                 </div>
             </div>
         </div>
 
-        <div id="editor"
-             hx-get="/admin/api/post/{{ id }}/editor"
-             hx-trigger="load"
-             hx-swap="innerHTML">
-            Loading ...
+        <div id="editor">
+            {% include 'admin/editor/post-title.twig' %}
+            {% include 'admin/editor/post-slug.twig' %}
+
+            <div class="post-content">
+                <label>Post content</label>
+                <div class="blocks"
+                     hx-get="/admin/api/post/{{ id }}/editor"
+                     hx-trigger="load"
+                     hx-swap="outerHTML">Loading ...
+                </div>
+            </div>
         </div>
     </div>
 </div>

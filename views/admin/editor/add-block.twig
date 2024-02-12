@@ -7,8 +7,8 @@
         {% for block in block_list %}
             <button type="button"
                     hx-post="/admin/api/post/{{ post.data.id }}/blocks/add/{{ block.key }}/{{ position }}"
-                    hx-swap="innerHTML"
-                    hx-target="#editor">
+                    hx-swap="outerHTML"
+                    hx-target=".blocks">
                 <i class="{{ block.icon }}"></i>
                 <span class="name">{{ block.name }}</span>
             </button>

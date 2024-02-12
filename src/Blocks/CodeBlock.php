@@ -26,7 +26,6 @@ class CodeBlock implements Block
         '/assets/shared/codemirror/mode/css/css.js',
         '/assets/shared/codemirror/mode/htmlmixed/htmlmixed.js',
         '/assets/shared/codemirror/mode/xml/xml.js',
-        '/assets/shared/codemirror/mode/markdown/markdown.js',
         '/assets/shared/codemirror/mode/php/php.js',
         '/assets/admin/js/blocks/code.js'
     ];

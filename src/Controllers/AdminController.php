@@ -89,7 +89,7 @@ class AdminController
      * @param string $id
      * @return Response
      */
-    public function editPost(Response $response, string $id): Response
+    public function editPost(Request $request, Response $response, string $id): Response
     {
         $post = DB::find(Post::class, ['id' => $id]);
 
@@ -102,6 +102,9 @@ class AdminController
             'post' => $post,
             'injectedJs' => BlockHelper::injectedJs(),
             'injectedCss' => BlockHelper::injectedCss(),
+            'url' => $request->protocol() . '://' . $request->hostname(),
+            'blocks' => BlockHelper::editableBlocks($post),
+            'block_list' => BlockHelper::list(),
         ]);
     }
 

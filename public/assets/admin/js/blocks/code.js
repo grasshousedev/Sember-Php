@@ -11,7 +11,7 @@ function codeBlockDebounce(f, ms) {
 }
 
 htmx.on("htmx:afterSwap", (evt) => {
-  if (!evt.target.id || evt.target.id !== "editor") return;
+  if (!evt.target.classList.contains("blocks")) return;
 
   document.querySelectorAll(".code-block").forEach((el) => {
     const blockId = el.getAttribute("data-id");
