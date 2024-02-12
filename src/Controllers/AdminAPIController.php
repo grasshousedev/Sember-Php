@@ -20,7 +20,7 @@ class AdminAPIController
      * @param string $id
      * @return Response
      */
-    public function editor(Response $response, string $id): Response
+    public function editor(Request $request, Response $response, string $id): Response
     {
         $post = DB::find(Post::class, ['id' => $id]);
 
@@ -32,6 +32,7 @@ class AdminAPIController
         }
 
         return $response->view('admin/editor', [
+            'url' => $request->protocol() . '://' . $request->hostname(),
             'post' => $post,
             'blocks' => BlockHelper::editableBlocks($post),
             'block_list' => BlockHelper::list(),
