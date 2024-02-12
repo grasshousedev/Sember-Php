@@ -389,13 +389,16 @@ input, textarea, select {
 /** BLOCK OPTIONS */
 #editor .block-options {
     display: none;
+    height: 100%;
     position: absolute;
-    top: calc(50% - 16px);
+    top: 0;
     right: -35px;
 }
 
 #editor .block:hover .block-options {
-    display: block;
+    display: flex;
+    align-items: center;
+
 }
 
 #editor .block-options > button {
@@ -421,7 +424,6 @@ input, textarea, select {
     z-index: 10;
     box-shadow: 0 1px 8px rgba(0, 0, 0, .05);
     position: absolute;
-    margin-top: -30px;
     right: -15px;
 }
 
