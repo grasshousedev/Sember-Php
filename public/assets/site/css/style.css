@@ -2,15 +2,77 @@
 
 /** OVERALL */
 body {
-    line-height: 1.5;
+    font-family: system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    letter-spacing: -0.02em;
+    color: #333;
     width: 550px;
     margin: 100px;
 }
 
+@media all and (max-width: 750px) {
+    body {
+        width: 100%;
+        padding: 30px;
+        margin: 0;
+    }
+}
+
+a {
+    color: #111;
+    text-decoration: none;
+    border-bottom: 1px solid #111;
+}
+
 h1 {
+    font-size: 13px;
+    text-transform: uppercase;
     margin-bottom: 100px;
+}
+
+@media all and (max-width: 750px) {
+    h1 {
+        margin-bottom: 50px;
+    }
 }
 
 article {
     margin-bottom: 150px;
+}
+
+@media all and (max-width: 750px) {
+    article {
+        margin-bottom: 75px;
+    }
+}
+
+.posts article:last-child {
+    margin-bottom: 0;
+}
+
+article h2 {
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 10px;
+}
+
+article .date {
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 10px;
+}
+
+article .date a {
+    color: inherit;
+    border-bottom: 0;
+}
+
+article .body {
+    margin-top: 25px;
+}
+
+article .body p {
+    margin-bottom: 25px;
 }
