@@ -21,11 +21,20 @@ class CodeBlock implements Block
 
     // Injected JS
     public array $js = [
+        '/assets/shared/codemirror/codemirror.js',
+        '/assets/shared/codemirror/mode/javascript/javascript.js',
+        '/assets/shared/codemirror/mode/css/css.js',
+        '/assets/shared/codemirror/mode/htmlmixed/htmlmixed.js',
+        '/assets/shared/codemirror/mode/xml/xml.js',
+        '/assets/shared/codemirror/mode/markdown/markdown.js',
+        '/assets/shared/codemirror/mode/php/php.js',
         '/assets/admin/js/blocks/code.js'
     ];
 
     // Injected CSS
     public array $css = [
+        '/assets/shared/codemirror/codemirror.css',
+        '/assets/shared/codemirror/theme/idea.css',
         '/assets/admin/css/blocks/code.css'
     ];
 
@@ -75,10 +84,9 @@ class CodeBlock implements Block
      */
     public static function viewable(Post $post, array $block): string
     {
-        return <<<HTML
-            <pre class="block code-block">
-                <code>{$block['value']}</code>
-            </pre>
-        HTML;
+        return (new Response)->view('site/blocks/code', [
+            'post' => $post->toArray(),
+            'block' => $block,
+        ])->send();
     }
 }

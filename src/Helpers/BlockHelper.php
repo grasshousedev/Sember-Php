@@ -93,7 +93,7 @@ class BlockHelper
     public static function viewableBlocks(Model $post, array $blocks): array
     {
         return array_map(function ($block) use ($post) {
-            $class = Config::getBlock($block['key'], 'markdown');
+            $class = Config::getBlock($block['key']);
 
             return [
                 ...$block,

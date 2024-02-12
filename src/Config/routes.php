@@ -17,6 +17,8 @@ return function (\Asko\Router\Router $router) {
         ...require(__DIR__ . '/routes/site.php')
     ];
 
+    // $router->read(__DIR__ . '/routes/admin.php'); // TODO: Implement this
+
     foreach ($routes as $route) {
         if (isset($route['path'])) {
             call_user_func([$router, $route['method']], $route['path'], $route['callable']);
