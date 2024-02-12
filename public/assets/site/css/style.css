@@ -52,9 +52,10 @@ article {
 }
 
 article h2 {
-    font-size: 25px;
+    font-size: 23px;
     font-weight: 600;
     line-height: 1.25;
+    letter-spacing: -0.03em;
     margin-bottom: 10px;
 }
 
@@ -75,4 +76,8 @@ article .body {
 
 article .body p {
     margin-bottom: 25px;
+}
+
+article .body a {
+    font-weight: 500;
 }
