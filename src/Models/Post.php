@@ -21,7 +21,7 @@ class Post extends Model
     {
         $html = '';
 
-        foreach ($this->data['content'] as $block) {
+        foreach (json_decode($this->data['content'], true) as $block) {
             $class = Config::getBlock($block['key']);
             $html .= call_user_func([$class, 'viewable'], $this, $block);
         }

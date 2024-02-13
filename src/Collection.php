@@ -4,6 +4,7 @@ namespace Asko\Sember;
 
 use ArrayAccess;
 use Override;
+use SplFixedArray;
 
 /**
  * A generic class for working with collections of items.
@@ -16,7 +17,7 @@ class Collection implements ArrayAccess
 {
     protected array $items;
 
-    public function __construct(array $items = [])
+    public function __construct(array $items)
     {
         $this->items = $items;
     }
@@ -135,6 +136,25 @@ class Collection implements ArrayAccess
     public function last(): mixed
     {
         return $this->items[count($this->items) - 1] ?? null;
+    }
+
+    public function limit(int $limit): Collection
+    {
+        $this->items = array_slice($this->items, 0, $limit);
+
+        return $this;
+    }
+
+    public function offset(int $offset): Collection
+    {
+        $this->items = array_slice($this->items, $offset);
+
+        return $this;
+    }
+
+    public function count(): int
+    {
+        return count($this->items);
     }
 
     /**

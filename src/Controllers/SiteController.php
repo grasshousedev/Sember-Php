@@ -2,13 +2,16 @@
 
 namespace Asko\Sember\Controllers;
 
-use Asko\Sember\DB;
+use Asko\Sember\Database;
 use Asko\Sember\Models\Meta;
 use Asko\Sember\Models\Post;
 use Asko\Sember\Response;
 
-class SiteController
+readonly class SiteController
 {
+    public function __construct(private Database $db)
+    {
+    }
 
     /**
      * Shows the home page.
@@ -18,16 +21,18 @@ class SiteController
      */
     public function home(Response $response): Response
     {
-        $posts = DB::findAll(Post::class)
-            ->where('status', 'published')
-            ->orderBy('created_at', 'desc')
-            ->map(function (Post $post) {
+        $posts = $this->db
+            ->find(
+                model: Post::class,
+                query: 'where status = ? order by created_at desc limit 10',
+                data: ['published']
+            )->map(function (Post $post) {
                 $post->set('html', $post->renderHtml());
 
                 return $post;
             })->toArray();
 
-        $site = DB::find(Meta::class, ['meta_name' => 'site_config']);
+        $site = $this->db->findOne(Meta::class, 'where meta_name = ?', ['site_name']);
 
         if (!$site) {
             return $this->notFound($response);
@@ -36,7 +41,7 @@ class SiteController
         return $response->view('site/home', [
             'page_title' => false,
             'posts' => $posts,
-            ...$site->toArray(),
+            'site_name' => $site->get('meta_value'),
         ]);
     }
 
@@ -49,14 +54,14 @@ class SiteController
      */
     public function post(Response $response, string $slug): Response
     {
-        $post = DB::find(Post::class, ['slug' => $slug]);
+        $post = $this->db->findOne(Post::class, 'where slug = ?', [$slug]);
 
         if (!$post) {
             return $this->notFound($response);
         }
 
         $post->set('html', $post->renderHtml());
-        $site = DB::find(Meta::class, ['meta_name' => 'site_config']);
+        $site = $this->db->findOne(Meta::class, 'where meta_name = ?', ['site_name']);
 
         if (!$site) {
             return $this->notFound($response);
@@ -65,7 +70,7 @@ class SiteController
         return $response->view('site/post', [
             'page_title' => $post->get('title'),
             'post' => $post,
-            ...$site->toArray(),
+            'site_name' => $site->get('meta_value'),
         ]);
     }
 

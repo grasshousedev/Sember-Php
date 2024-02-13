@@ -48,7 +48,7 @@ class BlockHelper
                 'render' => call_user_func([$class, 'editable'], $post, $block),
                 'options' => call_user_func([$class, 'options'], $post, $block),
             ];
-        }, $post->get('content'));
+        }, json_decode($post->get('content'), true));
     }
 
     /**

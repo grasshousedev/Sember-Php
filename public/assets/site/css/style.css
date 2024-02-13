@@ -5,10 +5,9 @@
 
 /** OVERALL */
 body {
-    font-family: system-ui, sans-serif;
+    font-family: 'Inter Tight', system-ui, sans-serif;
     font-size: 15px;
     line-height: 1.65;
-    letter-spacing: -0.02em;
     color: #333;
     width: 550px;
     margin: 100px;
@@ -34,6 +33,11 @@ h1 {
     margin-bottom: 100px;
 }
 
+h1 a {
+    color: #999;
+    border: 0;
+}
+
 @media all and (max-width: 750px) {
     h1 {
         margin-bottom: 50px;
@@ -56,10 +60,13 @@ article {
 
 article h2 {
     font-size: 23px;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 1.25;
-    letter-spacing: -0.03em;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+}
+
+article h2 a {
+    border: 0;
 }
 
 article .date {
@@ -74,15 +81,20 @@ article .date a {
 }
 
 article .body {
+    font-family: 'Merriweather', serif;
+    line-height: 1.75;
+    letter-spacing: -0.01em;
     margin-top: 25px;
 }
 
 article .body p {
+    hyphens: auto;
+    text-align: justify;
     margin-bottom: 25px;
 }
 
 article .body a {
-    font-weight: 500;
+    border-bottom: 2px solid #111;
 }
 
 article pre {

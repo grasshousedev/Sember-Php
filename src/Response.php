@@ -88,6 +88,13 @@ class Response
         return $this;
     }
 
+    public function refresh(): Response
+    {
+        header('Refresh:0');
+
+        return $this;
+    }
+
     /**
      * Send the response.
      *

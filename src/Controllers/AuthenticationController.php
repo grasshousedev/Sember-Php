@@ -2,15 +2,19 @@
 
 namespace Asko\Sember\Controllers;
 
-use Asko\Sember\DB;
+use Asko\Sember\Database;
 use Asko\Sember\Models\User;
 use Asko\Sember\Request;
 use Asko\Sember\Response;
 use Exception;
 use Ramsey\Uuid\Uuid;
 
-class AuthenticationController
+readonly class AuthenticationController
 {
+    public function __construct(private Database $db)
+    {
+    }
+
     /**
      * @throws Exception
      */
@@ -18,17 +22,14 @@ class AuthenticationController
     {
         // Sign in
         if ($request->isPost()) {
-            $find_user_query = [
-                'email' => $request->input('email'),
-                'password' => fn($hash) => password_verify($request->input('password'), $hash ?? '')
-            ];
+            $user = $this->db->findOne(User::class, 'where email = ?', [$request->input('email')]);
 
-            if ($user = DB::find(User::class, $find_user_query)) {
+            if ($user && password_verify($request->input('password'), $user->get('password'))) {
                 $auth_token = Uuid::uuid4()->toString();
                 $request->session()->set('auth_token', $auth_token);
                 $user->set('auth_token', $auth_token);
 
-                DB::update($user);
+                $this->db->update($user);
 
                 return $response->redirect('/admin/posts');
             }

@@ -3,6 +3,7 @@
 namespace Asko\Sember\Blocks;
 
 use Asko\Sember\Blocks\Block;
+use Asko\Sember\Database;
 use Asko\Sember\DB;
 use Asko\Sember\Helpers\ArrayHelper;
 use Asko\Sember\Helpers\BlockHelper;
@@ -94,13 +95,13 @@ class HeadingBlock implements Block
      */
     public static function size(Post $post, array $block, string $size): Response
     {
-        $blocks = $post->get('content');
+        $blocks = json_decode($post->get('content'), true);
         $block_index = ArrayHelper::findIndex($blocks, fn($i) => $i['id'] === $block['id']);
         $block = $blocks[$block_index];
         $blocks[$block_index] = [...$block, 'size' => $size];
-        $post->set('content', $blocks);
+        $post->set('content', json_encode($blocks));
 
-        DB::update($post);
+        (new Database)->update($post);
 
         return (new Response)->view('admin/editor/blocks', [
             'post' => $post,

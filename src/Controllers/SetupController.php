@@ -2,7 +2,7 @@
 
 namespace Asko\Sember\Controllers;
 
-use Asko\Sember\DB;
+use Asko\Sember\Database;
 use Asko\Sember\Models\Meta;
 use Asko\Sember\Models\User;
 use Asko\Sember\Request;
@@ -14,8 +14,12 @@ use Exception;
  * @package Asko\Nth\Controllers
  * @since 0.1.0
  */
-class SetupController
+readonly class SetupController
 {
+    public function __construct(private Database $db)
+    {
+    }
+
     /**
      * Account set-up.
      *
@@ -27,7 +31,7 @@ class SetupController
     public function account(Request $request, Response $response): Response
     {
         // If there is already an admin user, redirect to site set-up.
-        if (DB::find(User::class, ['role' => 'admin'])) {
+        if ($this->db->findOne(User::class, 'where role = ?', ['admin'])) {
             return $response->redirect('/setup/site');
         }
 
@@ -45,10 +49,12 @@ class SetupController
                     ->flash('email', $request->input('email'));
             }
 
-            DB::create(new User([
+            $this->db->create(new User([
                 'email' => $request->input('email'),
                 'password' => password_hash($request->input('password'), PASSWORD_DEFAULT),
-                'role' => 'admin'
+                'role' => 'admin',
+                'created_at' => time(),
+                'updated_at' => time(),
             ]));
 
             return $response->redirect('/setup/site');
@@ -71,7 +77,7 @@ class SetupController
     public function site(Request $request, Response $response): Response
     {
         // If there already is site meta, redirect to signin
-        if (DB::find(Meta::class, ['meta_name' => 'site_config'])) {
+        if ($this->db->findOne(Meta::class, 'where meta_name = ?', ['site_name'])) {
             return $response->redirect('/admin/signin');
         }
 
@@ -86,11 +92,21 @@ class SetupController
                     ->flash('errors', $validator->errors());
             }
 
-            DB::create(new Meta([
-                'meta_name' => 'site_config',
-                'site_name' => $request->input('site_name'),
-                'site_description' => $request->input('site_description', ''),
+            $this->db->create(new Meta([
+                'meta_name' => 'site_name',
+                'meta_value' => $request->input('site_name'),
+                'created_at' => time(),
+                'updated_at' => time(),
             ]));
+
+            if ($description = $request->input('site_description')) {
+                $this->db->create(new Meta([
+                    'meta_name' => 'site_description',
+                    'meta_value' => $description,
+                    'created_at' => time(),
+                    'updated_at' => time(),
+                ]));
+            }
 
             return $response->redirect('/admin/signin')
                 ->flash('message', 'Congrats. Site has been set up, you can now sign in.');

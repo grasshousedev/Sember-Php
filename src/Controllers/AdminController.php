@@ -2,15 +2,19 @@
 
 namespace Asko\Sember\Controllers;
 
-use Asko\Sember\DB;
+use Asko\Sember\Database;
 use Asko\Sember\Helpers\BlockHelper;
 use Asko\Sember\Models\Post;
+use Asko\Sember\Models\User;
 use Asko\Sember\Request;
 use Asko\Sember\Response;
-use Exception;
 
-class AdminController
+readonly class AdminController
 {
+    public function __construct(private Database $db)
+    {
+    }
+
     /**
      * Redirect to the posts page if authenticated. Otherwise, redirect
      * to the sign-in page.
@@ -50,9 +54,10 @@ class AdminController
      */
     public function posts(Response $response): Response
     {
-        $posts = DB::findAll(Post::class)
-            ->orderBy('created_at', 'desc')
-            ->toArray();
+        $posts = $this->db->find(
+            model: Post::class,
+            query: 'order by created_at desc LIMIT 10'
+        )->toArray();
 
         return $response->view('admin/posts', [
             'posts' => $posts,
@@ -67,14 +72,14 @@ class AdminController
      */
     public function createPost(Response $response): Response
     {
-        if ($id = DB::create(new Post([
+        if ($id = $this->db->create(new Post([
             'title' => 'Untitled ...',
             'slug' => 'untitled',
-            'content' => [BlockHelper::new('markdown')],
+            'content' => json_encode([BlockHelper::new('markdown')]),
             'status' => 'draft',
+            'user_id' => User::current()->get('id'),
             'created_at' => time(),
             'updated_at' => time(),
-            'published_at' => null,
         ]))) {
             return $response->redirect("/admin/posts/edit/{$id}");
         };
@@ -91,7 +96,7 @@ class AdminController
      */
     public function editPost(Request $request, Response $response, string $id): Response
     {
-        $post = DB::find(Post::class, ['id' => $id]);
+        $post = $this->db->findOne(Post::class, 'where id = ?', [$id]);
 
         if (!$post) {
             return $response->redirect('/admin/posts');
@@ -117,13 +122,13 @@ class AdminController
      */
     public function deletePost(Response $response, string $id): Response
     {
-        $post = DB::find(Post::class, ['id' => $id]);
+        $post = $this->db->findOne(Post::class, 'where id = ?', [$id]);
 
         if (!$post) {
             return $response->redirect('/admin/posts');
         }
 
-        DB::delete($post);
+        $this->db->delete($post);
 
         return $response->redirect('/admin/posts');
     }

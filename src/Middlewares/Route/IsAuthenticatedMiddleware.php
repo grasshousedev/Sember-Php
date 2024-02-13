@@ -2,13 +2,17 @@
 
 namespace Asko\Sember\Middlewares\Route;
 
-use Asko\Sember\DB;
+use Asko\Sember\Database;
 use Asko\Sember\Models\User;
 use Asko\Sember\Request;
 use Asko\Sember\Response;
 
-class IsAuthenticatedMiddleware
+readonly class IsAuthenticatedMiddleware
 {
+    public function __construct(private Database $db)
+    {
+    }
+
     public function handle(Response $response): ?Response
     {
         $auth_token = (new Request)->session()->get('auth_token');
@@ -19,8 +23,8 @@ class IsAuthenticatedMiddleware
         }
 
         // If the user with the auth token does not exist, redirect to sign in page.
-        if (!DB::find(User::class, ['auth_token' => $auth_token])) {
-           return $response->redirect('/admin/signin');
+        if (!$this->db->findOne(User::class, 'where auth_token = ?', [$auth_token])) {
+            return $response->redirect('/admin/signin');
         }
 
         return null;
