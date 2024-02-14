@@ -16,15 +16,15 @@ class Core
         // Start session.
         session_start();
 
-        // Migrations
+        // Run migrations
         $db = new Database();
         $executed_migrations = $db->find(Migration::class)
-            ->map(function (Migration $m) {
-                return $m->get('migration');
-            })
+            ->map(fn(Migration $m) => $m->get('migration'))
             ->toArray();
 
-        $migrations_to_run = array_filter(Config::get('migrations'), fn($migration) => !in_array($migration, $executed_migrations));
+        $migrations_to_run = (new Collection(Config::get('migrations')))
+            ->filter(fn($migration) => !in_array($migration, $executed_migrations))
+            ->toArray();
 
         foreach ($migrations_to_run as $migration) {
             $migration_instance = new $migration($db);
@@ -75,5 +75,4 @@ class Core
             }
         }
     }
-
 }

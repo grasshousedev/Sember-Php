@@ -28,7 +28,7 @@ class Collection implements ArrayAccess
      * @param callable $callback
      * @return $this
      */
-    public function map(callable $callback): Collection
+    public function map(callable $callback): static
     {
         $this->items = array_map($callback, $this->items);
 
@@ -41,7 +41,7 @@ class Collection implements ArrayAccess
      * @param callable $callback
      * @return $this
      */
-    public function filter(callable $callback): Collection
+    public function filter(callable $callback): static
     {
         $this->items = array_filter($this->items, $callback);
 
@@ -55,7 +55,7 @@ class Collection implements ArrayAccess
      * @param $value
      * @return $this
      */
-    public function where(string $key, $value): Collection
+    public function where(string $key, $value): static
     {
         return $this->filter(function ($item) use ($key, $value) {
             // If `$item` has a getter, use that.
@@ -74,7 +74,7 @@ class Collection implements ArrayAccess
      * @param $value
      * @return $this
      */
-    public function whereNot(string $key, $value): Collection
+    public function whereNot(string $key, $value): static
     {
         return $this->filter(function ($item) use ($key, $value) {
             // If `$item` has a getter, use that.
@@ -93,7 +93,7 @@ class Collection implements ArrayAccess
      * @param string $direction
      * @return $this
      */
-    public function orderBy(string $key, string $direction = 'asc'): Collection
+    public function orderBy(string $key, string $direction = 'asc'): static
     {
         usort($this->items, function ($a, $b) use ($key, $direction) {
             if (!is_array($a) && method_exists($a, 'get')) {
@@ -138,14 +138,14 @@ class Collection implements ArrayAccess
         return $this->items[count($this->items) - 1] ?? null;
     }
 
-    public function limit(int $limit): Collection
+    public function limit(int $limit): static
     {
         $this->items = array_slice($this->items, 0, $limit);
 
         return $this;
     }
 
-    public function offset(int $offset): Collection
+    public function offset(int $offset): static
     {
         $this->items = array_slice($this->items, $offset);
 

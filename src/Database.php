@@ -2,7 +2,9 @@
 
 namespace Asko\Sember;
 
+use Asko\Sember\Collections\MigrationCollection;
 use Asko\Sember\Collections\PostCollection;
+use Asko\Sember\Models\Migration;
 use Asko\Sember\Models\Model;
 use Asko\Sember\Models\Post;
 use Exception;
@@ -129,9 +131,9 @@ class Database
      * @param string $model
      * @param string $query
      * @param array $data
-     * @return Collection
+     * @return Collection|PostCollection|MigrationCollection
      */
-    public function find(string $model, string $query = '', array $data = []): Collection
+    public function find(string $model, string $query = '', array $data = []): Collection|PostCollection|MigrationCollection
     {
         $storage_name = (new $model)->getStorageName();
         $stmt = $this->instance->prepare("SELECT * FROM {$storage_name} {$query}");
@@ -141,6 +143,7 @@ class Database
 
         return match ($model) {
             Post::class => new PostCollection(...$items),
+            Migration::class => new MigrationCollection(...$items),
             default => new Collection($items),
         };
     }
