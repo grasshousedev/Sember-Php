@@ -1,6 +1,6 @@
 # Sember
 
-A flat-file blog system with a focus on performance and ease of use.
+A blogging system with a focus on performance and ease of use.
 
 **Note:** This project is still in development and is not yet ready for production use.
 
@@ -8,6 +8,7 @@ A flat-file blog system with a focus on performance and ease of use.
 
 - PHP 8.3 or later
 - A web server (Apache, Nginx, etc.)
+- A database server (SQLite is used by default, but MySQL and PostgreSQL are also supported)
 - [Composer](https://getcomposer.org/)
 
 ## Install
