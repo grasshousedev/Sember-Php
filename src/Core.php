@@ -18,12 +18,15 @@ class Core
 
         // Migrations
         $db = new Database();
+        $executed_migrations = $db->find(Migration::class)
+            ->map(function (Migration $m) {
+                return $m->get('migration');
+            })
+            ->toArray();
 
-        foreach (Config::get('migrations') as $migration) {
-            if ($db->findOne(Migration::class, 'where migration = ?', [$migration])) {
-                continue;
-            }
+        $migrations_to_run = array_filter(Config::get('migrations'), fn($migration) => !in_array($migration, $executed_migrations));
 
+        foreach ($migrations_to_run as $migration) {
             $migration_instance = new $migration($db);
             $migration_instance->up();
 

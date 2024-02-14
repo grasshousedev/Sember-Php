@@ -131,7 +131,7 @@ class Database
      * @param array $data
      * @return Collection
      */
-    public function find(string $model, string $query, array $data = []): Collection
+    public function find(string $model, string $query = '', array $data = []): Collection
     {
         $storage_name = (new $model)->getStorageName();
         $stmt = $this->instance->prepare("SELECT * FROM {$storage_name} {$query}");
