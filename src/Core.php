@@ -3,6 +3,7 @@
 namespace Asko\Sember;
 
 use Asko\Router\Router;
+use Asko\Sember\Models\Migration;
 use Exception;
 
 class Core
@@ -14,6 +15,23 @@ class Core
     {
         // Start session.
         session_start();
+
+        // Migrations
+        $db = new Database();
+
+        foreach (Config::get('migrations') as $migration) {
+            if ($db->findOne(Migration::class, 'where migration = ?', [$migration])) {
+                continue;
+            }
+
+            $migration_instance = new $migration($db);
+            $migration_instance->up();
+
+            $db->create(new Migration([
+                'migration' => $migration,
+                'created_at' => time(),
+            ]));
+        }
 
         // Route the request.
         if (!file_exists(__DIR__ . '/Config/routes.php')) {

@@ -19,5 +19,11 @@ return [
 //    'pgsql_username' => '',
 //    'pgsql_password' => '',
 
+    // Migrations
+    'migrations' => [
+        \Asko\Sember\Migrations\AddViewsColumnToPostsTable::class,
+    ],
+
+    // Debug
     'debug' => true,
 ];

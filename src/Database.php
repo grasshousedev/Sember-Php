@@ -114,6 +114,13 @@ class Database
             created_at INTEGER NOT NULL,
             updated_at INTEGER NOT NULL
         )');
+
+        // create migrations table
+        $this->instance->exec('CREATE TABLE IF NOT EXISTS migrations (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            migration TEXT NOT NULL,
+            created_at INTEGER NOT NULL
+        )');
     }
 
     /**
@@ -208,7 +215,7 @@ class Database
     }
 
     /**
-     * Run a raw query.
+     * Run a raw fetch query.
      *
      * @param string $query
      * @param array $data
@@ -220,5 +227,16 @@ class Database
         $stmt->execute($data);
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Run a raw query.
+     *
+     * @param string $query
+     * @return void
+     */
+    public function exec(string $query): void
+    {
+        $this->instance->exec($query);
     }
 }
