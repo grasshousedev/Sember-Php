@@ -9,22 +9,24 @@ class CSRF
 {
     public static function before(): ?Response
     {
-        if (!(new Request)->isPost()) {
+        $request = new Request();
+
+        if (!$request->isPost()) {
             return null;
         }
 
-        if ((new Request)->headers('Hx-Request')) return null;
-
         // Validate token
-        $session_csrf_token = (new Request)->session()->get('csrf_token');
-        $body_csrf_token = (new Request)->input('csrf_token');
+        $session_csrf_token = $request->session()->get('csrf_token');
+        $body_csrf_token = $request->input('csrf_token') ?? $request->headers('X-Csrftoken');
 
         if ($session_csrf_token !== $body_csrf_token) {
             return (new Response)->make("CSRF token mismatch.");
         }
 
         // All good, reset the token.
-        (new Request)->session()->remove('csrf_token');
+        if (!$request->isAjax()) {
+            $request->session()->remove('csrf_token');
+        }
 
         return null;
     }

@@ -23,6 +23,11 @@ class Request
         return $this->method === 'post';
     }
 
+    public function isAjax(): bool
+    {
+        return $this->headers('Hx-Request') === 'true';
+    }
+
     public function getUri(): string
     {
         return $this->uri;

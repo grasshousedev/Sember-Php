@@ -13,6 +13,12 @@
         <script src="https://unpkg.com/htmx.org@1.9.10"></script>
         <script src="https://unpkg.com/htmx.org/dist/ext/path-deps.js"></script>
         <script src="/assets/admin/js/editor.js"></script>
+
+        <script>
+          htmx.on('htmx:configRequest', (event) => {
+            event.detail.headers['X-CSRFToken'] = '{{ csrf_token() }}';
+          })
+        </script>
     {% endif %}
 
     {% for js in injectedJs %}

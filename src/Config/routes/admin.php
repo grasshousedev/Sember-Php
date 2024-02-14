@@ -3,6 +3,7 @@
 use Asko\Sember\Controllers\AdminController;
 use Asko\Sember\Controllers\AuthenticationController;
 use Asko\Sember\Middlewares\Route\IsAuthenticatedMiddleware;
+use Asko\Sember\Middlewares\Route\IsNotAuthenticatedMiddleware;
 use Asko\Sember\Middlewares\Route\RequiresSetupMiddleware;
 
 return [
@@ -16,7 +17,7 @@ return [
         'method' => 'get',
         'path' => '/admin/signin',
         'callable' => [AuthenticationController::class, 'signIn'],
-        'middleware' => RequiresSetupMiddleware::class
+        'middleware' => [RequiresSetupMiddleware::class, IsNotAuthenticatedMiddleware::class]
     ],
     [
         'method' => 'post',
