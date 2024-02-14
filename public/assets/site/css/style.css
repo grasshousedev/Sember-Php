@@ -18,6 +18,12 @@ body.js-about-section-open {
     flex-direction: row;
 }
 
+@media all and (max-width: 750px) {
+    body.js-about-section-open {
+        overflow: hidden;
+    }
+}
+
 .page {
     width: 550px;
     margin: 100px;
@@ -170,6 +176,8 @@ article pre {
 
 @media all and (max-width: 1250px) {
     .about-section {
+        max-height: 100vh;
+        z-index: 10;
         position: fixed;
         top: 0;
         left: 0;
@@ -179,6 +187,7 @@ article pre {
 @media all and (max-width: 750px) {
     .about-section {
         width: 100%;
+        max-height: 100vh;
         padding: 26px 30px 30px;
     }
 }
