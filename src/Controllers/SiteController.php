@@ -60,7 +60,18 @@ readonly class SiteController
             return $this->notFound($response);
         }
 
+        // Increment the views.
+        $viewed_cookie_k = 'has_read_' . $post->get('id');
+
+        if (!isset($_COOKIE[$viewed_cookie_k])) {
+            setcookie($viewed_cookie_k, 'yes', time() + 60 * 60 * 24 * 30);
+            $post->set('views', ($post->get('views') ?? 0) + 1);
+            $this->db->update($post);
+        }
+
+        // Render blocks
         $post->set('html', $post->renderHtml());
+
         $site = $this->db->findOne(Meta::class, 'where meta_name = ?', ['site_name']);
 
         if (!$site) {
