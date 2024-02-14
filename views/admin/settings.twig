@@ -1,0 +1,18 @@
+{% include 'admin/partials/header.twig' with {'page_title': 'Settings', 'is_settings': true} %}
+
+<div class="wrap">
+    {% include 'admin/partials/sidebar.twig' with {'active': 'settings'} %}
+
+    <div class="content-area">
+        <div class="page-heading">
+            <h2 class="title">Settings</h2>
+        </div>
+
+        <div id="settings">
+            {% include 'admin/settings/site-name.twig' %}
+            {% include 'admin/settings/site-description.twig' %}
+        </div>
+    </div>
+</div>
+
+{% include 'admin/partials/footer.twig' %}

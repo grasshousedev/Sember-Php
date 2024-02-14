@@ -6,6 +6,7 @@ use Asko\Sember\Config;
 use Asko\Sember\Database;
 use Asko\Sember\Helpers\ArrayHelper;
 use Asko\Sember\Helpers\BlockHelper;
+use Asko\Sember\Models\Meta;
 use Asko\Sember\Models\Post;
 use Asko\Sember\Request;
 use Asko\Sember\Response;
@@ -375,5 +376,53 @@ readonly class AdminAPIController
         $class = Config::getBlock($block['key']);
 
         return call_user_func([$class, $fn], $post, $block, $arg);
+    }
+
+    /**
+     * Update the site name.
+     *
+     * @param Request $request
+     * @param Response $response
+     * @return Response
+     */
+    public function updateSiteName(Request $request, Response $response): Response
+    {
+        $site_name = $this->db->findOne(Meta::class, 'where meta_name = ?', ['site_name']);
+        $site_name->set('meta_value', $request->input('name', ''));
+        $this->db->update($site_name);
+
+        return $response->json(['status' => 'success']);
+    }
+
+    /**
+     * Update the site description.
+     *
+     * @param Request $request
+     * @param Response $response
+     * @return Response
+     */
+    public function updateSiteDescription(Request $request, Response $response): Response
+    {
+        $site_description = $this->db->findOne(Meta::class, 'where meta_name = ?', ['site_description']);
+
+        // Description doesn't exist yet, create it.
+        if (!$site_description) {
+            $site_description = new Meta([
+                'meta_name' => 'site_description',
+                'meta_value' => $request->input('description', ''),
+                'created_at' => time(),
+                'updated_at' => time(),
+            ]);
+
+            $this->db->create($site_description);
+
+            return $response->json(['status' => 'success']);
+        }
+
+        // Description exists, update it.
+        $site_description->set('meta_value', $request->input('description', ''));
+        $this->db->update($site_description);
+
+        return $response->json(['status' => 'success']);
     }
 }

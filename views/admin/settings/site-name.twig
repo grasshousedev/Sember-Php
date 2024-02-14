@@ -1,0 +1,10 @@
+<div class="site-name">
+    <label for="site-name">Site Name</label>
+    <input type="text"
+           id="site-name"
+           name="name"
+           placeholder="Site name ..."
+           value="{{ site_name }}"
+           hx-post="/admin/api/settings/update-site-name"
+           hx-trigger="input changed delay:250ms"/>
+</div>

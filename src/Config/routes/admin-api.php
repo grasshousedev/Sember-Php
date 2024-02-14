@@ -76,5 +76,17 @@ return [
         'path' => '/admin/api/post/{id}/blocks/{blockId}/opt/{fn}/{arg}',
         'callable' => [AdminAPIController::class, 'blockOption'],
         'middleware' => [RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]
+    ],
+    [
+        'method' => 'post',
+        'path' => '/admin/api/settings/update-site-name',
+        'callable' => [AdminAPIController::class, 'updateSiteName'],
+        'middleware' => [RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]
+    ],
+    [
+        'method' => 'post',
+        'path' => '/admin/api/settings/update-site-description',
+        'callable' => [AdminAPIController::class, 'updateSiteDescription'],
+        'middleware' => [RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]
     ]
 ];

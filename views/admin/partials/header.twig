@@ -9,10 +9,23 @@
         <link rel="stylesheet" href="{{ css }}">
     {% endfor %}
 
-    {% if editor %}
+    <script src="/assets/admin/js/utils.js"></script>
+
+    {% if is_editor %}
         <script src="https://unpkg.com/htmx.org@1.9.10"></script>
         <script src="https://unpkg.com/htmx.org/dist/ext/path-deps.js"></script>
         <script src="/assets/admin/js/editor.js"></script>
+
+        <script>
+          htmx.on('htmx:configRequest', (event) => {
+            event.detail.headers['X-CSRFToken'] = '{{ csrf_token() }}';
+          })
+        </script>
+    {% endif %}
+
+    {% if is_settings %}
+        <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+        <script src="/assets/admin/js/settings.js"></script>
 
         <script>
           htmx.on('htmx:configRequest', (event) => {

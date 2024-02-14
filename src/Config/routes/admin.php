@@ -54,5 +54,11 @@ return [
         'path' => '/admin/posts/delete/{id}',
         'callable' => [AdminController::class, 'deletePost'],
         'middleware' => [RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]
+    ],
+    [
+        'method' => 'get',
+        'path' => '/admin/settings',
+        'callable' => [AdminController::class, 'settings'],
+        'middleware' => [RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]
     ]
 ];

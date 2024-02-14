@@ -4,6 +4,7 @@ namespace Asko\Sember\Controllers;
 
 use Asko\Sember\Database;
 use Asko\Sember\Helpers\BlockHelper;
+use Asko\Sember\Models\Meta;
 use Asko\Sember\Models\Post;
 use Asko\Sember\Models\User;
 use Asko\Sember\Request;
@@ -131,5 +132,22 @@ readonly class AdminController
         $this->db->delete($post);
 
         return $response->redirect('/admin/posts');
+    }
+
+    /**
+     * Settings page.
+     *
+     * @param Response $response
+     * @return Response
+     */
+    public function settings(Response $response): Response
+    {
+        $site_name = $this->db->findOne(Meta::class, 'where meta_name = ?', ['site_name']);
+        $site_description = $this->db->findOne(Meta::class, 'where meta_name = ?', ['site_description']);
+
+        return $response->view('admin/settings', [
+            'site_name' => $site_name?->get('meta_value') ?? '',
+            'site_description' => $site_description?->get('meta_value') ?? '',
+        ]);
     }
 }

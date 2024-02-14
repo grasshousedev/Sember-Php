@@ -6,6 +6,7 @@ use Asko\Sember\Database;
 use Asko\Sember\Models\Meta;
 use Asko\Sember\Models\Post;
 use Asko\Sember\Response;
+use Parsedown;
 
 readonly class SiteController
 {
@@ -32,16 +33,14 @@ readonly class SiteController
                 return $post;
             })->toArray();
 
-        $site = $this->db->findOne(Meta::class, 'where meta_name = ?', ['site_name']);
-
-        if (!$site) {
-            return $this->notFound($response);
-        }
+        $site_title = $this->db->findOne(Meta::class, 'where meta_name = ?', ['site_name']);
+        $site_description = $this->db->findOne(Meta::class, 'where meta_name = ?', ['site_description']);
 
         return $response->view('site/home', [
             'page_title' => false,
             'posts' => $posts,
-            'site_name' => $site->get('meta_value'),
+            'site_name' => $site_title->get('meta_value'),
+            'site_description' => (new Parsedown)->text($site_description?->get('meta_value') ?? ''),
         ]);
     }
 
@@ -69,19 +68,15 @@ readonly class SiteController
             $this->db->update($post);
         }
 
-        // Render blocks
         $post->set('html', $post->renderHtml());
-
-        $site = $this->db->findOne(Meta::class, 'where meta_name = ?', ['site_name']);
-
-        if (!$site) {
-            return $this->notFound($response);
-        }
+        $site_title = $this->db->findOne(Meta::class, 'where meta_name = ?', ['site_name']);
+        $site_description = $this->db->findOne(Meta::class, 'where meta_name = ?', ['site_description']);
 
         return $response->view('site/post', [
             'page_title' => $post->get('title'),
             'post' => $post,
-            'site_name' => $site->get('meta_value'),
+            'site_name' => $site_title->get('meta_value'),
+            'site_description' => (new Parsedown)->text($site_description?->get('meta_value') ?? ''),
         ]);
     }
 

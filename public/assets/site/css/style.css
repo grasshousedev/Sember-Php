@@ -9,12 +9,22 @@ body {
     font-size: 15px;
     line-height: 1.65;
     color: #333;
+    padding: 0;
+    margin: 0;
+}
+
+body.js-about-section-open {
+    display: flex;
+    flex-direction: row;
+}
+
+.page {
     width: 550px;
     margin: 100px;
 }
 
 @media all and (max-width: 750px) {
-    body {
+    .page {
         width: 100%;
         padding: 30px;
         margin: 0;
@@ -30,6 +40,7 @@ a {
 h1 {
     font-size: 13px;
     text-transform: uppercase;
+    margin-top: 0;
     margin-bottom: 100px;
 }
 
@@ -42,6 +53,24 @@ h1 a {
     h1 {
         margin-bottom: 50px;
     }
+}
+
+h1 button {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+    text-transform: uppercase;
+    border: 0;
+    border-radius: 100%;
+    background: #eee;
+    padding: 0;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+body.js-about-section-open h1 button {
+    background: #111;
+    color: #eee;
 }
 
 code {
@@ -127,4 +156,72 @@ article pre {
         padding: 30px;
         margin-left: -30px;
     }
+}
+
+/** ABOUT */
+.about-section {
+    display: none;
+    width: 500px;
+    min-height: 100vh;
+    background: #eee;
+    overflow: auto;
+    padding: 100px;
+}
+
+@media all and (max-width: 1250px) {
+    .about-section {
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+}
+
+@media all and (max-width: 750px) {
+    .about-section {
+        width: 100%;
+        padding: 26px 30px 30px;
+    }
+}
+
+body.js-about-section-open .about-section {
+    display: block;
+}
+
+.about-section h1 {
+    margin-top: 0;
+}
+
+.about-section h2 {
+    font-size: 17px;
+    font-weight: 500;
+    color: #111;
+    margin-top: 100px;
+    margin-bottom: 25px;
+}
+
+
+@media all and (max-width: 750px) {
+    .about-section h2 {
+        margin-top: 50px;
+    }
+}
+
+
+.about-section ul {
+    margin-left: 0;
+    padding-left: 15px;
+    margin-bottom: 25px;
+}
+
+.about-section ul li {
+    list-style: square;
+    margin-bottom: 5px;
+}
+
+.about-section ul li:last-child {
+    margin-bottom: 0;
+}
+
+.about-section ul li a {
+    border-bottom: 2px solid #111;
 }

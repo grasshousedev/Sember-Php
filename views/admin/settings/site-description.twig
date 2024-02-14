@@ -1,0 +1,8 @@
+<div class="site-description">
+    <label for="site-description">Site Description</label>
+    <textarea id="site-description"
+              name="description"
+              placeholder="A short description of your site ..."
+              hx-post="/admin/api/settings/update-site-description"
+              hx-trigger="input changed delay:250ms"/>{{ site_description }}</textarea>
+</div>

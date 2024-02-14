@@ -10,8 +10,16 @@
           rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
           rel="stylesheet">
+    <link rel="stylesheet" href="/assets/shared/fa/css/all.min.css">
     <link rel="stylesheet" href="/assets/site/css/style.css">
+    <script src="/assets/site/js/about.js"></script>
 </head>
 <body>
 
-<h1><a href="/">{{ site_name }}</a></h1>
+{% include 'site/about.twig' %}
+
+<div class="page">
+    <h1>
+        <a href="/">{{ site_name }}</a>
+        <button class="toggle-about-section"><i class="fas fa-question"></i></button>
+    </h1>
