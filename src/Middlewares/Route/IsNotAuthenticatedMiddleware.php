@@ -17,7 +17,7 @@ readonly class IsNotAuthenticatedMiddleware
     {
         $auth_token = $request->session()->get('auth_token');
 
-        // If there is no auth token, redirect to sign in page.
+        // If you are authenticated, redirect to posts page.
         if ($auth_token && $this->db->findOne(User::class, 'where auth_token = ?', [$auth_token])) {
             return $response->redirect('/admin/posts');
         }
