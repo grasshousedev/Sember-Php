@@ -311,6 +311,10 @@ input, textarea, select {
     border-radius: 4px;
 }
 
+#editor .add-block.active {
+    background: #bbb;
+}
+
 #editor .add-block:hover > button {
     display: block !important;
 }
@@ -337,9 +341,9 @@ input, textarea, select {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 25px;
     width: 400px;
-    background: #fff;
-    border: 1px solid #ccc;
-    box-shadow: 0 1px 8px rgba(0, 0, 0, .05);
+    background: #272727;
+    border: 1px solid #111;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, .25);
     border-radius: 4px;
     z-index: 9;
     position: absolute;
@@ -348,7 +352,7 @@ input, textarea, select {
     padding: 25px;
 }
 
-#editor .add-block .block-list.active {
+#editor .add-block.active .block-list {
     display: grid;
 }
 
@@ -359,16 +363,16 @@ input, textarea, select {
     text-align: center;
     border-radius: 4px;
     color: #444;
-    background: linear-gradient(#fff, #fafafa);
+    background: #eee;
     box-shadow: 0 1px 8px rgba(0, 0, 0, .05);
-    border: 1px solid #e5e5e5;
+    border: 0;
     cursor: pointer;
     padding: 15px;
 }
 
 #editor .add-block .block-list button:hover {
     color: #111;
-    border: 1px solid #ccc;
+    background: #fff;
 }
 
 #editor .add-block .block-list button i {

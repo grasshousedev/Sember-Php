@@ -20,20 +20,16 @@ htmx.onLoad(() => {
     el.addEventListener("click", () => {
       // Close all other options
       toggles.forEach((toggle) => {
-        toggle.parentElement
-          .querySelector(".block-list")
-          .classList.remove("active");
+        toggle.parentElement.classList.remove("active");
       });
 
       // Open the clicked options
-      el.parentElement.querySelector(".block-list").classList.toggle("active");
+      el.parentElement.classList.toggle("active");
 
       el.parentElement
         .querySelector(".block-list")
         .addEventListener("mouseleave", () => {
-          el.parentElement
-            .querySelector(".block-list")
-            .classList.remove("active");
+          el.parentElement.classList.remove("active");
         });
     });
   });
