@@ -44,6 +44,20 @@ h1 a {
     }
 }
 
+code {
+    font-family: 'Jetbrains Mono', monospace;
+    font-size: 14px;
+    background: #f2f2f2;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+pre code {
+    padding: 0;
+    background: none;
+    border-radius: 0;
+}
+
 article {
     margin-bottom: 150px;
 }

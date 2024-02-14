@@ -28,6 +28,17 @@ class Request
         return $this->uri;
     }
 
+    public function headers($key = null): string|array|null
+    {
+        $headers = getallheaders();
+
+        if ($key) {
+            return $headers[$key] ?? null;
+        }
+
+        return $headers;
+    }
+
     public function isSecure(): bool
     {
         if (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) === 'on') {

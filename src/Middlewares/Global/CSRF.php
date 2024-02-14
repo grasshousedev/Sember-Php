@@ -13,6 +13,8 @@ class CSRF
             return null;
         }
 
+        if ((new Request)->headers('Hx-Request')) return null;
+
         // Validate token
         $session_csrf_token = (new Request)->session()->get('csrf_token');
         $body_csrf_token = (new Request)->input('csrf_token');
