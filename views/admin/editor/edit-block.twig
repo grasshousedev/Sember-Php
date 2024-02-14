@@ -21,7 +21,8 @@
                     hx-target=".blocks"><i class="fas fa-chevron-down"></i> Move down
             </button>
         {% endif %}
-        <button hx-delete="/admin/api/post/{{ post.data.id }}/blocks/{{ block.id }}"
+        <button class="js-delete-block"
+                hx-delete="/admin/api/post/{{ post.data.id }}/blocks/{{ block.id }}"
                 hx-swap="outerHTML"
                 hx-target=".blocks"><i class="fas fa-trash-alt"></i> Delete
         </button>

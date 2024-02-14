@@ -59,3 +59,40 @@ htmx.onLoad(() => {
     });
   });
 });
+
+// Called after adding a new block, which scrolls the
+// new block into view and focuses in the beginning of it.
+htmx.on("focusBlockBeginning", (event) => {
+  const blockId = event.detail.value;
+  const block = document.querySelector(
+    '#editor .block[data-id="' + blockId + '"]',
+  );
+
+  if (block) {
+    block.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    if (block.querySelector("textarea")) {
+      block.querySelector("textarea").focus();
+    }
+  }
+});
+
+// Called after removing a block, which scrolls the
+// previous block into view and focuses in the end of it.
+htmx.on("focusBlockEnd", (event) => {
+  const blockId = event.detail.value;
+  const block = document.querySelector(
+    '#editor .block[data-id="' + blockId + '"]',
+  );
+
+  if (block) {
+    block.scrollIntoView({ behavior: "smooth", block: "end" });
+
+    if (block.querySelector("textarea")) {
+      const temp_value = block.querySelector("textarea").value;
+      block.querySelector("textarea").value = "";
+      block.querySelector("textarea").value = temp_value;
+      block.querySelector("textarea").focus();
+    }
+  }
+});

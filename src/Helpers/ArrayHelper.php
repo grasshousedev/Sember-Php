@@ -73,6 +73,24 @@ class ArrayHelper
     }
 
     /**
+     * Find a previous item in an array to the one that passes a truth test.
+     *
+     * @param array $items
+     * @param callable $predicate_fn
+     * @return mixed
+     */
+    public static function findPrev(array $items, callable $predicate_fn): mixed
+    {
+        $index = self::findIndex($items, $predicate_fn);
+
+        if ($index === false || $index === 0) {
+            return null;
+        }
+
+        return $items[$index - 1];
+    }
+
+    /**
      * Move the first item in an array that passes a truth test to
      * above the item before it, if there is one.
      *

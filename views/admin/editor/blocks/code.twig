@@ -4,5 +4,5 @@
         name="value"
         placeholder="Code ..."
         hx-post="/admin/api/post/{{ post.id }}/blocks/{{ block.id }}"
-        hx-trigger="input changed delay:250ms"
+        hx-trigger="input changed delay:50ms"
         hx-swap="none">{{ block.value }}</textarea>

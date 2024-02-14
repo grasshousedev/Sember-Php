@@ -215,6 +215,8 @@ readonly class AdminAPIController
         $post->set('updated_at', time());
         $this->db->update($post);
 
+        header('HX-Trigger-After-Settle: {"focusBlockBeginning": "' . $block['id'] . '"}');
+
         return $response->view('admin/editor/blocks', [
             'url' => $request->protocol() . '://' . $request->hostname(),
             'post' => $post,
@@ -285,10 +287,15 @@ readonly class AdminAPIController
         }
 
         $blocks = json_decode($post->get('content'), true);
+        $prev_block = ArrayHelper::findPrev($blocks, fn($block) => $block['id'] === $blockId);
         $blocks = array_values(array_filter($blocks, fn($block) => $block['id'] !== $blockId));
         $post->set('content', json_encode($blocks));
         $post->set('updated_at', time());
         $this->db->update($post);
+
+        if ($prev_block) {
+            header('HX-Trigger-After-Settle: {"focusBlockEnd": "' . $prev_block['id'] . '"}');
+        }
 
         return $response->view('admin/editor/blocks', [
             'url' => $request->protocol() . '://' . $request->hostname(),
