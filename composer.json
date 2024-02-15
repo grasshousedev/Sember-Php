@@ -18,14 +18,10 @@
     "asko/router": "^2.1.0",
     "ext-json": "*",
     "php": "^8.3",
-    "crell/serde": "^1.1",
-    "symfony/yaml": "^7.0",
     "ramsey/uuid": "^4.7",
     "twig/twig": "^3.0",
     "asko/hird": "^2.1",
     "erusev/parsedown": "^1.7",
-    "fakerphp/faker": "^1.23",
-    "ext-zend-opcache": "*",
     "ext-pdo": "*"
   }
 }

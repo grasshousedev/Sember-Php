@@ -2,15 +2,10 @@
 
 namespace Asko\Sember\Models;
 
-use Crell\Serde\Attributes as Serde;
-
-#[Serde\ClassSettings(includeFieldsByDefault: true)]
 class Model
 {
-    #[Serde\Field(exclude: true)]
     protected string $storage_name;
 
-    #[Serde\Field(flatten: true)]
     public array $data = [];
 
     public function __construct(array $data = [])

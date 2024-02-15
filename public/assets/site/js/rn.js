@@ -30,7 +30,7 @@ function annotateEls() {
     ...document.querySelectorAll(".about-section a"),
   ]);
 
-  annotateStrikes([...document.querySelectorAll(".body del")]);
+  annotateStrikes(document.querySelectorAll(".body del"));
 }
 
 window.addEventListener("load", () => {
