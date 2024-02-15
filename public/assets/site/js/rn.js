@@ -24,6 +24,22 @@ function annotateStrikes(els) {
   });
 }
 
+let annotatedCode = [];
+
+function annotateCode(els) {
+  annotatedCode.forEach((a) => a.remove());
+
+  els.forEach((e) => {
+    const annotation = annotate(e, {
+      type: "highlight",
+      color: "#FDDB29",
+      multiline: true,
+    });
+    annotation.show();
+    annotatedCode.push(annotation);
+  });
+}
+
 function annotateEls() {
   annotateLinks([
     ...document.querySelectorAll(".body a"),
@@ -31,6 +47,7 @@ function annotateEls() {
   ]);
 
   annotateStrikes(document.querySelectorAll(".body del"));
+  annotateCode(document.querySelectorAll(".body p code"));
 }
 
 window.addEventListener("load", () => {

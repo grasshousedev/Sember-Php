@@ -87,6 +87,12 @@ code {
     border-radius: 3px;
 }
 
+p code {
+    color: #111;
+    background: transparent;
+    padding: 0;
+}
+
 pre code {
     padding: 0;
     background: none;
