@@ -43,9 +43,20 @@ class View
             return "<input type=\"hidden\" name=\"csrf_token\" value=\"{$token}\">";
         }));
 
+        // Asset fn
+        $twig->addFunction(new TwigFunction('asset', function ($path) {
+            if (str_starts_with($path, 'http')) {
+                return $path;
+            }
+
+            $last_modified = filemtime(NTH_ROOT . "/public/{$path}");
+
+            return "{$path}?v={$last_modified}";
+        }));
+
         try {
             return $twig->render("{$view}.twig", $data);
-        } catch (LoaderError | RuntimeError | SyntaxError $e) {
+        } catch (LoaderError|RuntimeError|SyntaxError $e) {
             return $e->getMessage();
         }
     }

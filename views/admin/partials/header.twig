@@ -6,15 +6,15 @@
     <link rel="stylesheet" href="/assets/shared/fa/css/all.min.css">
     <link rel="stylesheet" href="/assets/admin/css/style.css">
     {% for css in injectedCss %}
-        <link rel="stylesheet" href="{{ css }}">
+        <link rel="stylesheet" href="{{ asset(css) }}">
     {% endfor %}
 
-    <script src="/assets/admin/js/utils.js"></script>
+    <script src="{{ asset('/assets/admin/js/utils.js') }}"></script>
 
     {% if is_editor %}
         <script src="https://unpkg.com/htmx.org@1.9.10"></script>
         <script src="https://unpkg.com/htmx.org/dist/ext/path-deps.js"></script>
-        <script src="/assets/admin/js/editor.js"></script>
+        <script src="{{ asset('/assets/admin/js/editor.js') }}"></script>
 
         <script>
           htmx.on('htmx:configRequest', (event) => {
@@ -25,7 +25,7 @@
 
     {% if is_settings %}
         <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-        <script src="/assets/admin/js/settings.js"></script>
+        <script src="{{ asset('/assets/admin/js/settings.js') }}"></script>
 
         <script>
           htmx.on('htmx:configRequest', (event) => {
@@ -35,7 +35,7 @@
     {% endif %}
 
     {% for js in injectedJs %}
-        <script src="{{ js }}"></script>
+        <script src="{{ asset(js) }}"></script>
     {% endfor %}
 </head>
 <body>
