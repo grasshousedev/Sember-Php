@@ -53,15 +53,20 @@ readonly class AdminController
      * @param Response $response
      * @return Response
      */
-    public function posts(Response $response): Response
+    public function posts(Request $request, Response $response): Response
     {
         $posts = $this->db->find(
             model: Post::class,
             query: 'order by created_at desc LIMIT 10'
         )->toArray();
 
+        $site_name = $this->db->findOne(Meta::class, 'where meta_name = ?', ['site_name']);
+
         return $response->view('admin/posts', [
             'posts' => $posts,
+            'site_name' => $site_name?->get('meta_value') ?? '',
+            'url' => $request->protocol() . '://' . $request->hostname(),
+            'url_without_protocol' => $request->hostname(),
         ]);
     }
 
@@ -91,6 +96,7 @@ readonly class AdminController
     /**
      * Edit a post.
      *
+     * @param Request $request
      * @param Response $response
      * @param string $id
      * @return Response
@@ -103,14 +109,18 @@ readonly class AdminController
             return $response->redirect('/admin/posts');
         }
 
+        $site_name = $this->db->findOne(Meta::class, 'where meta_name = ?', ['site_name']);
+
         return $response->view('admin/edit-post', [
             'id' => $id,
             'post' => $post,
             'injectedJs' => BlockHelper::injectedJs(),
             'injectedCss' => BlockHelper::injectedCss(),
             'url' => $request->protocol() . '://' . $request->hostname(),
+            'url_without_protocol' => $request->hostname(),
             'blocks' => BlockHelper::editableBlocks($post),
             'block_list' => BlockHelper::list(),
+            'site_name' => $site_name?->get('meta_value') ?? '',
         ]);
     }
 
@@ -137,10 +147,11 @@ readonly class AdminController
     /**
      * Settings page.
      *
+     * @param Request $request
      * @param Response $response
      * @return Response
      */
-    public function settings(Response $response): Response
+    public function settings(Request $request, Response $response): Response
     {
         $site_name = $this->db->findOne(Meta::class, 'where meta_name = ?', ['site_name']);
         $site_description = $this->db->findOne(Meta::class, 'where meta_name = ?', ['site_description']);
@@ -148,6 +159,7 @@ readonly class AdminController
         return $response->view('admin/settings', [
             'site_name' => $site_name?->get('meta_value') ?? '',
             'site_description' => $site_description?->get('meta_value') ?? '',
+            'url_without_protocol' => $request->hostname(),
         ]);
     }
 }

@@ -24,8 +24,8 @@ input, textarea, select {
 .wrap {
     display: grid;
     grid-template-columns: 175px auto;
-    gap: 25px;
-    max-width: 850px;
+    gap: 50px;
+    max-width: 875px;
     min-height: 100vh;
     margin-left: auto;
     margin-right: auto;
@@ -56,6 +56,9 @@ input, textarea, select {
 /** SIDEBAR */
 .sidebar {
     min-height: 100vh;
+    max-height: 100vh;
+    position: sticky;
+    top: 0;
     border-right: 1px solid #ccc;
     padding-top: 25px;
 }
@@ -83,10 +86,35 @@ input, textarea, select {
     font-weight: 500;
 }
 
+.sidebar .bottom {
+    width: calc(100% - 50px);
+    border-top: 1px solid #ddd;
+    position: absolute;
+    padding-top: 25px;
+    bottom: 25px;
+}
+
+.sidebar .bottom .link-to-site {
+    display: inline-block;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 13px;
+    font-weight: 500;
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+}
+
+.sidebar .bottom .link-to-site:hover {
+    color: #111;
+    border-bottom: 1px solid #111;
+}
+
 /** CONTENT AREA */
 .content-area {
     padding-top: 25px;
-    padding-left: 15px;
 }
 
 .content-area .page-heading {
