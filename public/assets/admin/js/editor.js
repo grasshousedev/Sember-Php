@@ -11,7 +11,8 @@ htmx.onLoad(() => {
 
       // Open the clicked options
       el.parentElement.classList.toggle("active");
-
+      
+      // Close the block options when leaving the block list
       el.parentElement
         .querySelector(".block-list")
         .addEventListener("mouseleave", () => {

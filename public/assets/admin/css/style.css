@@ -347,7 +347,7 @@ input, textarea, select {
     border-radius: 4px;
     z-index: 9;
     position: absolute;
-    top: -10px;
+    bottom: -10px;
     left: calc(50% - 200px);
     padding: 25px;
 }
