@@ -2,7 +2,8 @@
     {% include 'admin/editor/add-block.twig' with {'position': 'beginning' } %}
 
     {% for block in blocks %}
-        <div class="block {{ block.key }}-block" data-id="{{ block.id }}" data-block="{{ block.key }}">
+        <div class="block {{ block.key }}-block" data-id="{{ block.id }}" data-post-id="{{ post.data.id }}"
+             data-block="{{ block.key }}">
             {{ block.render | raw }}
             {% include 'admin/editor/edit-block.twig' %}
         </div>

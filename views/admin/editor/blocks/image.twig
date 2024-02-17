@@ -1,0 +1,8 @@
+{% if block.src %}
+    <img src="/files/{{ block.src }}" alt="{{ block.alt }}"/>
+{% else %}
+    <div class="upload-image">
+        Click here to select an image.
+    </div>
+{% endif %}
+

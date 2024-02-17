@@ -334,8 +334,8 @@ readonly class AdminAPIController
 
         $blocks = json_decode($post->get('content'), true);
         $post->set('content', match ($direction) {
-            'up' => ArrayHelper::moveUp($blocks, fn($block) => $block['id'] === $blockId),
-            'down' => ArrayHelper::moveDown($blocks, fn($block) => $block['id'] === $blockId),
+            'up' => json_encode(ArrayHelper::moveUp($blocks, fn($block) => $block['id'] === $blockId)),
+            'down' => json_encode(ArrayHelper::moveDown($blocks, fn($block) => $block['id'] === $blockId)),
             default => $post->get('content'),
         });
 
@@ -357,7 +357,7 @@ readonly class AdminAPIController
      * @param string $id
      * @param string $blockId
      * @param string $fn
-     * @param string $arg
+     * @param string|null $arg
      * @return Response
      */
     public function blockOption(
@@ -365,7 +365,7 @@ readonly class AdminAPIController
         string   $id,
         string   $blockId,
         string   $fn,
-        string   $arg
+        ?string  $arg,
     ): Response
     {
         $post = $this->db->findOne(Post::class, 'where id = ?', [$id]);

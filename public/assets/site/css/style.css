@@ -157,6 +157,13 @@ article .body del {
     text-decoration: none;
 }
 
+article .body img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 25px;
+}
+
 article pre {
     width: calc(100% + 125px);
     font-size: 14px;

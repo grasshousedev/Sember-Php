@@ -16,6 +16,15 @@ class Core
         // Start session.
         session_start();
 
+        // Files
+        if (!is_dir(NTH_ROOT . '/storage/files')) {
+            mkdir(NTH_ROOT . '/storage/files');
+        }
+
+        if (!is_link(NTH_ROOT . '/public/files')) {
+            symlink(NTH_ROOT . '/storage/files', NTH_ROOT . '/public/files');
+        }
+
         // Run migrations
         $db = new Database();
         $executed_migrations = $db->find(Migration::class)

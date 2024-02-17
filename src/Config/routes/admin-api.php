@@ -73,6 +73,12 @@ return [
     ],
     [
         'method' => 'post',
+        'path' => '/admin/api/post/{id}/blocks/{blockId}/opt/{fn}',
+        'callable' => [AdminAPIController::class, 'blockOption'],
+        'middleware' => [RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]
+    ],
+    [
+        'method' => 'post',
         'path' => '/admin/api/post/{id}/blocks/{blockId}/opt/{fn}/{arg}',
         'callable' => [AdminAPIController::class, 'blockOption'],
         'middleware' => [RequiresSetupMiddleware::class, IsAuthenticatedMiddleware::class]

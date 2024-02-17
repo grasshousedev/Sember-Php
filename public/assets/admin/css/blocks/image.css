@@ -1,0 +1,15 @@
+#editor .block[data-block="image"] .upload-image {
+    text-align: center;
+    background: #fafafa;
+    border: 1px dashed #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 20px;
+}
+
+#editor .block[data-block="image"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
