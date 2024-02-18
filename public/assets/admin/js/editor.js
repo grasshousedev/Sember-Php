@@ -11,7 +11,7 @@ htmx.onLoad(() => {
 
       // Open the clicked options
       el.parentElement.classList.toggle("active");
-      
+
       // Close the block options when leaving the block list
       el.parentElement
         .querySelector(".block-list")
@@ -70,8 +70,6 @@ htmx.on("focusBlockBeginning", (event) => {
   );
 
   if (block) {
-    block.scrollIntoView({ behavior: "smooth", block: "start" });
-
     if (block.querySelector("textarea")) {
       block.querySelector("textarea").focus();
     }
@@ -87,8 +85,6 @@ htmx.on("focusBlockEnd", (event) => {
   );
 
   if (block) {
-    block.scrollIntoView({ behavior: "smooth", block: "end" });
-
     if (block.querySelector("textarea")) {
       const temp_value = block.querySelector("textarea").value;
       block.querySelector("textarea").value = "";

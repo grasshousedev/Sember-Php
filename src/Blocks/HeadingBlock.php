@@ -9,6 +9,7 @@ use Asko\Sember\Helpers\ArrayHelper;
 use Asko\Sember\Helpers\BlockHelper;
 use Asko\Sember\Models\Post;
 use Asko\Sember\Response;
+use Parsedown;
 
 /**
  * The heading block.
@@ -140,9 +141,11 @@ class HeadingBlock implements Block
             'small' => 'h4',
         };
 
+        $value = (new Parsedown)->line($block['value']);
+
         return <<<HTML
             <{$size} class="block heading-block">
-                {$block['value']}
+                {$value}
             </{$size}>
         HTML;
     }

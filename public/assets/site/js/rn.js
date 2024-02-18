@@ -6,7 +6,7 @@ function annotateLinks(els) {
   annotatedLinks.forEach((a) => a.remove());
 
   els.forEach((e) => {
-    const annotation = annotate(e, { type: "underline" });
+    const annotation = annotate(e, { type: "underline", multiline: true });
     annotation.show();
     annotatedLinks.push(annotation);
   });
@@ -18,7 +18,7 @@ function annotateStrikes(els) {
   annotatedStrikes.forEach((a) => a.remove());
 
   els.forEach((e) => {
-    const annotation = annotate(e, { type: "strike-through" });
+    const annotation = annotate(e, { type: "strike-through", multiline: true });
     annotation.show();
     annotatedStrikes.push(annotation);
   });
