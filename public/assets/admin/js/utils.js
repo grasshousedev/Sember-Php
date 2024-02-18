@@ -11,7 +11,7 @@ function autogrow(els) {
       textarea.style.height = `0px`;
       textarea.style.height = `${textarea.scrollHeight}px`;
 
-      window.scrollTo(0, scrollPos + 10);
+      window.scrollTo(0, scrollPos);
     });
   });
 }
