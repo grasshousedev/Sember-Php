@@ -27,7 +27,7 @@ input, textarea, select {
 
 .wrap {
     display: grid;
-    grid-template-columns: 175px auto;
+    grid-template-columns: 175px 650px;
     gap: 50px;
     max-width: 875px;
     min-height: 100vh;

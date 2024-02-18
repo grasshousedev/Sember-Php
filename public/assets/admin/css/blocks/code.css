@@ -6,3 +6,8 @@
     margin-top: 4px;
     margin-bottom: 4px;
 }
+
+#editor .blocks[data-block="code"] {
+    max-width: 100%;
+    overflow: auto;
+}
