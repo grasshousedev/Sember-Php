@@ -70,6 +70,8 @@ htmx.on("focusBlockBeginning", (event) => {
   );
 
   if (block) {
+    block.scrollIntoView({ behavior: "instant", block: "start" });
+
     if (block.querySelector("textarea")) {
       block.querySelector("textarea").focus();
     }
@@ -85,6 +87,8 @@ htmx.on("focusBlockEnd", (event) => {
   );
 
   if (block) {
+    block.scrollIntoView({ behavior: "instant", block: "end" });
+
     if (block.querySelector("textarea")) {
       const temp_value = block.querySelector("textarea").value;
       block.querySelector("textarea").value = "";
