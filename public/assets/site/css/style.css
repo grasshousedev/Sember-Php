@@ -100,13 +100,7 @@ pre code {
 }
 
 article {
-    margin-bottom: 150px;
-}
-
-@media all and (max-width: 750px) {
-    article {
-        margin-bottom: 75px;
-    }
+    margin-bottom: 200px;
 }
 
 .posts article:last-child {
