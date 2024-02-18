@@ -18,6 +18,7 @@ function lines(el) {
 
 function updateTextareaSize(e) {
   e.target.style.height = `0px`;
+  e.target.value = e.target.value.trim();
   e.target.style.height = `${e.target.scrollHeight}px`;
 }
 
