@@ -25,7 +25,7 @@ readonly class SiteController
         $posts = $this->db
             ->find(
                 model: Post::class,
-                query: 'where status = ? order by created_at desc limit 10',
+                query: 'where status = ? order by published_at desc limit 10',
                 data: ['published']
             )->map(function (Post $post) {
                 $post->set('html', $post->renderHtml());
