@@ -92,28 +92,34 @@ input, textarea, select {
 
 .sidebar .bottom {
     width: calc(100% - 50px);
-    border-top: 1px solid #ddd;
     position: absolute;
     padding-top: 25px;
     bottom: 25px;
 }
 
 .sidebar .bottom .link-to-site {
-    display: inline-block;
-    max-width: 100%;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
     font-size: 13px;
     font-weight: 500;
     color: #333;
     text-decoration: none;
     border-bottom: 1px solid transparent;
+    padding-bottom: 3px;
 }
 
 .sidebar .bottom .link-to-site:hover {
     color: #111;
     border-bottom: 1px solid #111;
+}
+
+.sidebar .bottom .link-to-site span {
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 /** CONTENT AREA */
