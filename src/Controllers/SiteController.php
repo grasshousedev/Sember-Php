@@ -31,7 +31,7 @@ readonly class SiteController
                 $post->set('html', $post->renderHtml());
 
                 return $post;
-            })->toArray();
+            })->orderBy('published_at', 'desc')->toArray();
 
         $site_title = $this->db->findOne(Meta::class, 'where meta_name = ?', ['site_name']);
         $site_description = $this->db->findOne(Meta::class, 'where meta_name = ?', ['site_description']);
