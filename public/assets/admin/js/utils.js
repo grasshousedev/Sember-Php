@@ -16,28 +16,20 @@ function lines(el) {
   return Math.floor(el.scrollHeight / lineHeight);
 }
 
-function autogrow(els) {
-  let scrollPos = window.scrollY;
+function updateTextareaSize(e) {
+  e.target.style.height = `0px`;
+  e.target.style.height = `${e.target.scrollHeight}px`;
+}
 
+function autogrow(els) {
   els.forEach((el) => {
     const textarea = el.querySelector("textarea");
 
-    textarea.style.height = `0px`;
+    textarea.style.boxSizing = "border-box";
+    textarea.style.height = parseInt(getComputedStyle(textarea).lineHeight, 10);
     textarea.style.height = `${textarea.scrollHeight}px`;
 
-    textarea.addEventListener("change", (_) => {
-      scrollPos = window.scrollY;
-
-      textarea.style.height = `0px`;
-      textarea.style.height = `${textarea.scrollHeight}px`;
-    });
-
-    const ro = new ResizeObserver((_) => {
-      if (scrollPos > 0) {
-        window.scrollTo(0, scrollPos);
-      }
-    });
-
-    ro.observe(textarea);
+    textarea.removeEventListener("input", updateTextareaSize);
+    textarea.addEventListener("input", updateTextareaSize);
   });
 }
