@@ -9,7 +9,6 @@
     font-weight: 600;
     color: #111;
     background: transparent;
-    border: 0;
 }
 
 #editor .block[data-block="heading"] textarea.size-medium {
@@ -23,7 +22,6 @@
     font-weight: 500;
     color: #111;
     background: transparent;
-    border: 0;
 }
 
 #editor .block[data-block="heading"] textarea.size-small {
@@ -38,5 +36,14 @@
     text-transform: uppercase;
     color: #777;
     background: transparent;
-    border: 0;
+}
+
+#editor .block[data-block="heading"] textarea {
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+#editor .block[data-block="heading"] textarea:focus {
+    outline: none;
+    border: 1px solid #0077cc;
 }

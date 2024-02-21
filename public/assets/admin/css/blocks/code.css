@@ -1,10 +1,16 @@
 .CodeMirror {
+    width: calc(100% + 40px);
     font-size: 14px;
     height: auto;
-    border: 1px solid #e5e5e5;
-    border-radius: 4px;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
     margin-top: 4px;
+    margin-left: -20px;
     margin-bottom: 4px;
+}
+
+.CodeMirror-focused {
+    border-color: #0077cc;
 }
 
 #editor .blocks[data-block="code"] {
