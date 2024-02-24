@@ -16,6 +16,11 @@ class Core
         // Start session.
         session_start();
 
+        // Do not route files
+        if (str_contains($_SERVER['REQUEST_URI'], '.')) {
+            return;
+        }
+
         // Files
         if (!is_dir(NTH_ROOT . '/storage/files')) {
             mkdir(NTH_ROOT . '/storage/files');

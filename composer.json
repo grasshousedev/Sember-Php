@@ -23,5 +23,8 @@
     "asko/hird": "^2.1",
     "erusev/parsedown": "^1.7",
     "ext-pdo": "*"
+  },
+  "require-dev": {
+    "symfony/var-dumper": "^7.0"
   }
 }

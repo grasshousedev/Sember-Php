@@ -14,9 +14,11 @@ class Session
         return $_SESSION[$key] ?? $default;
     }
 
-    public function set(string $key, $value): void
+    public function set(string $key, $value): mixed
     {
         $_SESSION[$key] = $value;
+
+        return $value;
     }
 
     public function remove(string $key): void

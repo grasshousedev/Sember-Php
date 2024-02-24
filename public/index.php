@@ -8,6 +8,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 try {
     \Asko\Sember\Core::init();
+    return;
 } catch (Exception $e) {
     echo $e->getMessage();
 }

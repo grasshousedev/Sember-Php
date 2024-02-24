@@ -40,6 +40,10 @@ class Database
      */
     protected function init_sqlite(): void
     {
+        if (!is_dir(dirname(Config::get('sqlite_path')))) {
+            mkdir(dirname(Config::get('sqlite_path')), 0755, true);
+        }
+
         $this->instance = new PDO('sqlite:' . Config::get('sqlite_path'));
         $this->maybeSetupTables();
     }

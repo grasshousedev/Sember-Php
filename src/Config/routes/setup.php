@@ -1,6 +1,7 @@
 <?php
 
 use Asko\Sember\Controllers\SetupController;
+use Asko\Sember\Middlewares\Route\CSRFMiddleware;
 use Asko\Sember\Middlewares\Route\RequiresNotSetupMiddleware;
 
 return [
@@ -13,8 +14,8 @@ return [
     [
         'method' => 'post',
         'path' => '/setup/account',
-        'callable' => [SetupController::class, 'account'],
-        'middleware' => RequiresNotSetupMiddleware::class
+        'callable' => [SetupController::class, 'createAccount'],
+        'middleware' => [RequiresNotSetupMiddleware::class, CSRFMiddleware::class]
     ],
     [
         'method' => 'get',
@@ -26,6 +27,6 @@ return [
         'method' => 'post',
         'path' => '/setup/site',
         'callable' => [SetupController::class, 'site'],
-        'middleware' => RequiresNotSetupMiddleware::class
+        'middleware' => [RequiresNotSetupMiddleware::class, CSRFMiddleware::class]
     ]
 ];

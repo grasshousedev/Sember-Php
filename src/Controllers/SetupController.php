@@ -3,12 +3,14 @@
 namespace Asko\Sember\Controllers;
 
 use Asko\Sember\Database;
+use Asko\Sember\Logger;
 use Asko\Sember\Models\Meta;
 use Asko\Sember\Models\User;
 use Asko\Sember\Request;
 use Asko\Sember\Response;
 use Asko\Sember\Validator;
 use Exception;
+use Ramsey\Uuid\Uuid;
 
 /**
  * @package Asko\Nth\Controllers
@@ -32,39 +34,40 @@ readonly class SetupController
     {
         // If there is already an admin user, redirect to site set-up.
         if ($this->db->findOne(User::class, 'where role = ?', ['admin'])) {
-            return $response->redirect('/setup/site');
-        }
-
-        // Create user
-        if ($request->isPost()) {
-            $validator = new Validator($request->all(), [
-                'email' => 'required|email',
-                'password' => 'required',
-                'password_confirm' => 'required|same:password'
-            ]);
-
-            if ($validator->fails()) {
-                return $response->redirect('/setup/account')
-                    ->flash('errors', $validator->errors())
-                    ->flash('email', $request->input('email'));
-            }
-
-            $this->db->create(new User([
-                'email' => $request->input('email'),
-                'password' => password_hash($request->input('password'), PASSWORD_DEFAULT),
-                'role' => 'admin',
-                'created_at' => time(),
-                'updated_at' => time(),
-            ]));
-
-            return $response->redirect('/setup/site');
+           return $response->redirect('/setup/site');
         }
 
         // Show form
         return $response->view('setup/account', [
             'email' => $request->flash('email'),
-            'errors' => $request->flash('errors')
+            'errors' => $request->flash('errors'),
+            'csrf_token' => $request->session()->set('csrf_token', Uuid::uuid4()->toString()),
         ]);
+    }
+
+    public function createAccount(Request $request, Response $response): Response
+    {
+        $validator = new Validator($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+            'password_confirm' => 'required|same:password'
+        ]);
+
+        if ($validator->fails()) {
+            return $response->redirect('/setup/account')
+                ->flash('errors', $validator->errors())
+                ->flash('email', $request->input('email'));
+        }
+
+        $this->db->create(new User([
+            'email' => $request->input('email'),
+            'password' => password_hash($request->input('password'), PASSWORD_DEFAULT),
+            'role' => 'admin',
+            'created_at' => time(),
+            'updated_at' => time(),
+        ]));
+
+        return $response->redirect('/setup/site');
     }
 
     /**
