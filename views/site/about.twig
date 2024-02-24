@@ -1,10 +1,12 @@
-<div class="about-section">
-    <h1>
-        About {{ site_name }}
-        <button class="toggle-about-section">
-            <i class="fa fa-times"></i>
-        </button>
-    </h1>
+<div class="about-section-container">
+    <div class="about-section">
+        <div class="about-header">
+            <h1>About</h1>
+            <button class="toggle-about-section">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
 
-    {{ site_description | raw }}
+        <div class="about-content">{{ site_description | raw }}</div>
+    </div>
 </div>

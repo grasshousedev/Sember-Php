@@ -122,7 +122,9 @@ class ImageBlock implements Block
     public static function viewable(Post $post, array $block): string
     {
         return <<<HTML
-            <img src="/files/{$block['src']}" alt="{$block['alt']}">
+            <picture>
+                <img src="/files/{$block['src']}" alt="{$block['alt']}">
+            </picture>
         HTML;
 
     }

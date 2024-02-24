@@ -162,7 +162,7 @@ class Collection implements ArrayAccess
      *
      * @return array
      */
-    public function toArray(): array
+    public function toArray(): iterable
     {
         return $this->items;
     }

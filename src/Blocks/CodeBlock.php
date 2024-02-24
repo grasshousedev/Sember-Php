@@ -56,7 +56,10 @@ class CodeBlock implements Block
      */
     public static function options(Post $post, array $block): array
     {
-        return [];
+        return [
+            'language' => [
+            ]
+        ];
     }
 
     /**
