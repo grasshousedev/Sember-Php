@@ -30,7 +30,7 @@ class View
         // Create csrf token and return it
         $twig->addFunction(new TwigFunction('csrf_token', function () {
             $token = Uuid::uuid4()->toString();
-            $_SESSION['csrf_token'] = $token;
+            (new Request)->session()->set('csrf_token', $token);
 
             return $token;
         }));
@@ -38,7 +38,7 @@ class View
         // Create csrf token, input, and return it
         $twig->addFunction(new TwigFunction('csrf_field', function () {
             $token = Uuid::uuid4()->toString();
-            $_SESSION['csrf_token'] = $token;
+            (new Request)->session()->set('csrf_token', $token);
 
             return "<input type=\"hidden\" name=\"csrf_token\" value=\"{$token}\">";
         }));

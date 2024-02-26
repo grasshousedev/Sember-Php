@@ -12,11 +12,11 @@
 
 /** OVERALL */
 body {
-    font-family: 'SN Pro', sans-serif;
-    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
     line-height: 1.65;
     color: #333;
-    background: #fbfbfb;
+    background: rgb(248 250 252);
     padding: 0;
     margin: 0;
 }
@@ -41,7 +41,7 @@ body.js-about-section-open:before {
 }
 
 .page {
-    width: 600px;
+    width: 650px;
     margin: 100px auto;
 }
 
@@ -145,7 +145,7 @@ article {
 
 article > h2 {
     font-family: 'Inter', sans-serif;
-    font-size: 23px;
+    font-size: 21px;
     font-weight: 600;
     line-height: 1.25;
     margin-top: -5px;
@@ -158,10 +158,9 @@ article > h2 a {
 }
 
 article .date {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     color: #999;
-    margin-bottom: 10px;
 }
 
 article .date a {
@@ -174,7 +173,7 @@ article .body {
     word-break: break-word;
     border-top: 1px solid #ddd;
     margin-top: 25px;
-    padding-top: 5px;
+    padding-top: 10px;
 }
 
 article .body p {
@@ -246,7 +245,7 @@ article pre {
 article .body h2 {
     font-family: 'Inter', sans-serif;
     color: #111;
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 600;
     margin-top: 75px;
     margin-bottom: 25px;
@@ -300,7 +299,7 @@ body.js-about-section-open .about-section {
 .about-section .about-header button {
     width: 30px;
     height: 30px;
-    font-size: 13px;
+    font-size: 14px;
     text-transform: uppercase;
     border: 0;
     border-radius: 100%;
@@ -361,4 +360,15 @@ body.js-about-section-open .about-section {
 
 .about-section ul li a {
     font-weight: 600;
+}
+
+/** FOOTER */
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    font-size: 13px;
+    color: #999;
+    padding: 30px;
 }
