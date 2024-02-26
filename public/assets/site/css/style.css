@@ -1,5 +1,6 @@
 @import url('../../shared/css/fonts.css');
 @import url('github.css');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 
 /** VARS */
 :root {
@@ -8,16 +9,16 @@
 
 /** RESET */
 * {
+    font-size: 13px;
+    line-height: 1.65;
     box-sizing: border-box;
 }
 
 /** OVERALL */
 body {
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    line-height: 1.65;
+    font-family: 'Jetbrains Mono', monospace;
     color: #333;
-    background: rgb(248 250 252);
+    background: #fff;
     padding: 0;
     margin: 0;
 }
@@ -42,14 +43,14 @@ body.js-about-section-open:before {
 }
 
 .page {
-    width: 650px;
+    width: 550px;
     margin: 100px auto;
 }
 
 @media all and (max-width: 750px) {
     .page {
         width: 100%;
-        padding: 0;
+        padding: 30px;
         margin: 0;
     }
 }
@@ -63,17 +64,10 @@ a {
 h1 {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 14px;
     text-transform: uppercase;
+    font-weight: 400;
     margin-top: 0;
     margin-bottom: 50px;
-}
-
-@media all and (max-width: 750px) {
-    h1 {
-        margin-top: 50px;
-    }
 }
 
 h1 a {
@@ -106,9 +100,6 @@ body.js-about-section-open h1 button {
 }
 
 code {
-    font-family: 'Jetbrains Mono', monospace;
-    font-size: 14px;
-    letter-spacing: -0.015em;
     background: #f2f2f2;
     padding: 2px 5px;
     border-radius: 3px;
@@ -127,40 +118,28 @@ pre code {
 }
 
 article {
-    background: #fff;
-    box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    overflow: hidden;
-    padding: 30px;
-    margin-bottom: 60px;
+    margin-bottom: 150px;
 }
 
-@media all and (max-width: 750px) {
-    article {
-        border-left: 0;
-        border-right: 0;
-        border-radius: 0;
-    }
+article:last-child {
+    margin-bottom: 0;
 }
 
 article > h2 {
-    font-family: 'Inter', sans-serif;
-    font-size: 21px;
     font-weight: 700;
-    line-height: 1.25;
+    text-transform: uppercase;
     margin-top: -5px;
     margin-bottom: 5px;
 }
 
 article > h2 a {
-    color: #111;
+    color: #fff;
+    background: #111;
     border: 0;
 }
 
 article .date {
-    font-size: 13px;
-    font-weight: 500;
+    font-weight: 400;
     color: #999;
 }
 
@@ -170,11 +149,8 @@ article .date a {
 }
 
 article .body {
-    line-height: 1.75;
     word-break: break-word;
-    border-top: 1px solid #ddd;
-    margin-top: 25px;
-    padding-top: 10px;
+    margin-top: 30px;
 }
 
 article .body p {
@@ -193,39 +169,21 @@ article .body picture {
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 4px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.105);
-    position: relative;
-    padding: 0;
+    box-shadow: 6px 6px 0 #ddd;
     margin-bottom: 30px;
-}
-
-article .body picture:before {
-    display: block;
-    content: '';
-    width: calc(100% - 2px);
-    height: calc(100% - 2px);
-    border: 1px solid rgba(0, 0, 0, .25);
-    border-radius: 4px;
-    position: absolute;
-    top: 0;
-    left: 0;
 }
 
 article .body picture img {
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 4px;
 }
 
 article pre {
     width: calc(100% + 60px);
-    font-size: 13px;
-    background: #fbfbfb;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.035);
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+    color: #fff;
+    background: #111;
+    box-shadow: 6px 6px 0 #ddd;
     overflow: auto;
     padding: 30px;
     margin-left: -30px;
@@ -244,12 +202,11 @@ article pre {
 }
 
 article .body h2 {
-    font-family: 'Inter', sans-serif;
     color: #111;
-    font-size: 19px;
-    font-weight: 600;
-    margin-top: 75px;
-    margin-bottom: 25px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-top: 80px;
+    margin-bottom: 30px;
 }
 
 /** ABOUT */
@@ -271,11 +228,10 @@ body.js-about-section-open .about-section-container {
 
 .about-section {
     display: none;
-    width: 600px;
+    width: 550px;
     max-height: calc(100vh - 150px);
-    box-shadow: 0 3px 25px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0, 0, 0, .15);
-    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 6px 6px 0 #111;
+    background: #fff;
     backdrop-filter: blur(25px);
     border-radius: 4px;
 }
@@ -292,9 +248,18 @@ body.js-about-section-open .about-section {
 
 .about-section .about-header {
     width: 100%;
-    height: 50px;
-    line-height: 50px;
+    height: 60px;
+    display: flex;
+    color: #111;
+    font-weight: 800;
+    align-items: center;
     border-bottom: 1px solid #ddd;
+    padding-left: 30px;
+}
+
+.about-section .about-header h1 {
+    color: #111;
+    font-weight: 800;
 }
 
 .about-section .about-header button {
@@ -303,11 +268,11 @@ body.js-about-section-open .about-section {
     font-size: 14px;
     text-transform: uppercase;
     border: 0;
-    border-radius: 100%;
+    border-radius: 3px;
     color: #fff;
     cursor: pointer;
     background: #111;
-    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.25);
+    box-shadow: 3px 3px 0 #ddd;
     position: absolute;
     top: -15px;
     right: -15px;
@@ -317,7 +282,7 @@ body.js-about-section-open .about-section {
     width: 100%;
     max-height: calc(100vh - 200px);
     overflow: auto;
-    padding: 30px 50px;
+    padding: 20px 30px;
 }
 
 @media all and (max-width: 750px) {
@@ -331,10 +296,10 @@ body.js-about-section-open .about-section {
 }
 
 .about-section h2 {
-    font-size: 17px;
+    text-transform: uppercase;
     font-weight: 600;
     color: #111;
-    margin-top: 60px;
+    margin-top: 50px;
     margin-bottom: 30px;
 }
 
@@ -372,4 +337,8 @@ body.js-about-section-open .about-section {
     font-size: 13px;
     color: #999;
     padding: 30px;
+}
+
+.footer a {
+    color: var(--linkColor);
 }
