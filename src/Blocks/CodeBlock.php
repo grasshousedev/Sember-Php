@@ -4,6 +4,7 @@ namespace Asko\Sember\Blocks;
 
 use Asko\Sember\Models\Post;
 use Asko\Sember\Response;
+use Exception;
 
 /**
  * The code block.
@@ -83,12 +84,19 @@ class CodeBlock implements Block
      * @param Post $post
      * @param array $block
      * @return string
+     * @throws Exception
      */
     public static function viewable(Post $post, array $block): string
     {
+        $hl = new \Highlight\Highlighter();
+        $hl->setAutodetectLanguages(['php', 'javascript', 'css', 'html', 'rust']);
+        $hled = $hl->highlightAuto($block['value']);
+
         return (new Response)->view('site/blocks/code', [
             'post' => $post->toArray(),
             'block' => $block,
+            'language' => $hled->language,
+            'code' => $hled->value,
         ])->send();
     }
 }

@@ -22,7 +22,8 @@
     "twig/twig": "^3.0",
     "asko/hird": "^2.1",
     "erusev/parsedown": "^1.7",
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "scrivo/highlight.php": "^9.18"
   },
   "require-dev": {
     "symfony/var-dumper": "^7.0"
