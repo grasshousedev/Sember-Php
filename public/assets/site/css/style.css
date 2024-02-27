@@ -1,10 +1,10 @@
 @import url('../../shared/css/fonts.css');
-@import url('github.css');
+@import url('hljs.css');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 
 /** VARS */
 :root {
-    --linkColor: cornflowerblue;
+    --linkColor: #ff73ea;
 }
 
 /** RESET */
@@ -106,15 +106,12 @@ body.js-about-section-open h1 button {
 }
 
 code {
-    background: #222;
+    color: #fff;
+    background: #bd4d00;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
     padding: 2px 5px;
     border-radius: 3px;
-}
-
-p code {
-    color: #fff;
-    background: #222;
-    padding: 0;
 }
 
 pre code {
@@ -133,7 +130,7 @@ article:last-child {
 
 article > h2 {
     font-weight: 700;
-    line-height: 2.1;
+    line-height: 2.5;
     text-transform: uppercase;
     margin-top: -5px;
     margin-bottom: 5px;
@@ -142,8 +139,8 @@ article > h2 {
 article > h2 a {
     color: #fff;
     font-weight: 700;
-    background: royalblue;
-    box-shadow: 2px 2px 0 #888;
+    background: #da1c7b;
+    box-shadow: 2px 2px 0 #a726ff;
     border-radius: 3px;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
@@ -152,7 +149,7 @@ article > h2 a {
 }
 
 article > h2 a:active {
-    box-shadow: 1px 1px 0 #888;
+    box-shadow: 1px 1px 0 #a726ff;
 }
 
 article > h2:active {
@@ -171,11 +168,14 @@ article .date a {
 
 article .body {
     word-break: break-word;
-    margin-top: 30px;
+    margin-top: 25px;
 }
 
 article .body p {
-    margin-bottom: 30px;
+    text-align: justify;
+    hyphens: auto;
+    hyphenate-limit-chars: 5 2 7;
+    margin-bottom: 25px;
 }
 
 article .body p:last-child {
@@ -193,7 +193,7 @@ article .body picture {
     box-shadow: 3px 3px 0 #444;
     border-radius: 3px;
     overflow: hidden;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 article .body picture img {
@@ -204,15 +204,15 @@ article .body picture img {
 }
 
 article pre {
-    width: calc(100% + 60px);
+    width: calc(100% + 50px);
     color: #fff;
-    background: #222;
+    background: #2b01b0;
     border-radius: 3px;
-    box-shadow: 3px 3px 0 #444;
+    box-shadow: 3px 3px 0 #ec69a2;
     overflow: auto;
-    padding: 30px;
-    margin-left: -30px;
-    margin-bottom: 30px;
+    padding: 25px;
+    margin-left: -25px;
+    margin-bottom: 25px;
 }
 
 @media all and (max-width: 750px) {
@@ -230,8 +230,8 @@ article .body h2 {
     color: #fff;
     font-weight: 700;
     text-transform: uppercase;
-    margin-top: 80px;
-    margin-bottom: 30px;
+    margin-top: 75px;
+    margin-bottom: 25px;
 }
 
 /** ABOUT */
@@ -253,7 +253,7 @@ body.js-about-section-open .about-section-container {
 
 .about-section {
     display: none;
-    width: 525px;
+    width: 550px;
     color: #fff;
     max-height: calc(100vh - 150px);
     box-shadow: 3px 3px 0 #444;
@@ -280,7 +280,7 @@ body.js-about-section-open .about-section {
     font-weight: 800;
     align-items: center;
     border-bottom: 1px solid #333;
-    padding-left: 30px;
+    padding-left: 25px;
 }
 
 .about-section .about-header h1 {
@@ -313,13 +313,7 @@ body.js-about-section-open .about-section {
     width: 100%;
     max-height: calc(100vh - 200px);
     overflow: auto;
-    padding: 20px 30px;
-}
-
-@media all and (max-width: 750px) {
-    .about-section .about-content {
-        padding: 15px 30px;
-    }
+    padding: 15px 25px;
 }
 
 .about-section h1 {
@@ -331,19 +325,13 @@ body.js-about-section-open .about-section {
     font-weight: 600;
     color: #fff;
     margin-top: 50px;
-    margin-bottom: 30px;
-}
-
-@media all and (max-width: 750px) {
-    .about-section h2 {
-        margin-top: 40px;
-    }
+    margin-bottom: 25px;
 }
 
 .about-section ul {
     margin-left: 0;
     padding-left: 15px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 .about-section ul li {
