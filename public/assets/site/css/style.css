@@ -107,16 +107,18 @@ body.js-about-section-open h1 button {
 
 code {
     color: #fff;
-    background: #bd4d00;
+    background: #2b01b0;
+    border-radius: 6px;
+    border: 1px solid #fff;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
     padding: 2px 5px;
-    border-radius: 3px;
 }
 
 pre code {
     padding: 0;
     background: none;
+    border: 0;
     border-radius: 0;
 }
 
@@ -141,10 +143,10 @@ article > h2 a {
     font-weight: 700;
     background: #da1c7b;
     box-shadow: 2px 2px 0 #a726ff;
-    border-radius: 3px;
+    border-radius: 6px;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
-    border: 0;
+    border: 2px solid #fff;
     padding: 3px 6px;
 }
 
@@ -207,7 +209,8 @@ article pre {
     width: calc(100% + 50px);
     color: #fff;
     background: #2b01b0;
-    border-radius: 3px;
+    border-radius: 6px;
+    border: 2px solid #fff;
     box-shadow: 3px 3px 0 #ec69a2;
     overflow: auto;
     padding: 25px;
