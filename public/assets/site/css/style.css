@@ -233,7 +233,6 @@ body.js-about-section-open .about-section-container {
     box-shadow: 6px 6px 0 #111;
     background: #fff;
     backdrop-filter: blur(25px);
-    border-radius: 4px;
 }
 
 @media all and (max-width: 750px) {
@@ -268,7 +267,6 @@ body.js-about-section-open .about-section {
     font-size: 14px;
     text-transform: uppercase;
     border: 0;
-    border-radius: 3px;
     color: #fff;
     cursor: pointer;
     background: #111;
