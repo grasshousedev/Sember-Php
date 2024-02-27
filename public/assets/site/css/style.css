@@ -200,6 +200,7 @@ article .body picture img {
     display: block;
     width: 100%;
     height: auto;
+    background: #222;
 }
 
 article pre {
@@ -226,8 +227,8 @@ article pre {
 }
 
 article .body h2 {
-    color: #111;
-    font-weight: 800;
+    color: #fff;
+    font-weight: 700;
     text-transform: uppercase;
     margin-top: 80px;
     margin-bottom: 30px;
@@ -362,8 +363,7 @@ body.js-about-section-open .about-section {
 .footer {
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-top: 50px;
+    margin-top: 80px;
     font-size: 13px;
     color: #999;
     padding: 30px;
