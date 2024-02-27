@@ -4,7 +4,7 @@
 
 /** VARS */
 :root {
-    --linkColor: #387ADF
+    --linkColor: royalblue;
 }
 
 /** RESET */
@@ -17,8 +17,8 @@
 /** OVERALL */
 body {
     font-family: 'Jetbrains Mono', monospace;
-    color: #333;
-    background: #fff;
+    color: #fafafa;
+    background: #131313;
     padding: 0;
     margin: 0;
 }
@@ -34,7 +34,7 @@ body.js-about-section-open:before {
     content: '';
     width: 100vw;
     height: 100vh;
-    background: rgba(255, 255, 255, .5);
+    background: rgba(0, 0, 0, .5);
     backdrop-filter: blur(25px);
     z-index: 5;
     position: fixed;
@@ -43,7 +43,7 @@ body.js-about-section-open:before {
 }
 
 .page {
-    width: 550px;
+    width: 525px;
     margin: 100px auto;
 }
 
@@ -71,7 +71,7 @@ h1 {
 }
 
 h1 a {
-    color: #111;
+    color: #fff;
     border: 0;
 }
 
@@ -82,16 +82,22 @@ h1 a {
 }
 
 h1 button {
-    width: 30px;
-    height: 30px;
-    font-size: 13px;
+    width: 25px;
+    height: 25px;
     text-transform: uppercase;
     border: 0;
-    border-radius: 100%;
-    background: #eee;
+    border-radius: 3px;
+    color: #fff;
+    background: royalblue;
+    box-shadow: 2px 2px 0 #ddd;
     padding: 0;
     cursor: pointer;
-    margin-left: 10px;
+    margin-left: 20px;
+}
+
+h1 button:active {
+    box-shadow: 1px 1px 0 #ddd;
+    transform: translate(1px, 1px);
 }
 
 body.js-about-section-open h1 button {
@@ -127,6 +133,7 @@ article:last-child {
 
 article > h2 {
     font-weight: 700;
+    line-height: 2.1;
     text-transform: uppercase;
     margin-top: -5px;
     margin-bottom: 5px;
@@ -134,13 +141,27 @@ article > h2 {
 
 article > h2 a {
     color: #fff;
-    background: #111;
+    font-weight: 700;
+    background: royalblue;
+    box-shadow: 2px 2px 0 #ddd;
+    border-radius: 3px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
     border: 0;
+    padding: 3px 6px;
+}
+
+article > h2 a:active {
+    box-shadow: 1px 1px 0 #ddd;
+}
+
+article > h2:active {
+    transform: translate(1px, 1px);
 }
 
 article .date {
     font-weight: 400;
-    color: #999;
+    color: #666;
 }
 
 article .date a {
@@ -169,7 +190,9 @@ article .body picture {
     display: block;
     width: 100%;
     height: auto;
-    box-shadow: 6px 6px 0 #ddd;
+    box-shadow: 3px 3px 0 #444;
+    border-radius: 3px;
+    overflow: hidden;
     margin-bottom: 30px;
 }
 
@@ -182,8 +205,9 @@ article .body picture img {
 article pre {
     width: calc(100% + 60px);
     color: #fff;
-    background: #111;
-    box-shadow: 6px 6px 0 #ddd;
+    background: #222;
+    border-radius: 3px;
+    box-shadow: 3px 3px 0 #444;
     overflow: auto;
     padding: 30px;
     margin-left: -30px;
@@ -228,10 +252,12 @@ body.js-about-section-open .about-section-container {
 
 .about-section {
     display: none;
-    width: 550px;
+    width: 525px;
+    color: #fff;
     max-height: calc(100vh - 150px);
-    box-shadow: 6px 6px 0 #111;
-    background: #fff;
+    box-shadow: 3px 3px 0 #444;
+    border-radius: 3px;
+    background: #222;
     backdrop-filter: blur(25px);
 }
 
@@ -249,16 +275,16 @@ body.js-about-section-open .about-section {
     width: 100%;
     height: 60px;
     display: flex;
-    color: #111;
+    color: #fff;
     font-weight: 800;
     align-items: center;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #333;
     padding-left: 30px;
 }
 
 .about-section .about-header h1 {
-    color: #111;
-    font-weight: 800;
+    color: #fff;
+    font-weight: 700;
 }
 
 .about-section .about-header button {
@@ -269,11 +295,17 @@ body.js-about-section-open .about-section {
     border: 0;
     color: #fff;
     cursor: pointer;
-    background: #111;
-    box-shadow: 3px 3px 0 #ddd;
+    background: royalblue;
+    border-radius: 3px;
+    box-shadow: 2px 2px 0 #ddd;
     position: absolute;
     top: -15px;
     right: -15px;
+}
+
+.about-section .about-header button:active {
+    box-shadow: 1px 1px 0 #ddd;
+    transform: translate(1px, 1px);
 }
 
 .about-section .about-content {
