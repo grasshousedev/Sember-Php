@@ -10,8 +10,9 @@
 /** RESET */
 * {
     font-size: 13px;
-    line-height: 1.65;
+    line-height: 1.75;
     box-sizing: border-box;
+    position: relative;
 }
 
 /** OVERALL */
@@ -85,10 +86,10 @@ h1 button {
     width: 25px;
     height: 25px;
     text-transform: uppercase;
-    border: 0;
-    border-radius: 3px;
+    border-radius: 6px;
     color: #fff;
-    background: royalblue;
+    background: #111;
+    border: 2px solid #fff;
     box-shadow: 2px 2px 0 #888;
     padding: 0;
     cursor: pointer;
@@ -174,7 +175,6 @@ article .body {
 }
 
 article .body p {
-    text-align: justify;
     hyphens: auto;
     hyphenate-limit-chars: 5 2 7;
     margin-bottom: 25px;
@@ -192,9 +192,9 @@ article .body picture {
     display: block;
     width: 100%;
     height: auto;
-    box-shadow: 3px 3px 0 #444;
-    border-radius: 3px;
-    overflow: hidden;
+    box-shadow: 3px 3px 0 #26d320;
+    border-radius: 6px;
+    position: relative;
     margin-bottom: 25px;
 }
 
@@ -203,6 +203,25 @@ article .body picture img {
     width: 100%;
     height: auto;
     background: #222;
+    border: 2px solid #fff;
+    border-radius: 6px;
+    position: relative;
+    z-index: 2;
+}
+
+article .body picture:before {
+    content: '';
+    background-image: var(--img-path);
+    background-size: cover;
+    display: block;
+    width: 100%;
+    height: -webkit-fill-available;
+    padding-top: 100%;
+    opacity: 0.15;
+    border-radius: 25px;
+    transform: rotate(10deg);
+    z-index: 1;
+    position: absolute;
 }
 
 article pre {
@@ -214,6 +233,8 @@ article pre {
     box-shadow: 3px 3px 0 #ec69a2;
     overflow: auto;
     padding: 25px;
+    z-index: 10;
+    position: relative;
     margin-left: -25px;
     margin-bottom: 25px;
 }
@@ -259,9 +280,10 @@ body.js-about-section-open .about-section-container {
     width: 550px;
     color: #fff;
     max-height: calc(100vh - 150px);
-    box-shadow: 3px 3px 0 #444;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, .5), 3px 3px 0 #73b0ff;
     border-radius: 3px;
-    background: #222;
+    border: 2px solid #fff;
+    background: #111;
     backdrop-filter: blur(25px);
 }
 
@@ -296,19 +318,19 @@ body.js-about-section-open .about-section {
     height: 30px;
     font-size: 14px;
     text-transform: uppercase;
-    border: 0;
     color: #fff;
     cursor: pointer;
-    background: royalblue;
-    border-radius: 3px;
-    box-shadow: 2px 2px 0 #888;
+    background: #111;
+    border: 2px solid #fff;
+    border-radius: 6px;
+    box-shadow: 2px 2px 0 red;
     position: absolute;
     top: -15px;
     right: -15px;
 }
 
 .about-section .about-header button:active {
-    box-shadow: 1px 1px 0 #888;
+    box-shadow: 1px 1px 0 red;
     transform: translate(1px, 1px);
 }
 

@@ -121,8 +121,11 @@ class ImageBlock implements Block
      */
     public static function viewable(Post $post, array $block): string
     {
+        $request = new Request;
+        $url = $request->protocol() . '://' . $request->hostname() . '/files/' . $block['src'];
+
         return <<<HTML
-            <picture>
+            <picture style="--img-path: url('{$url}');" data-url="{$url}">
                 <img src="/files/{$block['src']}" alt="{$block['alt']}">
             </picture>
         HTML;
