@@ -329,7 +329,7 @@ body.js-about-section-open .about-section {
 .about-section h2 {
     text-transform: uppercase;
     font-weight: 600;
-    color: #111;
+    color: #fff;
     margin-top: 50px;
     margin-bottom: 30px;
 }
@@ -366,7 +366,6 @@ body.js-about-section-open .about-section {
     margin-top: 80px;
     font-size: 13px;
     color: #999;
-    padding: 30px;
 }
 
 .footer a {
