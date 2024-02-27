@@ -223,6 +223,12 @@ article .body picture:before {
     position: absolute;
 }
 
+@media all and (max-width: 750px) {
+    article .body picture:before {
+        display: none;
+    }
+}
+
 article pre {
     width: calc(100% + 50px);
     color: #fff;
