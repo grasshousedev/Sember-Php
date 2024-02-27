@@ -4,7 +4,7 @@
 
 /** VARS */
 :root {
-    --linkColor: royalblue;
+    --linkColor: cornflowerblue;
 }
 
 /** RESET */
@@ -89,14 +89,14 @@ h1 button {
     border-radius: 3px;
     color: #fff;
     background: royalblue;
-    box-shadow: 2px 2px 0 #ddd;
+    box-shadow: 2px 2px 0 #888;
     padding: 0;
     cursor: pointer;
     margin-left: 20px;
 }
 
 h1 button:active {
-    box-shadow: 1px 1px 0 #ddd;
+    box-shadow: 1px 1px 0 #888;
     transform: translate(1px, 1px);
 }
 
@@ -106,14 +106,14 @@ body.js-about-section-open h1 button {
 }
 
 code {
-    background: #f2f2f2;
+    background: #222;
     padding: 2px 5px;
     border-radius: 3px;
 }
 
 p code {
-    color: #111;
-    background: #eee;
+    color: #fff;
+    background: #222;
     padding: 0;
 }
 
@@ -143,7 +143,7 @@ article > h2 a {
     color: #fff;
     font-weight: 700;
     background: royalblue;
-    box-shadow: 2px 2px 0 #ddd;
+    box-shadow: 2px 2px 0 #888;
     border-radius: 3px;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
@@ -152,7 +152,7 @@ article > h2 a {
 }
 
 article > h2 a:active {
-    box-shadow: 1px 1px 0 #ddd;
+    box-shadow: 1px 1px 0 #888;
 }
 
 article > h2:active {
@@ -297,14 +297,14 @@ body.js-about-section-open .about-section {
     cursor: pointer;
     background: royalblue;
     border-radius: 3px;
-    box-shadow: 2px 2px 0 #ddd;
+    box-shadow: 2px 2px 0 #888;
     position: absolute;
     top: -15px;
     right: -15px;
 }
 
 .about-section .about-header button:active {
-    box-shadow: 1px 1px 0 #ddd;
+    box-shadow: 1px 1px 0 #888;
     transform: translate(1px, 1px);
 }
 
