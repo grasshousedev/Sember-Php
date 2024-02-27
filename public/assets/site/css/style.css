@@ -175,8 +175,6 @@ article .body {
 }
 
 article .body p {
-    hyphens: auto;
-    hyphenate-limit-chars: 5 2 7;
     margin-bottom: 25px;
 }
 
@@ -214,13 +212,14 @@ article .body picture:before {
     background-image: var(--img-path);
     background-size: cover;
     display: block;
-    width: 100%;
+    width: calc(100% + 100px);
     height: -webkit-fill-available;
-    padding-top: 100%;
-    opacity: 0.15;
+    opacity: 0.1;
+    filter: grayscale(1);
     border-radius: 25px;
-    transform: rotate(10deg);
+    transform: rotate(5deg);
     z-index: 1;
+    margin-left: -50px;
     position: absolute;
 }
 
