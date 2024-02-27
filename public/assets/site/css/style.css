@@ -214,7 +214,7 @@ article .body picture:before {
     display: block;
     width: calc(100% + 100px);
     height: -webkit-fill-available;
-    opacity: 0.1;
+    opacity: 0.05;
     filter: grayscale(1);
     border-radius: 25px;
     transform: rotate(5deg);
