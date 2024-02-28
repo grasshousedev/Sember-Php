@@ -68,7 +68,7 @@ h1 {
     text-transform: uppercase;
     font-weight: 400;
     margin-top: 0;
-    margin-bottom: 50px;
+    margin-bottom: 75px;
 }
 
 h1 a {
@@ -310,7 +310,7 @@ body.js-about-section-open .about-section {
     font-weight: 800;
     align-items: center;
     border-bottom: 1px solid #333;
-    padding-left: 25px;
+    padding-left: 30px;
 }
 
 .about-section .about-header h1 {
@@ -343,7 +343,7 @@ body.js-about-section-open .about-section {
     width: 100%;
     max-height: calc(100vh - 200px);
     overflow: auto;
-    padding: 15px 25px;
+    padding: 15px 30px;
 }
 
 .about-section h1 {
