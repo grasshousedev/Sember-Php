@@ -260,7 +260,7 @@ article .body h2 {
     font-weight: 700;
     text-transform: uppercase;
     margin-top: 75px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 /** ABOUT */
@@ -286,7 +286,7 @@ body.js-about-section-open .about-section-container {
     color: #fff;
     max-height: calc(100vh - 150px);
     box-shadow: 0 4px 25px rgba(0, 0, 0, .5), 3px 3px 0 #73b0ff;
-    border-radius: 3px;
+    border-radius: 6px;
     border: 2px solid #fff;
     background: #111;
     backdrop-filter: blur(25px);
@@ -355,7 +355,7 @@ body.js-about-section-open .about-section {
     font-weight: 600;
     color: #fff;
     margin-top: 50px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .about-section ul {
