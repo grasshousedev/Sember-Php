@@ -159,6 +159,7 @@ readonly class AdminController
         return $response->view('admin/settings', [
             'site_name' => $site_name?->get('meta_value') ?? '',
             'site_description' => $site_description?->get('meta_value') ?? '',
+            'url' => $request->protocol() . '://' . $request->hostname(),
             'url_without_protocol' => $request->hostname(),
         ]);
     }
