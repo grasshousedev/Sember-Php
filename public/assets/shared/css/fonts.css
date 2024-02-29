@@ -4,147 +4,98 @@
 }
 
 @font-face {
-    font-family: 'SN Pro';
+    font-family: 'Jetbrains Mono';
     font-weight: 900;
     font-style: normal;
-    src: url('../fonts/snpro/SNPro-Black.otf') format('opentype');
-    src: url("../fonts/snpro/SNPro-Black.woff") format("woff");
-    src: url("../fonts/snpro/SNPro-Black.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-ExtraBold.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-ExtraBold.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: 'SN Pro';
+    font-family: 'Jetbrains Mono';
     font-weight: 900;
     font-style: italic;
-    src: url('../fonts/snpro/SNPro-BlackItalic.otf') format('opentype');
-    src: url("../fonts/snpro/SNPro-BlackItalic.woff") format("woff");
-    src: url("../fonts/snpro/SNPro-BlackItalic.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-ExtraBoldItalic.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-ExtraBoldItalic.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: 'SN Pro';
+    font-family: 'Jetbrains Mono';
     font-weight: 800;
     font-style: normal;
-    src: url('../fonts/snpro/SNPro-Heavy.otf') format('opentype');
-    src: url("../fonts/snpro/SNPro-Heavy.woff") format("woff");
-    src: url("../fonts/snpro/SNPro-Heavy.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-Bold.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-Bold.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: 'SN Pro';
+    font-family: 'Jetbrains Mono';
     font-weight: 800;
     font-style: italic;
-    src: url('../fonts/snpro/SNPro-HeavyItalic.otf') format('opentype');
-    src: url("../fonts/snpro/SNPro-HeavyItalic.woff") format("woff");
-    src: url("../fonts/snpro/SNPro-HeavyItalic.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-BoldItalic.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-BoldItalic.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: 'SN Pro';
-    font-weight: 700;
-    font-style: normal;
-    src: url('../fonts/snpro/SNPro-Bold.otf') format('opentype');
-    src: url("../fonts/snpro/SNPro-Bold.woff") format("woff");
-    src: url("../fonts/snpro/SNPro-Bold.woff2") format("woff2");
-}
-
-@font-face {
-    font-family: 'SN Pro';
-    font-weight: 700;
-    font-style: italic;
-    src: url('../fonts/snpro/SNPro-BoldItalic.otf') format('opentype');
-    src: url("../fonts/snpro/SNPro-BoldItalic.woff") format("woff");
-    src: url("../fonts/snpro/SNPro-BoldItalic.woff2") format("woff2");
-}
-
-@font-face {
-    font-family: 'SN Pro';
+    font-family: 'Jetbrains Mono';
     font-weight: 600;
     font-style: normal;
-    src: url('../fonts/snpro/SNPro-Semibold.otf') format('opentype');
-    src: url("../fonts/snpro/SNPro-Semibold.woff") format("woff");
-    src: url("../fonts/snpro/SNPro-Semibold.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-SemiBold.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-SemiBold.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: 'SN Pro';
+    font-family: 'Jetbrains Mono';
     font-weight: 600;
     font-style: italic;
-    src: url('../fonts/snpro/SNPro-SemiboldItalic.otf') format('opentype');
-    src: url("../fonts/snpro/SNPro-SemiboldItalic.woff") format("woff");
-    src: url("../fonts/snpro/SNPro-SemiboldItalic.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-SemiBoldItalic.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-SemiBoldItalic.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: 'SN Pro';
+    font-family: 'Jetbrains Mono';
     font-weight: 500;
     font-style: normal;
-    src: url('../fonts/snpro/SNPro-Medium.otf') format('opentype');
-    src: url("../fonts/snpro/SNPro-Medium.woff") format("woff");
-    src: url("../fonts/snpro/SNPro-Medium.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-Medium.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-Medium.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: 'SN Pro';
+    font-family: 'Jetbrains Mono';
     font-weight: 500;
     font-style: italic;
-    src: url('../fonts/snpro/SNPro-MediumItalic.otf') format('opentype');
-    src: url("../fonts/snpro/SNPro-MediumItalic.woff") format("woff");
-    src: url("../fonts/snpro/SNPro-MediumItalic.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-MediumItalic.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-MediumItalic.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: 'SN Pro';
+    font-family: 'Jetbrains Mono';
     font-weight: 400;
     font-style: normal;
-    src: url('../fonts/snpro/SNPro-Regular.otf') format('opentype');
-    src: url("../fonts/snpro/SNPro-Regular.woff") format("woff");
-    src: url("../fonts/snpro/SNPro-Regular.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-Regular.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-Regular.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: 'SN Pro';
+    font-family: 'Jetbrains Mono';
     font-weight: 400;
     font-style: italic;
-    src: url('../fonts/snpro/SNPro-RegularItalic.otf') format('opentype');
-    src: url("../fonts/snpro/SNPro-RegularItalic.woff") format("woff");
-    src: url("../fonts/snpro/SNPro-RegularItalic.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-Regular.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-Regular.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: 'SN Pro';
+    font-family: 'Jetbrains Mono';
     font-weight: 300;
     font-style: normal;
-    src: url('../fonts/snpro/SNPro-Light.otf') format('opentype');
-    src: url("../fonts/snpro/SNPro-Light.woff") format("woff");
-    src: url("../fonts/snpro/SNPro-Light.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-Light.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-Light.ttf") format("truetype");
 }
 
 
 @font-face {
-    font-family: 'SN Pro';
+    font-family: 'Jetbrains Mono';
     font-weight: 300;
     font-style: italic;
-    src: url('../fonts/snpro/SNPro-LightItalic.otf') format('opentype');
-    src: url("../fonts/snpro/SNPro-LightItalic.woff") format("woff");
-    src: url("../fonts/snpro/SNPro-LightItalic.woff2") format("woff2");
-}
-
-@font-face {
-    font-family: 'SN Pro';
-    font-weight: 200;
-    font-style: normal;
-    src: url('../fonts/snpro/SNPro-Thin.otf') format('opentype');
-    src: url("../fonts/snpro/SNPro-Thin.woff") format("woff");
-    src: url("../fonts/snpro/SNPro-Thin.woff2") format("woff2");
-}
-
-
-@font-face {
-    font-family: 'SN Pro';
-    font-weight: 200;
-    font-style: italic;
-    src: url('../fonts/snpro/SNPro-ThinItalic.otf') format('opentype');
-    src: url("../fonts/snpro/SNPro-ThinItalic.woff") format("woff");
-    src: url("../fonts/snpro/SNPro-ThinItalic.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-LightItalic.woff2") format("woff2");
+    src: url("../fonts/jbmono/JetBrainsMono-LightItalic.ttf") format("truetype");
 }
