@@ -5,6 +5,7 @@
 /** VARS */
 :root {
     --linkColor: #ff73ea;
+    --codeBgColor: #001f71;
 }
 
 /** RESET */
@@ -108,7 +109,6 @@ body.js-about-section-open h1 button {
 
 code {
     color: #fff;
-    background: #2b01b0;
     border-radius: 6px;
     border: 1px solid #fff;
     box-decoration-break: clone;
@@ -232,7 +232,7 @@ article .body picture:before {
 article pre {
     width: calc(100% + 50px);
     color: #fff;
-    background: #2b01b0;
+    background: var(--codeBgColor);
     border-radius: 6px;
     border: 2px solid #fff;
     box-shadow: 3px 3px 0 #ec69a2;
