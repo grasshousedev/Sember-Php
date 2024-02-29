@@ -132,12 +132,13 @@ class Database
     /**
      * Find models.
      *
-     * @param string $model
+     * @template T
+     * @param class-string<T> $model
      * @param string $query
      * @param array $data
-     * @return Collection|PostCollection|MigrationCollection
+     * @return Collection<T>
      */
-    public function find(string $model, string $query = '', array $data = []): Collection|PostCollection|MigrationCollection
+    public function find(string $model, string $query = '', array $data = []): Collection
     {
         $storage_name = (new $model)->getStorageName();
         $stmt = $this->instance->prepare("SELECT * FROM {$storage_name} {$query}");
@@ -145,22 +146,19 @@ class Database
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $items = array_map(fn($i) => new $model($i), $results);
 
-        return match ($model) {
-            Post::class => new PostCollection(...$items),
-            Migration::class => new MigrationCollection(...$items),
-            default => new Collection($items),
-        };
+        return new Collection($items);
     }
 
     /**
      * Find one model.
      *
-     * @param string $model
+     * @template T
+     * @param class-string<T> $model
      * @param string $query
      * @param array $data
-     * @return ?Model
+     * @return ?T
      */
-    public function findOne(string $model, string $query, array $data = []): ?Model
+    public function findOne(string $model, string $query, array $data = []): mixed
     {
         $storage_name = (new $model)->getStorageName();
         $stmt = $this->instance->prepare("SELECT * FROM {$storage_name} {$query}");
