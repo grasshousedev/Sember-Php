@@ -70,6 +70,9 @@ h1 a {
 }
 
 h1 button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 25px;
     height: 25px;
     text-transform: uppercase;
@@ -200,7 +203,7 @@ article .body picture:before {
     background-size: cover;
     display: block;
     width: calc(100% + 100px);
-    height: -webkit-fill-available;
+    height: 100%;
     opacity: 0.05;
     filter: grayscale(1);
     border-radius: 25px;
@@ -308,6 +311,9 @@ body.js-about-section-open .about-section {
 }
 
 .about-section .about-header button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 30px;
     height: 30px;
     font-size: 14px;

@@ -50,6 +50,7 @@ readonly class AdminController
     /**
      * List all posts.
      *
+     * @param Request $request
      * @param Response $response
      * @return Response
      */
