@@ -122,6 +122,7 @@ article > h2 {
     line-height: 2.5;
     text-transform: uppercase;
     margin-top: -5px;
+    margin-left: -6px;
     margin-bottom: 5px;
 }
 
