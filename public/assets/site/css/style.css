@@ -4,7 +4,7 @@
 /** VARS */
 :root {
     --linkColor: #ff73ea;
-    --codeBgColor: #001f71;
+    --codeBgColor: #06112f;
 }
 
 /** RESET */
@@ -53,7 +53,7 @@ h1 {
     display: flex;
     align-items: center;
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: 550;
     margin-top: 0;
     margin-bottom: 75px;
 }
@@ -221,10 +221,8 @@ article .body picture:before {
 article pre {
     width: calc(100% + 50px);
     color: #fff;
-    background: var(--codeBgColor);
     border-radius: 6px;
-    border: 2px solid #fff;
-    box-shadow: 3px 3px 0 #ec69a2;
+    border: 1px dashed #FDDB29;
     overflow: auto;
     padding: 25px;
     z-index: 10;
@@ -327,6 +325,10 @@ body.js-about-section-open .about-section {
     position: absolute;
     top: -15px;
     right: -15px;
+}
+
+.about-section .about-header button * {
+    font-size: 15px;
 }
 
 .about-section .about-header button:active {

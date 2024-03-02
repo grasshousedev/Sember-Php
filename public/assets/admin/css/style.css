@@ -172,7 +172,7 @@ input, textarea, select, button {
 
 .posts .post .title {
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 500;
     color: #111;
     letter-spacing: -0.25px;
 }
@@ -284,8 +284,8 @@ input, textarea, select, button {
 
 #editor .post-title label {
     display: block;
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 550;
     color: #111;
     text-transform: uppercase;
     margin-bottom: 5px;
@@ -316,7 +316,7 @@ input, textarea, select, button {
 
 #editor .post-slug label {
     color: #111;
-    font-weight: 600;
+    font-weight: 550;
     display: block;
     text-transform: uppercase;
     margin-bottom: 5px;
@@ -347,7 +347,7 @@ input, textarea, select, button {
 #editor .post-content label {
     color: #111;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 550;
     display: block;
     text-transform: uppercase;
     margin-bottom: 5px;
@@ -535,9 +535,9 @@ input, textarea, select, button {
 
 /** SETTINGS */
 #settings label {
-    color: #555;
+    color: #111;
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 550;
     display: block;
     text-transform: uppercase;
     margin-bottom: 5px;
