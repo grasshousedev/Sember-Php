@@ -260,6 +260,7 @@ article .body h2 {
     z-index: 100;
     background: rgba(0,0,0,.5);
     backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
     position: fixed;
     top: 0;
     left: 0;
