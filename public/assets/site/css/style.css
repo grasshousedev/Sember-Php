@@ -17,7 +17,7 @@
 /** OVERALL */
 body {
     font-family: 'Inter', sans-serif;
-    font-size: 1.05rem;
+    font-size: 1rem;
     line-height: 1.75;
     color: #333;
     background: #fff;
@@ -32,7 +32,7 @@ body.js-about-section-open {
 }
 
 .page {
-    width: 600px;
+    width: 590px;
     margin: 100px;
 }
 
@@ -101,7 +101,7 @@ code {
 }
 
 pre code {
-    line-height: 1.5;
+    line-height: 1.3;
     color: #fff;
     padding: 0;
     background: none;
@@ -149,7 +149,7 @@ article .date {
     font-size: .9rem;
     font-weight: 400;
     color: #bbb;
-    margin-top: -10px;
+    margin-top: -5px;
 }
 
 article .date a {
@@ -233,10 +233,6 @@ article pre {
     margin-bottom: 25px;
 }
 
-article pre * {
-    line-height: 1.1;
-}
-
 @media all and (max-width: 750px) {
     article pre {
         width: calc(100% + 60px);
@@ -249,7 +245,7 @@ article pre * {
 }
 
 article .body h2 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     line-height: 1.25;
     color: #111;
     font-weight: 550;
