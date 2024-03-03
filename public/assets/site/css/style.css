@@ -9,7 +9,7 @@
 
 /** RESET */
 * {
-    line-height: 1.95;
+    line-height: 1.75;
     letter-spacing: -0.025rem;
     box-sizing: border-box;
     position: relative;
@@ -18,7 +18,7 @@
 /** OVERALL */
 body {
     font-family: 'Inter', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: #333;
     background: #fff;
     padding: 0;
@@ -32,7 +32,7 @@ body.js-about-section-open {
 }
 
 .page {
-    width: 625px;
+    width: 600px;
     margin: 100px;
 }
 
@@ -133,7 +133,6 @@ article:last-child:after {
 article > h2 {
     font-size: 1.7rem;
     font-weight: 700;
-    line-height: 1.25;
     margin-top: -5px;
     margin-bottom: 5px;
 }
@@ -141,6 +140,7 @@ article > h2 {
 article > h2 a {
     color: #111;
     font-weight: 750;
+    line-height: 1.2;
 }
 
 article .date {
