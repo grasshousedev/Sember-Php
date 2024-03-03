@@ -37,6 +37,7 @@ a {
 }
 
 code {
+    font-family: "Jetbrains Mono", monospace;
     font-size: 0.85rem;
     color: #111;
     background: #fff;
@@ -46,7 +47,7 @@ code {
 }
 
 pre code {
-    line-height: 1.3;
+    line-height: 1.45;
     padding: 0;
     background: none;
     border: 0;
@@ -79,12 +80,12 @@ pre code {
 
 .header h1 {
     display: inline-block;
-    font-size: 1.1rem;
+    font-size: .9rem;
     margin: 0;
 }
 
 .header h1 a {
-    font-weight: 350;
+    font-weight: 500;
     color: #888;
     border: 0;
 }
@@ -154,6 +155,8 @@ article .date a {
 }
 
 article .body {
+    font-family: 'Merriweather', serif;
+    line-height: 1.9;
     margin-top: 30px;
 }
 
