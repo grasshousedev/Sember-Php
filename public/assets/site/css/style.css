@@ -68,6 +68,14 @@ pre code {
     left: 0;
 }
 
+.header.not-top {
+    background: linear-gradient(rgba(255,255,255,.75), rgba(255,255,255,.35));
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border-bottom: 1px solid rgba(0, 0, 0, .15);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, .05);
+}
+
 .header h1 {
     display: inline-block;
     font-size: 1.1rem;
