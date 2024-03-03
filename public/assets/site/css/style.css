@@ -130,9 +130,9 @@ article:last-child {
 
 article .title {
     width: 80%;
-    font-size: 1.75rem;
+    font-size: 1.65rem;
     line-height: 1.25;
-    font-weight: 700;
+    font-weight: 750;
     margin-top: -5px;
     margin-bottom: 5px;
 }
@@ -156,6 +156,7 @@ article .date a {
 
 article .body {
     font-family: 'Merriweather', serif;
+    font-weight: 300;
     line-height: 1.9;
     margin-top: 30px;
 }
@@ -169,9 +170,15 @@ article .body p:last-child {
 }
 
 article .body a {
-    font-weight: 500;
+    font-weight: 400;
     color: #4078f2;
     border-bottom: 1px solid #4078f2;
+}
+
+article .body strong,
+article .body b {
+    font-weight: 400;
+    color: #111;
 }
 
 article .body picture {
@@ -254,7 +261,8 @@ article pre {
 }
 
 article .body h2 {
-    font-size: 1.4rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.35rem;
     line-height: 1.25;
     color: #111;
     font-weight: 550;
