@@ -9,17 +9,18 @@
 
 /** RESET */
 * {
-    font-size: 13px;
     line-height: 1.95;
+    letter-spacing: -0.025rem;
     box-sizing: border-box;
     position: relative;
 }
 
 /** OVERALL */
 body {
-    font-family: 'Jetbrains Mono', monospace;
-    color: #fafafa;
-    background: #131313;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    color: #333;
+    background: #fff;
     padding: 0;
     margin: 0;
 }
@@ -31,8 +32,8 @@ body.js-about-section-open {
 }
 
 .page {
-    width: 525px;
-    margin: 100px auto;
+    width: 625px;
+    margin: 100px;
 }
 
 @media all and (max-width: 750px) {
@@ -44,113 +45,109 @@ body.js-about-section-open {
 }
 
 a {
-    color: var(--linkColor);
+    color: #111;
     text-decoration: none;
-    border-bottom: 1px solid var(--linkColor);
 }
 
 h1 {
-    display: flex;
-    align-items: center;
-    text-transform: uppercase;
-    font-weight: 550;
-    margin-top: 0;
-    margin-bottom: 75px;
+    display: inline-block;
+    font-size: 1.4rem;
+    margin: 0;
 }
 
 h1 a {
-    color: #fff;
+    font-weight: 400;
+    color: #888;
     border: 0;
-}
-
-@media all and (max-width: 750px) {
-    h1 {
-        margin-bottom: 50px;
-    }
 }
 
 h1 button {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 25px;
+    gap: 3px;
+    font-size: 0.7rem;
+    font-weight: 500;
     height: 25px;
     text-transform: uppercase;
-    border-radius: 6px;
+    border-radius: 25px;
+    color: #777;
+    background: #eee;
+    border: 0;
+    padding: 0 8px;
+    transform: rotate(15deg);
+    cursor: pointer;
+    position: absolute;
+    top: -10px;
+    right: -35px;
+}
+
+h1 button:hover {
     color: #fff;
     background: #111;
-    border: 2px solid #fff;
-    box-shadow: 2px 2px 0 #888;
-    padding: 0;
-    cursor: pointer;
-    margin-left: 20px;
 }
 
-h1 button:active {
-    box-shadow: 1px 1px 0 #888;
-    transform: translate(1px, 1px);
-}
-
-body.js-about-section-open h1 button {
-    background: #111;
-    color: #eee;
+h1 button i {
+    font-size: 0.75rem;
 }
 
 code {
-    color: #FDDB29;
-    border-top: 1px dashed #FDDB29;
-    border-bottom: 1px dashed #FDDB29;
-    padding-top: 2px;
-    padding-bottom: 2px;
+    font-size: 0.85rem;
+    color: #111;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 2px 4px;
 }
 
 pre code {
+    color: #fff;
     padding: 0;
     background: none;
     border: 0;
     border-radius: 0;
 }
 
-article {
-    margin-bottom: 150px;
+/** HEADER */
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
 }
 
-article:last-child {
-    margin-bottom: 0;
+/** ARTICLE */
+article:after {
+    display: block;
+    content: '';
+    width: 0;
+    height: 75px;
+    border-left: 2px dashed #ccc;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+article:last-child:after {
+    display: none;
 }
 
 article > h2 {
+    font-size: 1.7rem;
     font-weight: 700;
-    line-height: 2.5;
-    text-transform: uppercase;
+    line-height: 1.25;
     margin-top: -5px;
-    margin-left: -6px;
     margin-bottom: 5px;
 }
 
 article > h2 a {
-    color: #fff;
-    font-weight: 700;
-    background: #da1c7b;
-    box-shadow: 2px 2px 0 #a726ff;
-    border-radius: 6px;
-    box-decoration-break: clone;
-    -webkit-box-decoration-break: clone;
-    border: 2px solid #fff;
-    padding: 3px 6px;
-}
-
-article > h2 a:active {
-    box-shadow: 1px 1px 0 #a726ff;
-}
-
-article > h2:active {
-    transform: translate(1px, 1px);
+    color: #111;
+    font-weight: 750;
 }
 
 article .date {
+    font-size: .9rem;
     font-weight: 400;
-    color: #666;
+    color: #bbb;
+    margin-top: -10px;
 }
 
 article .date a {
@@ -219,16 +216,23 @@ article .body picture:before {
 }
 
 article pre {
-    width: calc(100% + 50px);
+    width: calc(100% + 100px);
     color: #fff;
-    border-radius: 6px;
-    border: 1px dashed #FDDB29;
+    line-height: 1.1;
+    background: #111;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, .25);
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
     overflow: auto;
-    padding: 25px;
     z-index: 10;
     position: relative;
-    margin-left: -25px;
+    padding: 25px 25px 25px 100px;
+    margin-left: -100px;
     margin-bottom: 25px;
+}
+
+article pre * {
+    line-height: 1.1;
 }
 
 @media all and (max-width: 750px) {
@@ -243,9 +247,8 @@ article pre {
 }
 
 article .body h2 {
-    color: #fff;
-    font-weight: 700;
-    text-transform: uppercase;
+    color: #111;
+    font-weight: 550;
     margin-top: 75px;
     margin-bottom: 20px;
 }
@@ -256,9 +259,9 @@ article .body h2 {
     align-items: center;
     justify-content: center;
     z-index: 100;
-    background: rgba(0,0,0,.5);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
+    background: rgba(255,255,255,.8);
+    backdrop-filter: blur(45px);
+    -webkit-backdrop-filter: blur(45px);
     position: fixed;
     top: 0;
     left: 0;
@@ -272,14 +275,14 @@ body.js-about-section-open .about-section-container {
 
 .about-section {
     display: none;
-    width: 550px;
-    color: #fff;
+    width: 600px;
+    color: #333;
     max-height: calc(100vh - 150px);
-    box-shadow: 0 4px 25px rgba(0, 0, 0, .5), 3px 3px 0 #73b0ff;
-    border-radius: 6px;
-    border: 2px solid #fff;
-    background: #111;
-    backdrop-filter: blur(25px);
+    box-shadow: 0 4px 25px rgba(0, 0, 0, .15);
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,.35);
+    background: #fff;
+    overflow: hidden;
 }
 
 @media all and (max-width: 750px) {
@@ -296,16 +299,19 @@ body.js-about-section-open .about-section {
     width: 100%;
     height: 60px;
     display: flex;
-    color: #fff;
-    font-weight: 800;
+    color: #111;
+    font-weight: 700;
     align-items: center;
-    border-bottom: 1px solid #333;
-    padding-left: 30px;
+    background: linear-gradient(#fff, #fafafa);
+    box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    border-bottom: 1px solid #ccc;
+    padding-left: 25px;
 }
 
 .about-section .about-header h1 {
-    color: #fff;
-    font-weight: 700;
+    color: #111;
+    font-weight: 500;
+    font-size: 1.15rem;
 }
 
 .about-section .about-header button {
@@ -350,7 +356,7 @@ body.js-about-section-open .about-section {
 .about-section h2 {
     text-transform: uppercase;
     font-weight: 600;
-    color: #fff;
+    color: #111;
     margin-top: 50px;
     margin-bottom: 20px;
 }
