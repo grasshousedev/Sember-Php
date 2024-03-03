@@ -94,9 +94,9 @@ h1 .about-btn i {
 code {
     font-size: 0.85rem;
     color: #111;
-    background: #fafafa;
-    border: 1px solid #ddd;
-    border-radius: 3px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
     padding: 2px 4px;
 }
 
@@ -120,10 +120,11 @@ pre code {
 article:after {
     display: block;
     content: '';
-    width: 0;
+    width: calc(100% + 100px);
     height: 75px;
-    border-left: 2px dashed #ccc;
+    border-top: 1px solid #ccc;
     margin-top: 100px;
+    margin-left: -100px;
     margin-bottom: 100px;
 }
 
@@ -222,9 +223,9 @@ article pre {
     color: #fff;
     line-height: 1.1;
     background: #111;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, .25);
-    border-top-right-radius: 25px;
-    border-bottom-right-radius: 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, .3);
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
     overflow: auto;
     z-index: 10;
     position: relative;
