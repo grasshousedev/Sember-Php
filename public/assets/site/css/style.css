@@ -13,18 +13,18 @@ body {
     font-size: 1rem;
     line-height: 1.75;
     color: #333;
-    background: #fff;
+    background: #fafafa;
     padding: 0;
-    margin: 0;
+    margin: 60px 0 0;
 }
 
-.page {
+.wrap {
     width: 585px;
-    margin: 100px;
+    margin: 0 auto;
 }
 
 @media all and (max-width: 750px) {
-    .page {
+    .wrap {
         width: 100%;
         padding: 30px;
         margin: 0;
@@ -34,48 +34,6 @@ body {
 a {
     color: #111;
     text-decoration: none;
-}
-
-h1 {
-    display: inline-block;
-    font-size: 1.4rem;
-    margin: 0;
-}
-
-h1 a {
-    font-weight: 400;
-    color: #888;
-    border: 0;
-}
-
-h1 .about-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 3px;
-    font-size: 0.7rem;
-    font-weight: 500;
-    height: 25px;
-    text-transform: uppercase;
-    border-radius: 25px;
-    color: #777;
-    background: #eee;
-    border: 0;
-    padding: 0 8px;
-    transform: rotate(15deg);
-    cursor: pointer;
-    position: absolute;
-    top: -10px;
-    right: -35px;
-}
-
-h1 .about-btn:hover {
-    color: #fff;
-    background: #111;
-}
-
-h1 .about-btn i {
-    font-size: 0.75rem;
 }
 
 code {
@@ -99,37 +57,68 @@ pre code {
 .header {
     display: flex;
     align-items: center;
-    margin-bottom: 60px;
+    justify-content: space-between;
+    width: 100%;
+    height: 60px;
+    padding-left: 20px;
+    padding-right: 20px;
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.header h1 {
+    display: inline-block;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.header h1 a {
+    font-weight: 350;
+    color: #888;
+    border: 0;
+}
+
+.header .about-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    height: 25px;
+    text-transform: uppercase;
+    border-radius: 25px;
+    color: #777;
+    background: #eee;
+    border: 0;
+    padding: 0 8px;
+    transform: rotate(15deg);
+    cursor: pointer;
+}
+
+.header .about-btn:hover {
+    color: #fff;
+    background: #111;
+}
+
+.header .about-btn i {
+    font-size: 0.75rem;
 }
 
 /** ARTICLE */
-article:after {
-    display: block;
-    content: '';
-    width: calc(100% + 100px);
-    height: 4px;
-    background: #f9f9f9;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-    margin-top: 100px;
-    margin-left: -100px;
-    margin-bottom: 100px;
+article {
+    border-bottom: 1px solid #ddd;
+    padding-top: 60px;
+    padding-bottom: 60px;
 }
 
-@media all and (max-width: 750px) {
-    article:after {
-        width: calc(100% + 60px);
-        margin-top: 50px;
-        margin-left: -30px;
-        margin-bottom: 50px;
-    }
+article:last-child {
+    border-bottom: 0;
 }
 
-article:last-child:after {
-    display: none;
-}
-
-article > h2 {
+article .title {
     width: 80%;
     font-size: 1.75rem;
     line-height: 1.25;
@@ -138,7 +127,7 @@ article > h2 {
     margin-bottom: 5px;
 }
 
-article > h2 a {
+article .title a {
     color: #111;
     font-weight: 750;
     letter-spacing: -0.025rem;
@@ -175,11 +164,10 @@ article .body a {
 
 article .body picture {
     display: block;
-    width: calc(100% + 100px);
+    width: calc(100% + 200px);
     height: auto;
     box-shadow: 0 4px 20px rgba(0, 0, 0, .05);
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
+    border-radius: 3px;
     position: relative;
     margin-left: -100px;
     margin-bottom: 30px;
@@ -193,11 +181,9 @@ article .body picture:before {
     position: absolute;
     top: 0;
     left: 0;
-    border-top: 1px solid rgba(0, 0, 0, .15);
+    border: 1px solid rgba(0, 0, 0, .15);
     z-index: 10;
-    border-right: 1px solid rgba(0, 0, 0, .15);
-    border-bottom: 1px solid rgba(0, 0, 0, .15);
-    border-top-right-radius: 3px;
+    border-radius: 3px;
 }
 
 @media all and (max-width: 750px) {
@@ -217,8 +203,7 @@ article .body picture img {
     width: 100%;
     height: auto;
     background: #eee;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
+    border-radius: 3px;
     position: relative;
     z-index: 2;
 }
@@ -233,15 +218,15 @@ article pre {
     width: calc(100% + 100px);
     color: #333;
     line-height: 1.1;
-    background: #eee;
+    background: #fff;
     box-shadow: 0 4px 20px rgba(0, 0, 0, .05);
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
     overflow: auto;
     z-index: 10;
     position: relative;
-    padding: 25px 25px 25px 100px;
-    margin-left: -100px;
+    padding: 30px 50px;
+    margin-left: -50px;
     margin-bottom: 30px;
 }
 
@@ -269,9 +254,11 @@ article .body h2 {
 .footer {
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-top: 80px;
     font-size: 13px;
     color: #999;
+    padding-bottom: 60px;
 }
 
 .footer a {
