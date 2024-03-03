@@ -270,6 +270,10 @@ article .body h2 {
     margin-bottom: 25px;
 }
 
+article .body h2 * {
+    font-size: inherit;
+}
+
 article .body ul {
     padding: 0;
     margin-left: 18px;
