@@ -12,14 +12,14 @@ body {
     font-family: 'Inter', sans-serif;
     font-size: 1rem;
     line-height: 1.75;
-    color: #333;
+    color: #242424;
     background: #fafafa;
     padding: 0;
     margin: 60px 0 0;
 }
 
 .wrap {
-    width: 585px;
+    width: 600px;
     margin: 0 auto;
 }
 
@@ -270,18 +270,29 @@ article .body h2 {
     margin-bottom: 25px;
 }
 
+article .body ul {
+    padding: 0;
+    margin-left: 18px;
+}
+
+article .body ul li {
+    list-style: square;
+}
+
 /** FOOTER */
 .footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 80px;
-    font-size: 13px;
+    font-size: 14px;
     color: #999;
-    padding-bottom: 60px;
+    background: #fafafa;
+    border-top: 1px solid #ccc;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 .footer a {
-    color: #4078f2;
-    border-bottom: 1px solid #4078f2;
+    color: #999;
+    border-bottom: 1px solid #999;
 }
