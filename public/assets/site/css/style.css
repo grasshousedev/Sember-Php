@@ -9,7 +9,7 @@
 
 /** RESET */
 * {
-    letter-spacing: -0.025rem;
+    letter-spacing: -0.020rem;
     box-sizing: border-box;
     position: relative;
 }
@@ -120,12 +120,21 @@ pre code {
 article:after {
     display: block;
     content: '';
-    width: calc(100% + 100px);
-    height: 75px;
+    width: calc(100% + 125px);
+    height: 0;
     border-top: 1px solid #ccc;
     margin-top: 100px;
     margin-left: -100px;
     margin-bottom: 100px;
+}
+
+@media all and (max-width: 750px) {
+    article:after {
+        width: calc(100% + 60px);
+        margin-top: 50px;
+        margin-left: -30px;
+        margin-bottom: 50px;
+    }
 }
 
 article:last-child:after {
@@ -219,13 +228,13 @@ article .body picture:before {
 }
 
 article pre {
-    width: calc(100% + 100px);
+    width: calc(100% + 125px);
     color: #fff;
     line-height: 1.1;
     background: #111;
     box-shadow: 0 4px 20px rgba(0, 0, 0, .3);
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
     overflow: auto;
     z-index: 10;
     position: relative;
