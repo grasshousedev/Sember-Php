@@ -110,8 +110,8 @@ pre code {
 /** ARTICLE */
 article {
     border-bottom: 1px solid #ddd;
-    padding-top: 60px;
-    padding-bottom: 60px;
+    padding-top: 120px;
+    padding-bottom: 120px;
 }
 
 article:last-child {
@@ -136,7 +136,7 @@ article .title a {
 article .date {
     font-size: .9rem;
     font-weight: 400;
-    color: #bbb;
+    color: #888;
 }
 
 article .date a {
