@@ -12,6 +12,12 @@ return [
     ],
     [
         'method' => 'get',
+        'path' => '/about',
+        'callable' => [SiteController::class, 'about'],
+        'middleware' => RequiresSetupMiddleware::class
+    ],
+    [
+        'method' => 'get',
         'path' => '/{slug}',
         'callable' => [SiteController::class, 'post'],
         'middleware' => RequiresSetupMiddleware::class

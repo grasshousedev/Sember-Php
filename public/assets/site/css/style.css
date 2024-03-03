@@ -61,7 +61,7 @@ h1 a {
     border: 0;
 }
 
-h1 button {
+h1 .about-btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -82,12 +82,12 @@ h1 button {
     right: -35px;
 }
 
-h1 button:hover {
+h1 .about-btn:hover {
     color: #fff;
     background: #111;
 }
 
-h1 button i {
+h1 .about-btn i {
     font-size: 0.75rem;
 }
 

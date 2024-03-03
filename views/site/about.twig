@@ -1,12 +1,10 @@
-<div class="about-section-container">
-    <div class="about-section">
-        <div class="about-header">
-            <h1>About</h1>
-            <button class="toggle-about-section">
-                <i class="fa fa-times"></i>
-            </button>
-        </div>
+{% include 'site/partials/header.twig' %}
 
-        <div class="about-content">{{ site_description | raw }}</div>
-    </div>
+<div class="posts">
+    <article class="post">
+        <h2 class="title">About</h2>
+        <div class="body">{{ site_description | raw }}</div>
+    </article>
 </div>
+
+{% include 'site/partials/footer.twig' %}
