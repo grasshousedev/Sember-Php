@@ -31,7 +31,7 @@ body.js-about-section-open {
 }
 
 .page {
-    width: 590px;
+    width: 585px;
     margin: 100px;
 }
 
@@ -111,7 +111,7 @@ pre code {
 .header {
     display: flex;
     align-items: center;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
 }
 
 /** ARTICLE */
@@ -168,11 +168,11 @@ article .date a {
 }
 
 article .body {
-    margin-top: 25px;
+    margin-top: 30px;
 }
 
 article .body p {
-    margin-bottom: 25px;
+    margin-bottom: 30px;
 }
 
 article .body p:last-child {
@@ -187,45 +187,24 @@ article .body a {
 
 article .body picture {
     display: block;
-    width: 100%;
+    width: calc(100% + 125px);
     height: auto;
-    box-shadow: 3px 3px 0 #26d320;
-    border-radius: 6px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, .05);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
     position: relative;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
 }
 
 article .body picture img {
     display: block;
     width: 100%;
     height: auto;
-    background: #222;
-    border: 2px solid #fff;
-    border-radius: 6px;
+    background: #eee;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
     position: relative;
     z-index: 2;
-}
-
-article .body picture:before {
-    content: '';
-    background-image: var(--img-path);
-    background-size: cover;
-    display: block;
-    width: calc(100% + 100px);
-    height: 100%;
-    opacity: 0.05;
-    filter: grayscale(1);
-    border-radius: 25px;
-    transform: rotate(5deg);
-    z-index: 1;
-    margin-left: -50px;
-    position: absolute;
-}
-
-@media all and (max-width: 750px) {
-    article .body picture:before {
-        display: none;
-    }
 }
 
 article pre {
