@@ -86,35 +86,21 @@ pre code {
 
 .header h1 a {
     font-weight: 500;
+    color: #111;
+    border: 0;
+}
+
+.header .nav a {
+    font-size: .9rem;
+    font-weight: 400;
     color: #888;
-    border: 0;
+    border-bottom: 1px solid transparent;
+    margin-left: 30px;
 }
 
-.header .about-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 3px;
-    font-size: 0.7rem;
-    font-weight: 500;
-    height: 25px;
-    text-transform: uppercase;
-    border-radius: 25px;
-    color: #777;
-    background: #eee;
-    border: 0;
-    padding: 0 8px;
-    transform: rotate(15deg);
-    cursor: pointer;
-}
-
-.header .about-btn:hover {
-    color: #fff;
-    background: #111;
-}
-
-.header .about-btn i {
-    font-size: 0.75rem;
+.header .nav a:hover {
+    color: #111;
+    border-bottom: 1px solid #111;
 }
 
 /** ARTICLE */
@@ -140,7 +126,7 @@ article .title {
 article .title a {
     color: #111;
     font-weight: 750;
-    letter-spacing: -0.025rem;
+    letter-spacing: -0.028rem;
 }
 
 article .date {
