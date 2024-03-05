@@ -149,7 +149,7 @@ article:last-child {
 
 article .title {
     width: 95%;
-    font-size: 2.3rem;
+    font-size: 2.1rem;
     line-height: 1.25;
     font-weight: 750;
     margin-top: -5px;
@@ -188,7 +188,7 @@ article .date a {
 article .body {
     font-size: 1.1rem;
     letter-spacing: -0.015rem;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.75;
     color: #111;
     margin-top: 30px;
@@ -209,14 +209,14 @@ article .body p:last-child {
 }
 
 article .body a {
-    font-weight: 400;
+    font-weight: 500;
     color: #4078f2;
     border-bottom: 1px solid #4078f2;
 }
 
 article .body strong,
 article .body b {
-    font-weight: 400;
+    font-weight: 600;
     color: #111;
 }
 
