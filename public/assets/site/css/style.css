@@ -18,15 +18,24 @@ body {
     margin: 60px 0 0;
 }
 
+@media all and (max-width: 750px) {
+    body {
+        padding-top: 30px;
+        padding-bottom: 30px;
+        margin: 0;
+    }
+}
+
 .wrap {
-    width: 600px;
+    width: 630px;
     margin: 0 auto;
 }
 
 @media all and (max-width: 750px) {
     .wrap {
         width: 100%;
-        padding: 30px;
+        padding-left: 30px;
+        padding-right: 30px;
         margin: 0;
     }
 }
@@ -78,6 +87,19 @@ pre code {
     box-shadow: 0 4px 20px rgba(0, 0, 0, .05);
 }
 
+@media all and (max-width: 750px) {
+    .header {
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, .05) !important;
+        border-top: 1px solid rgba(0, 0, 0, .15);
+        border-bottom: 0;
+        background: linear-gradient(rgba(255,255,255,.75), rgba(255,255,255,.35));
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        top: auto;
+        bottom: 0;
+    }
+}
+
 .header h1 {
     display: inline-block;
     font-size: .9rem;
@@ -105,9 +127,20 @@ pre code {
 
 /** ARTICLE */
 article {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #e5e5e5;
     padding-top: 120px;
     padding-bottom: 120px;
+}
+
+@media all and (max-width: 750px) {
+    article {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+
+    article:first-child {
+        padding-top: 0;
+    }
 }
 
 article:last-child {
@@ -115,12 +148,18 @@ article:last-child {
 }
 
 article .title {
-    width: 80%;
-    font-size: 1.65rem;
+    width: 95%;
+    font-size: 2.3rem;
     line-height: 1.25;
     font-weight: 750;
     margin-top: -5px;
     margin-bottom: 5px;
+}
+
+@media all and (max-width: 750px) {
+    article .title {
+        font-size: 1.8rem;
+    }
 }
 
 article .title a {
@@ -135,16 +174,30 @@ article .date {
     color: #888;
 }
 
+@media all and (max-width: 750px) {
+    article .date {
+        font-size: .85rem;
+    }
+}
+
 article .date a {
     color: inherit;
     border-bottom: 0;
 }
 
 article .body {
-    font-family: 'Merriweather', serif;
+    font-size: 1.1rem;
+    letter-spacing: -0.015rem;
     font-weight: 300;
-    line-height: 1.9;
+    line-height: 1.75;
+    color: #111;
     margin-top: 30px;
+}
+
+@media all and (max-width: 750px) {
+    article .body {
+        font-size: 1rem;
+    }
 }
 
 article .body p {
@@ -195,6 +248,8 @@ article .body picture:before {
     article .body picture {
         width: calc(100% + 60px);
         border-radius: 0;
+        border-left: 0;
+        border-right: 0;
         margin-left: -30px;
     }
 
@@ -256,6 +311,12 @@ article .body h2 {
     margin-bottom: 25px;
 }
 
+@media all and (max-width: 750px) {
+    article .body h2 {
+        font-size: 1.25rem;
+    }
+}
+
 article .body h2 * {
     font-size: inherit;
 }
@@ -277,9 +338,15 @@ article .body ul li {
     font-size: 14px;
     color: #999;
     background: #fff;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #e5e5e5;
     padding-top: 30px;
     padding-bottom: 30px;
+}
+
+@media all and (max-width: 750px) {
+    .footer {
+        padding-bottom: 70px;
+    }
 }
 
 .footer a {
