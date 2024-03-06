@@ -143,6 +143,16 @@ readonly class AdminAPIController
             ]);
         }
 
+        // If we're setting the post as published, but there's no published at
+        // date set, set one.
+        if (
+            $post->get('status') === 'draft' &&
+            !$post->get('published_at') &&
+            $request->input('status') === 'published'
+        ) {
+            $post->set('published_at', time());
+        }
+
         $post->set('status', $request->input('status'));
         $post->set('updated_at', time());
         $this->db->update($post);
