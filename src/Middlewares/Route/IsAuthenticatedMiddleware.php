@@ -15,7 +15,7 @@ readonly class IsAuthenticatedMiddleware
 
     public function handle(Request $request, Response $response): ?Response
     {
-        $auth_token = $request->session()->get('auth_token');
+        $auth_token = $request->cookie()->get('auth_token');
 
         // If there is no auth token, redirect to sign in page.
         if (!$auth_token) {

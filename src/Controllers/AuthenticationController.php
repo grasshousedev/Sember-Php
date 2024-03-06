@@ -26,7 +26,7 @@ readonly class AuthenticationController
 
             if ($user && password_verify($request->input('password'), $user->get('password'))) {
                 $auth_token = Uuid::uuid4()->toString();
-                $request->session()->set('auth_token', $auth_token);
+                $request->cookie()->set('auth_token', $auth_token);
                 $user->set('auth_token', $auth_token);
 
                 $this->db->update($user);

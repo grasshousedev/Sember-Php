@@ -106,4 +106,9 @@ class Request
     {
         return new Session();
     }
+
+    public function cookie(): Cookie
+    {
+        return new Cookie();
+    }
 }

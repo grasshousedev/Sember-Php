@@ -42,7 +42,7 @@ readonly class AdminController
      */
     public function signOut(Request $request, Response $response): Response
     {
-        $request->session()->remove("auth_token");
+        $request->cookie()->remove("auth_token");
 
         return $response->redirect("/admin/signin");
     }

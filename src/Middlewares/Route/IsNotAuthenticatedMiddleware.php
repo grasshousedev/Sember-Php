@@ -15,7 +15,7 @@ readonly class IsNotAuthenticatedMiddleware
 
     public function handle(Request $request, Response $response): ?Response
     {
-        $auth_token = $request->session()->get('auth_token');
+        $auth_token = $request->cookie()->get('auth_token');
 
         // If you are authenticated, redirect to posts page.
         if ($auth_token && $this->db->findOne(User::class, 'where auth_token = ?', [$auth_token])) {
