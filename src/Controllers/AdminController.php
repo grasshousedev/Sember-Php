@@ -83,6 +83,12 @@ readonly class AdminController
      */
     public function createPost(Response $response): Response
     {
+        $user = User::current();
+
+        if (!$user) {
+            return $response->redirect("/admin/signin");
+        }
+
         if (
             $id = $this->db->create(
                 new Post([
@@ -90,7 +96,7 @@ readonly class AdminController
                     "slug" => "untitled",
                     "content" => json_encode([BlockHelper::new("markdown")]),
                     "status" => "draft",
-                    "user_id" => User::current()->get("id"),
+                    "user_id" => $user->get("id"),
                     "created_at" => time(),
                     "updated_at" => time(),
                 ])

@@ -25,8 +25,8 @@ readonly class SiteController
         $posts = $this->db
             ->find(
                 model: Post::class,
-                query: "where status = ? order by published_at desc limit 10",
-                data: ["published"]
+                query: "where status = ? and published_at <= ? order by published_at desc limit 10",
+                data: ["published", time()]
             )
             ->map(function (Post $post) {
                 $post->set("html", $post->renderHtml());
@@ -77,7 +77,11 @@ readonly class SiteController
      */
     public function post(Response $response, string $slug): Response
     {
-        $post = $this->db->findOne(Post::class, "where slug = ?", [$slug]);
+        $post = $this->db->findOne(
+            model: Post::class,
+            query: "where slug = ? and status = ? and published_at <= ?",
+            data: [$slug, "published", time()]
+        );
 
         if (!$post) {
             return $this->notFound($response);

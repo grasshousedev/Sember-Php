@@ -15,7 +15,7 @@ class User extends Model
 
     public static function current(): ?Model
     {
-        $auth_token = (new Request())->session()->get('auth_token');
+        $auth_token = (new Request())->cookie()->get('auth_token');
 
         if (!$auth_token) {
             return null;
