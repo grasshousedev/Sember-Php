@@ -92,8 +92,8 @@ readonly class AdminController
         if (
             $id = $this->db->create(
                 new Post([
-                    "title" => "Untitled ...",
-                    "slug" => "untitled",
+                    "title" => "",
+                    "slug" => "",
                     "content" => json_encode([BlockHelper::new("markdown")]),
                     "status" => "draft",
                     "user_id" => $user->get("id"),
