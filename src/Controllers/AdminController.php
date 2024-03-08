@@ -134,8 +134,8 @@ readonly class AdminController
         return $response->view("admin/edit-post", [
             "id" => $id,
             "post" => $post,
-            "injectedJs" => BlockHelper::injectedJs(),
-            "injectedCss" => BlockHelper::injectedCss(),
+            "injected_js" => BlockHelper::injectedJs(),
+            "injected_css" => BlockHelper::injectedCss(),
             "url" => $request->protocol() . "://" . $request->hostname(),
             "url_without_protocol" => $request->hostname(),
             "blocks" => BlockHelper::editableBlocks($post),
@@ -173,13 +173,16 @@ readonly class AdminController
      */
     public function settings(Request $request, Response $response): Response
     {
-        $site_name = $this->db->findOne(Meta::class, "where meta_name = ?", [
-            "site_name",
-        ]);
+        $site_name = $this->db->findOne(
+            model: Meta::class,
+            query: "where meta_name = ?",
+            data: ["site_name"]
+        );
+
         $site_description = $this->db->findOne(
-            Meta::class,
-            "where meta_name = ?",
-            ["site_description"]
+            model: Meta::class,
+            query: "where meta_name = ?",
+            data: ["site_description"]
         );
 
         return $response->view("admin/settings", [
