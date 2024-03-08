@@ -46,9 +46,15 @@ input, textarea, select, button {
     font-weight: 500;
     text-decoration: none;
     color: #333;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .15);
     border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 6px 10px;
+    border-radius: 16px;
+    transition: all 0.15s ease-in-out;
+    padding: 6px 14px;
+}
+
+.btn:hover {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
 }
 
 .btn-primary {
@@ -199,9 +205,10 @@ input, textarea, select, button {
 
 .posts .post .title {
     font-size: 17px;
-    font-weight: 600;
+    font-weight: 500;
     color: #111;
     letter-spacing: -0.25px;
+    margin-bottom: 3px;
 }
 
 .posts .post .title em {
@@ -247,7 +254,7 @@ input, textarea, select, button {
     background: #fff;
     border: 1px solid #ccc;
     box-shadow: 0 1px 10px rgba(0, 0, 0, .05);
-    border-radius: 4px;
+    border-radius: 8px;
     z-index: 9;
     padding: 20px;
     position: absolute;
@@ -291,7 +298,7 @@ input, textarea, select, button {
     color: #444;
     background: transparent;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 8px;
     padding: 3px 6px;
 }
 
@@ -322,7 +329,7 @@ input, textarea, select, button {
     color: #111;
     box-shadow: inset 3px 3px 3px rgba(0, 0, 0, .03), 0 1px 2px rgba(0, 0, 0, .05);
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 8px;
     outline: none;
     padding-left: 20px;
     padding-right: 20px;
@@ -387,7 +394,7 @@ input, textarea, select, button {
 
 #editor .add-block:hover {
     background: #f5f5f5;
-    border-radius: 4px;
+    border-radius: 8px;
 }
 
 #editor .add-block.active {
@@ -407,7 +414,7 @@ input, textarea, select, button {
     color: #fff;
     background: #111;
     box-shadow: 0 1px 12px rgba(0, 0, 0, .1);
-    border-radius: 4px;
+    border-radius: 12px;
     cursor: pointer;
     z-index: 8;
     position: absolute;
@@ -423,7 +430,7 @@ input, textarea, select, button {
     background: #272727;
     border: 1px solid #111;
     box-shadow: 0 1px 8px rgba(0, 0, 0, .25);
-    border-radius: 4px;
+    border-radius: 8px;
     z-index: 9;
     position: absolute;
     bottom: -10px;
@@ -440,7 +447,7 @@ input, textarea, select, button {
     width: 100%;
     height: 100%;
     text-align: center;
-    border-radius: 4px;
+    border-radius: 8px;
     color: #444;
     background: #eee;
     box-shadow: 0 1px 8px rgba(0, 0, 0, .05);
@@ -503,7 +510,7 @@ input, textarea, select, button {
     display: none;
     background: #fff;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 8px;
     z-index: 10;
     box-shadow: 0 1px 8px rgba(0, 0, 0, .05);
     position: absolute;
@@ -546,7 +553,7 @@ input, textarea, select, button {
 #editor .blocks {
     background: #fff;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 8px;
     box-shadow: inset 3px 3px 3px rgba(0, 0, 0, .015), 0 1px 2px rgba(0, 0, 0, .05);
     padding: 5px 20px;
 }
@@ -578,7 +585,7 @@ input, textarea, select, button {
     color: #111;
     box-shadow: inset 3px 3px 3px rgba(0, 0, 0, .03), 0 1px 2px rgba(0, 0, 0, .05);
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 8px;
     outline: none;
     padding-left: 20px;
     padding-right: 20px;
@@ -597,7 +604,7 @@ input, textarea, select, button {
     line-height: 1.5;
     background: #fff;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 8px;
     outline: none;
     box-shadow: inset 3px 3px 3px rgba(0, 0, 0, .015), 0 1px 2px rgba(0, 0, 0, .05);
     padding: 15px 20px
