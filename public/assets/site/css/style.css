@@ -222,40 +222,10 @@ article .body b {
 
 article .body picture {
     display: block;
-    width: calc(100% + 200px);
+    width: auto;
     height: auto;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, .05);
-    border-radius: 3px;
     position: relative;
-    margin-left: -100px;
     margin-bottom: 30px;
-}
-
-article .body picture:before {
-    display: block;
-    content: '';
-    width: calc(100% - 1px);
-    height: calc(100% - 1px);
-    position: absolute;
-    top: 0;
-    left: 0;
-    border: 1px solid rgba(0, 0, 0, .15);
-    z-index: 10;
-    border-radius: 3px;
-}
-
-@media all and (max-width: 750px) {
-    article .body picture {
-        width: calc(100% + 60px);
-        border-radius: 0;
-        border-left: 0;
-        border-right: 0;
-        margin-left: -30px;
-    }
-
-    article .body picture:before {
-        display: none;
-    }
 }
 
 article .body picture img {
@@ -263,25 +233,15 @@ article .body picture img {
     width: 100%;
     height: auto;
     background: #eee;
-    border-radius: 3px;
     position: relative;
     z-index: 2;
-}
-
-@media all and (max-width: 750px) {
-    article .body picture img {
-        border-radius: 0;
-    }
 }
 
 article pre {
     width: calc(100% + 100px);
     color: #333;
     line-height: 1.1;
-    background: #fff;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, .05);
-    border: 1px solid #ddd;
-    border-radius: 3px;
+    background: #f2f2f2;
     overflow: auto;
     z-index: 10;
     position: relative;
