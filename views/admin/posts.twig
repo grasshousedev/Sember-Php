@@ -26,11 +26,9 @@
                         <div class="row">
                             <div class="meta">
                                 {% if post.data.status is same as 'published' %}
-                                    {% if post.data.published_at|date('Ymd') > "now"|date('Ymd') %}
-                                        Scheduled {{ post.data.published_at|date('M jS, Y') }}
-                                    {% else %}
-                                        Published {{ post.data.published_at|date('M jS, Y') }}
-                                    {% endif %}
+                                    Published {{ post.data.published_at|date('M jS, Y') }}
+                                {% elseif post.data.status is same as 'scheduled' %}
+                                    Scheduled {{ post.data.published_at|date('M jS, Y') }}
                                 {% else %}
                                     {{ post.data.status }}
                                 {% endif %}
