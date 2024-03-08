@@ -36,9 +36,16 @@
                                 &mdash; Updated {{ post.data.updated_at|date('M jS, Y') }}
                             </div>
 
-                            <div class="stats">
-                                {{ post.data.views ?? 0 }} views
+                            {% if post.data.status is same as 'published' %}
+                            <div class="views">
+                                <strong>{{ post.data.views ?? 0 }}</strong>
+                                {% if post.data.views ?? 0 is same as 1 %}
+                                    view
+                                {% else %}
+                                    views
+                                {% endif %}
                             </div>
+                            {% endif %}
                         </div>
                     </a>
                 </div>

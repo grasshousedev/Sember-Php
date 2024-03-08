@@ -54,18 +54,20 @@ input, textarea, select, button {
 }
 
 .btn:hover {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
 }
 
 .btn-primary {
     background: rgb(51 65 85);
-    border: 1px solid rgb(30 41 59);
+    background: linear-gradient(rgba(51, 65, 85, 1) 0%, rgb(37, 47, 61) 100%);
+    border: 1px solid rgb(15, 21, 30);
     color: #fff;
 }
 
 .btn-warning {
-    background-color: rgb(225 29 72);
-    border: 1px solid rgb(190 18 60);
+    background: rgb(225 29 72);
+    background: linear-gradient(rgb(225 29 72) 0%, rgb(185, 22, 58) 100%);
+    border: 1px solid rgb(147, 13, 46);
     color: #fff;
 }
 
@@ -224,10 +226,24 @@ input, textarea, select, button {
     text-transform: uppercase;
 }
 
-.posts .post .stats {
+.posts .post .views {
     font-size: 11px;
     color: #999;
-    text-transform: uppercase;
+    text-transform: lowercase;
+    background: #fafafa;
+    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, .05);
+    border-top: 1px solid rgba(0,0,0,.2);
+    border-left: 1px solid rgba(0,0,0,.2);
+    border-top-left-radius: 4px;
+    border-bottom-right-radius: 8px;
+    padding: 4px 8px;
+    margin-right: -12px;
+    margin-bottom: -10px;
+}
+
+.posts .post .views strong {
+    color: #666;
+    font-weight: 600;
 }
 
 /** EDIT POST */
