@@ -80,23 +80,14 @@ pre code {
 }
 
 .header.not-top {
-    background: linear-gradient(rgba(255,255,255,.75), rgba(255,255,255,.35));
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border-bottom: 1px solid rgba(0, 0, 0, .15);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, .05);
+    background: #111;
 }
 
 @media all and (max-width: 750px) {
     .header {
-        box-shadow: 0 -4px 20px rgba(0, 0, 0, .05) !important;
-        border-top: 1px solid rgba(0, 0, 0, .15);
-        border-bottom: 0;
-        background: linear-gradient(rgba(255,255,255,.75), rgba(255,255,255,.35));
-        backdrop-filter: blur(25px);
-        -webkit-backdrop-filter: blur(25px);
         top: auto;
         bottom: 0;
+        background: #111;
     }
 }
 
@@ -112,6 +103,17 @@ pre code {
     border: 0;
 }
 
+.header.not-top h1 a {
+    color: #fff;
+}
+
+@media all and (max-width: 750px) {
+    .header h1 a {
+        color: #fff;
+    }
+
+}
+
 .header .nav a {
     font-size: .9rem;
     font-weight: 400;
@@ -120,9 +122,31 @@ pre code {
     margin-left: 30px;
 }
 
+.header.not-top .nav a {
+    color: #999;
+}
+
+@media all and (max-width: 750px) {
+    .header .nav a {
+        color: #999;
+    }
+}
+
 .header .nav a:hover {
     color: #111;
     border-bottom: 1px solid #111;
+}
+
+.header.not-top .nav a:hover {
+    color: #fff;
+    border-bottom: 1px solid #fff;
+}
+
+@media all and (max-width: 750px) {
+    .header .nav a:hover {
+        color: #fff;
+        border-bottom: 1px solid #fff;
+    }
 }
 
 /** ARTICLE */
