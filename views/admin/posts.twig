@@ -11,30 +11,38 @@
 
         <div class="posts">
             {% for post in posts %}
-                <div class="post">
-                    <div class="row">
-                        <h3 class="title"><a href="/admin/posts/edit/{{ post.data.id }}">{{ post.data.title }}</a></h3>
-                    </div>
-
-                    <div class="row">
-                        <div class="meta">
-                            {% if post.data.status is same as 'published' %}
-                                {% if post.data.published_at|date('Ymd') > "now"|date('Ymd') %}
-                                    Scheduled {{ post.data.published_at|date('M jS, Y') }}
+                <div class="post" data-status="{{ post.data.status }}">
+                    <a href="/admin/posts/edit/{{ post.data.id }}">
+                        <div class="row">
+                            <h3 class="title">
+                                {% if post.data.title is same as '' %}
+                                    <em>Untitled...</em>
                                 {% else %}
-                                    Published {{ post.data.published_at|date('M jS, Y') }}
+                                    {{ post.data.title  }}
                                 {% endif %}
-                            {% else %}
-                                {{ post.data.status }}
-                            {% endif %}
-
-                            &mdash; Updated {{ post.data.updated_at|date('M jS, Y') }}
+                            </h3>
                         </div>
 
-                        <div class="stats">
-                            {{ post.data.views ?? 0 }} views
+                        <div class="row">
+                            <div class="meta">
+                                {% if post.data.status is same as 'published' %}
+                                    {% if post.data.published_at|date('Ymd') > "now"|date('Ymd') %}
+                                        Scheduled {{ post.data.published_at|date('M jS, Y') }}
+                                    {% else %}
+                                        Published {{ post.data.published_at|date('M jS, Y') }}
+                                    {% endif %}
+                                {% else %}
+                                    {{ post.data.status }}
+                                {% endif %}
+
+                                &mdash; Updated {{ post.data.updated_at|date('M jS, Y') }}
+                            </div>
+
+                            <div class="stats">
+                                {{ post.data.views ?? 0 }} views
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             {% endfor %}
         </div>

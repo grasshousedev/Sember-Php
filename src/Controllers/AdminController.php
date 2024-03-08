@@ -61,6 +61,17 @@ readonly class AdminController
                 model: Post::class,
                 query: "order by created_at desc LIMIT 10"
             )
+            ->map(function (Post $post) {
+                if ($post->get("status") === "published" && $post->get("published_at") <= time()) {
+                    $post->set("status", "published");
+                } elseif ($post->get("status") === "published" && $post->get("published_at") > time()) {
+                    $post->set("status", "scheduled");
+                } else {
+                    $post->set("status", "draft");
+                }
+
+                return $post;
+            })
             ->toArray();
 
         $site_name = $this->db->findOne(Meta::class, "where meta_name = ?", [

@@ -160,9 +160,36 @@ input, textarea, select, button {
     display: flex;
     gap: 5px;
     flex-direction: column;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 25px;
+    background: #fff;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, .05);
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 8px;
     margin-bottom: 25px;
+}
+
+.posts .post:hover {
+    border: 1px solid rgba(0,0,0,.4);
+}
+
+.posts .post[data-status="draft"] {
+    background: transparent;
+    box-shadow: none;
+    border: 1px dashed rgba(0,0,0,.25);
+}
+
+.posts .post[data-status="draft"]:hover {
+    border: 1px dashed rgba(0,0,0,.5);
+}
+
+.posts .post[data-status="scheduled"] {
+    background: #fdfde6;
+}
+
+.posts .post a {
+    display: block;
+    text-decoration: none;
+    border-radius: 8px;
+    padding: 10px 12px;
 }
 
 .posts .post .row {
@@ -171,20 +198,16 @@ input, textarea, select, button {
 }
 
 .posts .post .title {
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 17px;
+    font-weight: 600;
     color: #111;
     letter-spacing: -0.25px;
 }
 
-.posts .post .title a {
-    text-decoration: none;
-    color: #111;
-}
-
-.posts .post .title a:hover {
-    color: #111;
-    border-bottom: 1px solid #111;
+.posts .post .title em {
+    font-weight: 400;
+    font-style: normal;
+    color: #777;
 }
 
 .posts .post .meta {
