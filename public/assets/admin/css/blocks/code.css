@@ -1,19 +1,23 @@
 #editor .code-block textarea {
     display: block;
-    width: 100%;
+    width: calc(100% + 40px);
     height: auto;
     font-size: 13px;
     font-family: "Jetbrains Mono", monospace;
     resize: none;
     line-height: 1.45;
-    background: transparent;
-    border: 1px solid transparent;
+    background: #fafafa;
+    border-top: 1px solid #ddd;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid #ddd;
     overflow: hidden;
+    padding: 20px;
+    margin-left: -20px;
     min-height: 10px;
 }
 
 #editor .code-block textarea:focus {
     outline: none;
-    border: 1px solid #0077cc;
-    border-radius: 4px;
+    border-color: #0077cc;
 }
