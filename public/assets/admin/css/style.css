@@ -429,7 +429,7 @@ input, textarea, select, button {
     border: 0;
     color: #fff;
     background: #111;
-    box-shadow: 0 1px 12px rgba(0, 0, 0, .1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, .2);
     border-radius: 12px;
     cursor: pointer;
     z-index: 8;
@@ -521,8 +521,9 @@ input, textarea, select, button {
     font-size: 14px;
     color: #fff;
     background: #111;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, .2);
     border: 0;
-    border-radius: 25px;
+    border-radius: 12px;
     cursor: pointer;
     margin-left: 5px;
 }
