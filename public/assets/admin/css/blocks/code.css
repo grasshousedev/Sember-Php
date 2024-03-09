@@ -1,19 +1,19 @@
-.CodeMirror {
-    width: calc(100% + 40px);
-    font-size: 14px;
+#editor .code-block textarea {
+    display: block;
+    width: 100%;
     height: auto;
-    border-top: 1px solid #e5e5e5;
-    border-bottom: 1px solid #e5e5e5;
-    margin-top: 4px;
-    margin-left: -20px;
-    margin-bottom: 4px;
+    font-size: 13px;
+    font-family: "Jetbrains Mono", monospace;
+    resize: none;
+    line-height: 1.45;
+    background: transparent;
+    border: 1px solid transparent;
+    overflow: hidden;
+    min-height: 10px;
 }
 
-.CodeMirror-focused {
-    border-color: #0077cc;
-}
-
-#editor .blocks[data-block="code"] {
-    max-width: 100%;
-    overflow: auto;
+#editor .code-block textarea:focus {
+    outline: none;
+    border: 1px solid #0077cc;
+    border-radius: 4px;
 }

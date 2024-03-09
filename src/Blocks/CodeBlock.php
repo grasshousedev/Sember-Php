@@ -22,19 +22,11 @@ class CodeBlock implements Block
 
     // Injected JS
     public array $js = [
-        '/assets/shared/codemirror/codemirror.js',
-        '/assets/shared/codemirror/mode/javascript/javascript.js',
-        '/assets/shared/codemirror/mode/css/css.js',
-        '/assets/shared/codemirror/mode/htmlmixed/htmlmixed.js',
-        '/assets/shared/codemirror/mode/xml/xml.js',
-        '/assets/shared/codemirror/mode/php/php.js',
         '/assets/admin/js/blocks/code.js'
     ];
 
     // Injected CSS
     public array $css = [
-        '/assets/shared/codemirror/codemirror.css',
-        '/assets/shared/codemirror/theme/idea.css',
         '/assets/admin/css/blocks/code.css'
     ];
 
@@ -57,10 +49,7 @@ class CodeBlock implements Block
      */
     public static function options(Post $post, array $block): array
     {
-        return [
-            'language' => [
-            ]
-        ];
+        return [];
     }
 
     /**

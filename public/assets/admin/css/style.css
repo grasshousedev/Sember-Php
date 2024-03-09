@@ -464,11 +464,12 @@ input, textarea, select, button {
     height: 100%;
     text-align: center;
     border-radius: 8px;
-    color: #444;
-    background: #eee;
+    color: #eee;
+    background: rgba(255,255,255,.05);
     box-shadow: 0 1px 8px rgba(0, 0, 0, .05);
-    border: 0;
+    border: 1px solid rgba(255,255,255,.25);
     cursor: pointer;
+    transition: all 0.05s ease-in-out;
     padding: 15px;
 }
 
@@ -487,9 +488,13 @@ input, textarea, select, button {
     display: block;
     font-size: 14px;
     font-weight: 550;
-    color: #444;
+    color: #eee;
     line-height: 1.3;
     margin-top: 10px;
+}
+
+#editor .add-block .block-list button:hover .name {
+    color: #111;
 }
 
 /** BLOCK OPTIONS */
