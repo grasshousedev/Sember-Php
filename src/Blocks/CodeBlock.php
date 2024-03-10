@@ -78,7 +78,7 @@ class CodeBlock implements Block
     public static function viewable(Post $post, array $block): string
     {
         $hl = new \Highlight\Highlighter();
-        $hl->setAutodetectLanguages(['php', 'javascript', 'css', 'html', 'rust', 'clojure']);
+        $hl->setAutodetectLanguages(['php', 'javascript', 'json', 'css', 'html', 'rust', 'clojure']);
         $hled = $hl->highlightAuto($block['value']);
 
         return (new Response)->view('site/blocks/code', [
