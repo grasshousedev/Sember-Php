@@ -6,6 +6,11 @@ import {cursorPosition} from './paragraph/contexts.js';
 import {charNodeFlattenFn} from './paragraph/utils.js';
 
 export class ParagraphBlock extends LitElement {
+  /**
+   * Updates the cursor position
+   *
+   * @param value
+   */
   cursorProviderUpdateHandle = (value) => {
     this.cursorProvider.setValue({
       value,
@@ -70,6 +75,11 @@ export class ParagraphBlock extends LitElement {
       }];
   }
 
+  /**
+   * Listens for key presses
+   *
+   * @param e
+   */
   listenKeyPress = (e) => {
     console.log(e);
     if (e.key === "ArrowLeft") {
@@ -96,9 +106,13 @@ export class ParagraphBlock extends LitElement {
     }
 
     // Any other key, just add it to the content
+    e.preventDefault();
     this.content = this.addCharToContent(this.content, e.key);
   }
 
+  /**
+   * Sets the block as active and listens for key presses
+   */
   setActive() {
     this.active = true;
 
@@ -110,10 +124,24 @@ export class ParagraphBlock extends LitElement {
     this.node = this.renderRoot;
   }
 
+  /**
+   * Adds a character to the content
+   *
+   * @param content
+   * @param char
+   * @returns {*[]}
+   */
   addCharToContent(content, char) {
     return this.addNodeLeftOfId(content, this.cursorPosition, {id: uuidv4(), type: 'char', value: char});
   }
 
+  /**
+   * Removes a node from the content
+   *
+   * @param content
+   * @param nodeId
+   * @returns {*[]}
+   */
   removeNodeFromContent(content, nodeId) {
     let newContent = [];
 
@@ -139,6 +167,14 @@ export class ParagraphBlock extends LitElement {
     return newContent;
   }
 
+  /**
+   * Adds a node to the left of a given id
+   *
+   * @param content
+   * @param id
+   * @param node
+   * @returns {*[]}
+   */
   addNodeLeftOfId(content, id, node) {
     let newContent = [];
 
@@ -166,6 +202,14 @@ export class ParagraphBlock extends LitElement {
     return newContent;
   }
 
+  /**
+   * Adds a node to the right of a given id
+   *
+   * @param content
+   * @param id
+   * @param node
+   * @returns {*[]}
+   */
   addNodeRightOfId(content, id, node) {
     let newContent = [];
 
@@ -193,6 +237,12 @@ export class ParagraphBlock extends LitElement {
     return newContent;
   }
 
+  /**
+   * Traverses the content tree and removes the cursor node
+   *
+   * @param content
+   * @returns {*[]}
+   */
   traverseContentTreeAndRemoveCursorNode(content) {
     let newContent = [];
 
@@ -216,6 +266,12 @@ export class ParagraphBlock extends LitElement {
     return newContent;
   }
 
+  /**
+   * Traverses the content tree and adds the cursor node
+   *
+   * @param content
+   * @returns {*[]}
+   */
   traverseContentTreeAndAddCursorNode(content) {
     if (this.cursorPosition === "0") {
       return [...content, {id: uuidv4(), type: 'cursor'}];
@@ -247,6 +303,12 @@ export class ParagraphBlock extends LitElement {
     return newContent;
   }
 
+  /**
+   * Computes the id of the last content tree node
+   *
+   * @param content
+   * @returns {number}
+   */
   computeLastContentTreeNodeId(content) {
     let lastId = 0;
 
@@ -265,6 +327,12 @@ export class ParagraphBlock extends LitElement {
     return lastId;
   }
 
+  /**
+   * Computes the id of the node left of a given id
+   *
+   * @param id
+   * @returns {*|number}
+   */
   computeTreeNodeIdLeftOf(id) {
     if (id === "0") {
       return this.computeLastContentTreeNodeId(this.content);
@@ -280,6 +348,12 @@ export class ParagraphBlock extends LitElement {
     return charNodes[foundIndex - 1].id;
   }
 
+  /**
+   * Computes the id of the node right of a given id
+   *
+   * @param id
+   * @returns {*|string}
+   */
   computeTreeNodeIdRightOf(id) {
     const charNodes = this.content.flatMap(charNodeFlattenFn).filter((item) => item?.type === 'char');
     const foundIndex = charNodes.findIndex((item) => item?.id === id);
@@ -295,15 +369,6 @@ export class ParagraphBlock extends LitElement {
     return charNodes[foundIndex + 1].id;
   }
 
-  setCursorAtEnd(e) {
-    console.log('click', e)
-    const id = this.computeLastContentTreeNodeId(this.content);
-    const rightValue = this.computeTreeNodeIdRightOf(id);
-    console.log('rightValue', rightValue)
-    this.cursorPosition = rightValue;
-  }
-
-  // Render the UI as a function of component state
   render() {
     const content = this.content;
     this.content = [];
