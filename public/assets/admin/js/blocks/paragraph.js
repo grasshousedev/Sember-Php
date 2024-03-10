@@ -1,8 +1,9 @@
-import {LitElement, html, css} from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';
+import {css, html, LitElement} from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';
 import {ContextProvider} from 'https://cdn.jsdelivr.net/npm/@lit/context@1.1.0/+esm';
-import { v4 as uuidv4 } from 'https://cdn.jsdelivr.net/npm/uuid@9.0.1/+esm'
+import {v4 as uuidv4} from 'https://cdn.jsdelivr.net/npm/uuid@9.0.1/+esm'
 import './paragraph/paragraph-group.js';
 import {cursorPosition} from './paragraph/contexts.js';
+import {charNodeFlattenFn} from './paragraph/utils.js';
 
 export class ParagraphBlock extends LitElement {
   cursorProviderUpdateHandle = (value) => {
@@ -26,7 +27,8 @@ export class ParagraphBlock extends LitElement {
   static properties = {
     active: false,
     cursorPosition: 0,
-    content: []
+    content: [],
+    node: false,
   }
 
   static styles = css`
@@ -68,8 +70,28 @@ export class ParagraphBlock extends LitElement {
       }];
   }
 
+  listenKeyPress = (e) => {
+    console.log(e);
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      this.cursorPosition = this.computeTreeNodeIdLeftOf(this.cursorPosition);
+    }
+
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      this.cursorPosition = this.computeTreeNodeIdRightOf(this.cursorPosition);
+    }
+  }
+
   setActive() {
     this.active = true;
+
+    window.removeEventListener('keydown', this.listenKeyPress);
+    window.addEventListener('keydown', this.listenKeyPress);
+  }
+
+  firstUpdated() {
+    this.node = this.renderRoot;
   }
 
   traverseContentTreeAndRemoveCursorNode(content) {
@@ -129,7 +151,9 @@ export class ParagraphBlock extends LitElement {
   computeLastContentTreeNodeId(content) {
     let lastId = 0;
 
-    const lastNode = content[content.length - 1];
+    const lastNode = content[content.length - 1].type === 'cursor' ?
+      content[content.length - 2] :
+      content[content.length - 1];
 
     if (lastNode.type === 'char') {
       lastId = lastNode.id;
@@ -142,19 +166,24 @@ export class ParagraphBlock extends LitElement {
     return lastId;
   }
 
+  computeTreeNodeIdLeftOf(id) {
+    if (id === "0") {
+      return this.computeLastContentTreeNodeId(this.content);
+    }
+
+    const charNodes = this.content.flatMap(charNodeFlattenFn).filter((item) => item?.type === 'char');
+    const foundIndex = charNodes.findIndex((item) => item?.id === id);
+
+    if (foundIndex === -1 || foundIndex === 0) {
+      return id;
+    }
+
+    return charNodes[foundIndex - 1].id;
+  }
+
   computeTreeNodeIdRightOf(id) {
-    const charNodeFlattenFn = (item) => {
-      if (item.type === 'char') {
-        return item.id;
-      }
-
-      if (item.type === 'group') {
-        return item.content.flatMap(charNodeFlattenFn);
-      }
-    };
-
-    const charNodes = this.content.flatMap(charNodeFlattenFn);
-    const foundIndex = charNodes.findIndex((item) => item === id);
+    const charNodes = this.content.flatMap(charNodeFlattenFn).filter((item) => item?.type === 'char');
+    const foundIndex = charNodes.findIndex((item) => item?.id === id);
 
     if (foundIndex === -1) {
       return "0";
@@ -164,7 +193,7 @@ export class ParagraphBlock extends LitElement {
       return "0";
     }
 
-    return charNodes[foundIndex + 1];
+    return charNodes[foundIndex + 1].id;
   }
 
   setCursorAtEnd(e) {

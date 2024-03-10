@@ -1,5 +1,5 @@
 import {LitElement, html, css} from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';
-import {ContextConsumer, ContextProvider} from 'https://cdn.jsdelivr.net/npm/@lit/context@1.1.0/+esm';
+import {ContextConsumer} from 'https://cdn.jsdelivr.net/npm/@lit/context@1.1.0/+esm';
 import {cursorPosition} from './contexts.js';
 
 export class ParagraphChar extends LitElement {
@@ -13,6 +13,7 @@ export class ParagraphChar extends LitElement {
       .char {
           display: inline-block;
           position: relative;
+          user-select: none;
       }
       
       .left-side {
@@ -45,16 +46,13 @@ export class ParagraphChar extends LitElement {
 
   setPositionRight() {
     this.cursorConsumer.value.setValue("0");
-
-    // todo: compute actual ID, and if none found, set to 0 so that it would be in the end.
-    // 0 is always in the end.
     this.cursorConsumer.value.setValue(this.id, true);
   }
 
   // Render the UI as a function of component state
   render() {
     return html`<span class="char">
-        ${this.value}
+        ${this.value === ' ' ? html`&nbsp;` : this.value}
         <span @click="${this.setPositionLeft}" class="left-side"></span>
         <span @click="${this.setPositionRight}" class="right-side"></span>
     </span>`;

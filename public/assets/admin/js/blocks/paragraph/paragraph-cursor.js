@@ -2,6 +2,7 @@ import {LitElement, html, css} from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core
 
 export class ParagraphCursor extends LitElement {
   static properties = {}
+
   static styles = css`
       @keyframes blink {
           0% {
@@ -30,7 +31,6 @@ export class ParagraphCursor extends LitElement {
     super();
   }
 
-  // Render the UI as a function of component state
   render() {
     return html`<span></span>`;
   }
