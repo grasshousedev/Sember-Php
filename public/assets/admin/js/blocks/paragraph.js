@@ -33,7 +33,7 @@ export class ParagraphBlock extends LitElement {
 
   static styles = css`
     paragraph-group.active {
-        display: block;
+        display: inline-block;
         width: 100%;
         background: #eee;
     }
@@ -75,12 +75,28 @@ export class ParagraphBlock extends LitElement {
     if (e.key === "ArrowLeft") {
       e.preventDefault();
       this.cursorPosition = this.computeTreeNodeIdLeftOf(this.cursorPosition);
+      return;
     }
 
     if (e.key === "ArrowRight") {
       e.preventDefault();
       this.cursorPosition = this.computeTreeNodeIdRightOf(this.cursorPosition);
+      return;
     }
+
+    if (e.key === "Backspace") {
+      e.preventDefault();
+      const nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(this.cursorPosition);
+      this.content = this.removeNodeFromContent(this.content, nodeIdBeforeCursor);
+      return;
+    }
+
+    if (e.key === "Shift" || e.key === "Escape") {
+      return;
+    }
+
+    // Any other key, just add it to the content
+    this.content = this.addCharToContent(this.content, e.key);
   }
 
   setActive() {
@@ -92,6 +108,89 @@ export class ParagraphBlock extends LitElement {
 
   firstUpdated() {
     this.node = this.renderRoot;
+  }
+
+  addCharToContent(content, char) {
+    return this.addNodeLeftOfId(content, this.cursorPosition, {id: uuidv4(), type: 'char', value: char});
+  }
+
+  removeNodeFromContent(content, nodeId) {
+    let newContent = [];
+
+    for (let i = 0; i < content.length; i++) {
+      const item = content[i];
+
+      // chars
+      if (item.type === 'char') {
+        if (item.id !== nodeId) {
+          newContent.push(item);
+        }
+      }
+
+      // groups
+      if (item.type === 'group') {
+        newContent.push({
+          ...item,
+          content: this.removeNodeFromContent(item.content, nodeId)
+        });
+      }
+    }
+
+    return newContent;
+  }
+
+  addNodeLeftOfId(content, id, node) {
+    let newContent = [];
+
+    for (let i = 0; i < content.length; i++) {
+      const item = content[i];
+
+      // chars
+      if (item.type === 'char') {
+        if (item.id === id) {
+          newContent.push(node);
+        }
+
+        newContent.push(item);
+      }
+
+      // groups
+      if (item.type === 'group') {
+        newContent.push({
+          ...item,
+          content: this.addNodeLeftOfId(item.content, id, node)
+        })
+      }
+    }
+
+    return newContent;
+  }
+
+  addNodeRightOfId(content, id, node) {
+    let newContent = [];
+
+    for (let i = 0; i < content.length; i++) {
+      const item = content[i];
+
+      // chars
+      if (item.type === 'char') {
+        newContent.push(item);
+
+        if (item.id === id) {
+          newContent.push(node);
+        }
+      }
+
+      // groups
+      if (item.type === 'group') {
+        newContent.push({
+          ...item,
+          content: this.addNodeLeftOfId(item.content, id, node)
+        })
+      }
+    }
+
+    return newContent;
   }
 
   traverseContentTreeAndRemoveCursorNode(content) {

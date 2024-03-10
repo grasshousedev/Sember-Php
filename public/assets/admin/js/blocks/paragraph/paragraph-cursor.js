@@ -17,11 +17,11 @@ export class ParagraphCursor extends LitElement {
       }
       
       span {
-          height: calc(100% - 4px);
+          display: inline-block;
+          height: 100%;
           width: 1px;
           background: #111;
           position: absolute;
-          margin-left: -1px;
           animation: blink 1s infinite;
           margin-top: 2px;
       }
