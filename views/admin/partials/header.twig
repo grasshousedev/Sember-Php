@@ -35,7 +35,7 @@
     {% endif %}
 
     {% for js in injected_js %}
-        <script src="{{ asset(js) }}"></script>
+        <script type="module" src="{{ asset(js) }}"></script>
     {% endfor %}
 </head>
 <body>
