@@ -59,7 +59,7 @@ readonly class AdminController
         $posts = $this->db
             ->find(
                 model: Post::class,
-                query: "order by created_at desc LIMIT 10"
+                query: "order by created_at desc"
             )
             ->map(function (Post $post) {
                 if ($post->get("status") === "published" && $post->get("published_at") <= time()) {

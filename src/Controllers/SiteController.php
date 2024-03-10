@@ -26,7 +26,7 @@ readonly class SiteController
         $posts = $this->db
             ->find(
                 model: Post::class,
-                query: "where status = ? and published_at <= ? order by published_at desc limit 10",
+                query: "where status = ? and published_at <= ? order by published_at desc",
                 data: ["published", time()]
             )
             ->map(function (Post $post) {
