@@ -36,14 +36,6 @@ export class ParagraphBlock extends LitElement {
     node: false,
   }
 
-  static styles = css`
-    paragraph-group.active {
-        display: inline-block;
-        width: 100%;
-        background: #eee;
-    }
-  `;
-
   constructor() {
     super();
 
@@ -81,7 +73,8 @@ export class ParagraphBlock extends LitElement {
    * @param e
    */
   listenKeyPress = (e) => {
-    console.log(e);
+    if (!this.active) return;
+
     if (e.key === "ArrowLeft") {
       e.preventDefault();
       this.cursorPosition = this.computeTreeNodeIdLeftOf(this.cursorPosition);
@@ -97,31 +90,89 @@ export class ParagraphBlock extends LitElement {
     if (e.key === "Backspace") {
       e.preventDefault();
       const nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(this.cursorPosition);
-      this.content = this.removeNodeFromContent(this.content, nodeIdBeforeCursor);
+
+      if (nodeIdBeforeCursor !== this.cursorPosition) {
+        this.content = this.removeNodeFromContent(this.content, nodeIdBeforeCursor);
+      }
+
       return;
     }
 
-    if (e.key === "Shift" || e.key === "Escape") {
-      return;
+    if ((e.metaKey || e.ctrlKey) && e.key === "b") {
+      // TODO: Implement bold
     }
 
-    // Any other key, just add it to the content
-    e.preventDefault();
-    this.content = this.addCharToContent(this.content, e.key);
+    if ((e.metaKey || e.ctrlKey) && e.key === "i") {
+      // TODO: Implement italic
+    }
+
+    if ((e.metaKey || e.ctrlKey) && e.key === "u") {
+      // TODO: Implement underline
+    }
+
+    if ((e.metaKey || e.ctrlKey) && e.key === "a") {
+      // TODO: Implement select all
+    }
+
+    if ((e.metaKey || e.ctrlKey) && e.key === "z") {
+      // TODO: Implement undo
+    }
+
+    if ((e.metaKey || e.ctrlKey) && e.key === "y") {
+      // TODO: Implement redo
+    }
+
+    if ((e.metaKey || e.ctrlKey) && e.key === "c") {
+      // TODO: Implement copy
+    }
+
+    if ((e.metaKey || e.ctrlKey) && e.key === "x") {
+      // TODO: Implement cut
+    }
+
+    if ((e.metaKey || e.ctrlKey) && e.key === "v") {
+      // TODO: Implement paste
+    }
+
+    const notAllowedChars = [
+      'ArrowLeft', 'ArrowRight', 'Backspace', 'Meta', 'Control', 'Shift',
+      'Alt', 'CapsLock', 'Tab', 'Enter', 'Escape', 'PageUp', 'PageDown',
+      'End', 'Home', 'Insert', 'Delete', 'F1', 'F2', 'F3', 'F4', 'F5',
+      'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12', 'PrintScreen',
+      'ScrollLock', 'Pause', 'ContextMenu', 'OS', 'MediaTrackPrevious',
+      'MediaTrackNext', 'MediaPlayPause', 'MediaStop', 'MediaTrackNext',
+      'MediaSelect', 'Mail', 'Calculator', 'BrowserSearch', 'BrowserHome',
+      'BrowserBack', 'BrowserForward', 'BrowserStop', 'BrowserRefresh',
+      'BrowserFavorites', 'VolumeMute', 'VolumeDown', 'VolumeUp', 'MediaPlay',
+      'MediaPause', 'MediaRecord', 'MediaFastForward', 'MediaRewind',
+      'MediaTrackNext', 'MediaTrackPrevious', 'MediaStop', 'MediaEject',
+      'MediaPlayPause', 'LaunchMail', 'LaunchApp2', 'LaunchApp1', 'Select',
+      'Open', 'Find', 'Help', 'Clear', 'Symbol', 'Unidentified',
+      'Dead', 'IntlBackslash', 'IntlRo', 'IntlYen', 'IntlPipe',
+    ];
+
+    if (!notAllowedChars.includes(e.key) && !e.metaKey) {
+      e.preventDefault();
+      this.content = this.addCharToContent(this.content, e.key);
+    }
   }
 
-  /**
-   * Sets the block as active and listens for key presses
-   */
-  setActive() {
-    this.active = true;
-
-    window.removeEventListener('keydown', this.listenKeyPress);
-    window.addEventListener('keydown', this.listenKeyPress);
+  activateEditor = (e) => {
+    if (e.target === this.node.host) {
+      this.active = true;
+    } else {
+      this.active = false;
+      this.cursorPosition = null;
+    }
   }
 
   firstUpdated() {
-    this.node = this.renderRoot;
+    this.node = this.shadowRoot;
+
+    window.removeEventListener('keydown', this.listenKeyPress);
+    window.addEventListener('keydown', this.listenKeyPress);
+    window.removeEventListener("click", this.activateEditor);
+    window.addEventListener("click", this.activateEditor);
   }
 
   /**
@@ -375,9 +426,7 @@ export class ParagraphBlock extends LitElement {
     this.content = this.traverseContentTreeAndAddCursorNode(this.traverseContentTreeAndRemoveCursorNode(content));
 
     return html`
-      <paragraph-group @click="${this.setActive}" 
-                       class="${this.active ? 'active' : 'not-active'}" 
-                       type="normal"
+      <paragraph-group type="normal"
                        .content=${this.content}>
       </paragraph-group>
     `;
