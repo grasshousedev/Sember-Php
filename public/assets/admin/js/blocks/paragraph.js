@@ -175,6 +175,12 @@ export class ParagraphBlock extends LitElement {
     window.addEventListener("click", this.activateEditor);
   }
 
+  willUpdate() {
+    const content = this.traverseContentTreeAndRemoveCursorNode(this.content);
+    this.content = [];
+    this.content = this.traverseContentTreeAndAddCursorNode(content);
+  }
+
   /**
    * Adds a character to the content
    *
@@ -183,7 +189,14 @@ export class ParagraphBlock extends LitElement {
    * @returns {*[]}
    */
   addCharToContent(content, char) {
-    return this.addNodeLeftOfId(content, this.cursorPosition, {id: uuidv4(), type: 'char', value: char});
+    return this.addNodeLeftOfId(
+      content,
+      this.cursorPosition,
+      {
+        id: uuidv4(),
+        type: 'char',
+        value: char
+      });
   }
 
   /**
@@ -421,14 +434,9 @@ export class ParagraphBlock extends LitElement {
   }
 
   render() {
-    const content = this.content;
-    this.content = [];
-    this.content = this.traverseContentTreeAndAddCursorNode(this.traverseContentTreeAndRemoveCursorNode(content));
-
     return html`
-      <paragraph-group type="normal"
-                       .content=${this.content}>
-      </paragraph-group>
+        <paragraph-group type="normal" .content=${this.content}>
+        </paragraph-group>
     `;
   }
 }
