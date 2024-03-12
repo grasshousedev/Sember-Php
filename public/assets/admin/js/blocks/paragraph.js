@@ -44,7 +44,6 @@ export class ParagraphBlock extends LitElement {
       setValue: this.cursorProviderUpdateHandle,
     });
 
-    // Declare reactive properties
     this.content = [
       {id: uuidv4(), type: 'char', value: 'H'},
       {id: uuidv4(), type: 'char', value: 'e'},
