@@ -4,7 +4,7 @@ namespace Asko\Sember;
 
 class Cookie
 {
-    public function set(string $name, string $value, int $expire = 0, string $path = '', string $domain = '', bool $secure = false, bool $httpOnly = false): void
+    public function set(string $name, string $value, int $expire = 0, string $path = '/', string $domain = '', bool $secure = false, bool $httpOnly = false): void
     {
         setcookie($name, $value, $expire, $path, $domain, $secure, $httpOnly);
     }

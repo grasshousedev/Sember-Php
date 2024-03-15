@@ -17,7 +17,7 @@ class User extends Model
     {
         $auth_token = (new Request())->cookie()->get('auth_token');
 
-        if (!$auth_token) {
+        if (empty($auth_token)) {
             return null;
         }
 
