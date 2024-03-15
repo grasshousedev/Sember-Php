@@ -33,7 +33,7 @@ class ParagraphBlock implements Block
 
     public static function viewable(Post $post, array $block): string
     {
-        // TODO: Implement viewable() method.
+        return "";
     }
 
     public static function model(): array

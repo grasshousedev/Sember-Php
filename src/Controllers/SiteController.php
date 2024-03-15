@@ -5,6 +5,7 @@ namespace Asko\Sember\Controllers;
 use Asko\Sember\Database;
 use Asko\Sember\Models\Meta;
 use Asko\Sember\Models\Post;
+use Asko\Sember\Models\User;
 use Asko\Sember\Request;
 use Asko\Sember\Response;
 use Parsedown;
@@ -78,11 +79,19 @@ readonly class SiteController
      */
     public function post(Request $request, Response $response, string $slug): Response
     {
-        $post = $this->db->findOne(
-            model: Post::class,
-            query: "where slug = ? and status = ? and published_at <= ?",
-            data: [$slug, "published", time()]
-        );
+        if (User::current()) {
+            $post = $this->db->findOne(
+                model: Post::class,
+                query: "where slug = ?",
+                data: [$slug]
+            );
+        } else {
+            $post = $this->db->findOne(
+                model: Post::class,
+                query: "where slug = ? and status = ? and published_at <= ?",
+                data: [$slug, "published", time()]
+            );
+        }
 
         if (!$post) {
             return $this->notFound($response);
