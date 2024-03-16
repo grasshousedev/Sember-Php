@@ -1,9 +1,10 @@
 import {LitElement, html, css} from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';
 import {ContextConsumer} from 'https://cdn.jsdelivr.net/npm/@lit/context@1.1.0/+esm';
-import {cursorPosition} from './contexts.js';
+import {cursorPosition, meta} from './contexts.js';
 
 export class ParagraphChar extends LitElement {
   cursorConsumer = new ContextConsumer(this, {context: cursorPosition, subscribe: true});
+  metaConsumer = new ContextConsumer(this, {context: meta, subscribe: true});
 
   static properties = {
     value: {type: String, attribute: true, state: false},
@@ -44,6 +45,17 @@ export class ParagraphChar extends LitElement {
 
   constructor() {
     super();
+  }
+
+  firstUpdated() {
+    const node = this.shadowRoot;
+
+    node.removeEventListener('dblclick', this.doubleClick);
+    node.addEventListener('dblclick', this.doubleClick);
+  }
+
+  doubleClick = (e) => {
+    this.metaConsumer.value.selectWordOfNode(this.id);
   }
 
   setPositionLeft() {

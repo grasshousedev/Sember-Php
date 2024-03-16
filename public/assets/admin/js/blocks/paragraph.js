@@ -2,7 +2,7 @@ import {css, html, LitElement} from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core
 import {ContextProvider} from 'https://cdn.jsdelivr.net/npm/@lit/context@1.1.0/+esm';
 import {v4 as uuidv4} from 'https://cdn.jsdelivr.net/npm/uuid@9.0.1/+esm'
 import './paragraph/paragraph-group.js';
-import {cursorPosition} from './paragraph/contexts.js';
+import {cursorPosition, meta} from './paragraph/contexts.js';
 import {charNodeFlattenFn, nodeFlattenFn} from './paragraph/utils.js';
 
 export class ParagraphBlock extends LitElement {
@@ -30,6 +30,7 @@ export class ParagraphBlock extends LitElement {
   }
 
   cursorProvider = new ContextProvider(this, {context: cursorPosition});
+  metaProvider = new ContextProvider(this, {context: meta});
 
   static properties = {
     active: {type: Boolean, state: true, attribute: false},
@@ -45,6 +46,10 @@ export class ParagraphBlock extends LitElement {
       value: 0,
       setValue: this.cursorProviderUpdateHandle,
     });
+
+    this.metaProvider.setValue({
+      selectWordOfNode: this.selectWordOfNodeId,
+    })
 
     this.content = [
       {id: uuidv4(), type: 'char', value: 'H'},
@@ -243,6 +248,16 @@ export class ParagraphBlock extends LitElement {
   }
 
   /**
+   * Flatten all char nodes
+   *
+   * @param content
+   * @returns {*[]}
+   */
+  charNodesFlatten(content) {
+    return content.flatMap(charNodeFlattenFn);
+  }
+
+  /**
    * Toggles a node as selected
    *
    * @param content
@@ -320,6 +335,30 @@ export class ParagraphBlock extends LitElement {
 
       return item;
     });
+  }
+
+  selectWordOfNodeId = (nodeId) => {
+    const allNodes = this.charNodesFlatten(this.content);
+    const foundIndex = allNodes.findIndex((item) => item?.id === nodeId);
+
+    // Find first space node to the left
+    let leftIndex = foundIndex;
+    while (leftIndex > 0 && allNodes[leftIndex]?.value !== ' ') {
+      leftIndex--;
+    }
+
+    // Find first space node to the right
+    let rightIndex = foundIndex;
+    while (rightIndex < allNodes.length && allNodes[rightIndex]?.value !== ' ') {
+      rightIndex++;
+    }
+
+    // Mark all nodes between left and right index as selected
+    for (let i = leftIndex; i < rightIndex; i++) {
+      if (allNodes[i]?.type === 'char' && allNodes[i]?.value !== ' ' && allNodes[i]?.value !== ',') {
+        this.content = this.toggleNodeAsSelected(this.content, allNodes[i].id);
+      }
+    }
   }
 
   /**

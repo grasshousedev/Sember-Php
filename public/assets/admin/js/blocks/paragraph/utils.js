@@ -6,6 +6,8 @@ export function charNodeFlattenFn(item) {
   if (item.type === 'group') {
     return item.content.flatMap(charNodeFlattenFn);
   }
+
+  return [];
 }
 
 export function nodeFlattenFn(item) {
