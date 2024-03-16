@@ -55,7 +55,9 @@ export class ParagraphChar extends LitElement {
   }
 
   doubleClick = (e) => {
+    e.preventDefault();
     this.metaConsumer.value.selectWordOfNode(this.id);
+    return false;
   }
 
   setPositionLeft() {
