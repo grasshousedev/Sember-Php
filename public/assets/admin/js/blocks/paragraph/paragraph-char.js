@@ -6,7 +6,8 @@ export class ParagraphChar extends LitElement {
   cursorConsumer = new ContextConsumer(this, {context: cursorPosition, subscribe: true});
 
   static properties = {
-    value: ''
+    value: {type: String, attribute: true, state: false},
+    selected: {type: Boolean, attribute: true, state: false},
   }
 
   static styles = css`
@@ -16,12 +17,17 @@ export class ParagraphChar extends LitElement {
           user-select: none;
       }
       
+      .char.selected {
+          background: lightskyblue;
+      }
+      
       .left-side {
           position: absolute;
           top: 0;
           left: 0;
           width: 50%;
           height: 100%;
+          z-index: 1;
           background: transparent;
       }
       
@@ -31,6 +37,7 @@ export class ParagraphChar extends LitElement {
           right: 0;
           width: 50%;
           height: 100%;
+          z-index: 1;
           background: transparent;
       }
   `;
@@ -49,9 +56,8 @@ export class ParagraphChar extends LitElement {
     this.cursorConsumer.value.setValue(this.id, true);
   }
 
-  // Render the UI as a function of component state
   render() {
-    return html`<span class="char">
+    return html`<span class="char ${this.selected ? 'selected' : ''}">
         ${this.value === ' ' ? html`&nbsp;` : this.value}
         <span @click="${this.setPositionLeft}" class="left-side"></span>
         <span @click="${this.setPositionRight}" class="right-side"></span>

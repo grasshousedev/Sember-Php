@@ -18,7 +18,7 @@ export class ParagraphGroup extends LitElement {
         case 'cursor':
           return html`<paragraph-cursor></paragraph-cursor>`;
         case 'char':
-          return html`<paragraph-char id=${item.id} .value=${item.value}></paragraph-char>`;
+          return html`<paragraph-char id=${item.id} .selected=${item.selected} .value=${item.value}></paragraph-char>`;
         case 'group':
           return html`<paragraph-group id=${item.id} type=${item.groupType} .content=${item.content}></paragraph-group>`;
       }

@@ -21,6 +21,7 @@ export class ParagraphCursor extends LitElement {
           height: 100%;
           width: 1px;
           background: #111;
+          z-index: 2;
           position: absolute;
           animation: blink 1s infinite;
           margin-top: 2px;

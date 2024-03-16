@@ -1,13 +1,22 @@
 export function charNodeFlattenFn(item) {
   if (item.type === 'char') {
-    return {
-      id: item.id,
-      type: item.type,
-      value: item.value,
-    };
+    return item;
   }
 
   if (item.type === 'group') {
     return item.content.flatMap(charNodeFlattenFn);
+  }
+}
+
+export function nodeFlattenFn(item) {
+  if (item.type === 'char') {
+    return item;
+  }
+
+  if (item.type === 'group') {
+    return [
+      item,
+      ...item.content.flatMap(nodeFlattenFn)
+    ]
   }
 }
