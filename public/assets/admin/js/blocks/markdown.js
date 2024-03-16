@@ -1,6 +1,4 @@
 function onMarkdownBlockKeyDown(e) {
-  console.log(e.key);
-
   if (e.key === "Enter") {
     e.preventDefault();
 
