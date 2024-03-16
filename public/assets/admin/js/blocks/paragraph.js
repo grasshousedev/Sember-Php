@@ -335,6 +335,11 @@ export class ParagraphBlock extends LitElement {
     });
   }
 
+  /**
+   * Selects a word of a given node id
+   *
+   * @param nodeId
+   */
   selectWordOfNodeId = (nodeId) => {
     const allNodes = this.charNodesFlatten(this.content);
     const foundIndex = allNodes.findIndex((item) => item?.id === nodeId);
@@ -356,6 +361,13 @@ export class ParagraphBlock extends LitElement {
       if (allNodes[i]?.type === 'char' && allNodes[i]?.value !== ' ' && allNodes[i]?.value !== ',') {
         this.content = this.toggleNodeAsSelected(this.content, allNodes[i].id);
       }
+    }
+
+    // Move cursor to the beginning
+    if (allNodes[leftIndex]?.value === ' ') {
+      this.cursorPosition = allNodes[leftIndex + 1]?.id;
+    } else {
+      this.cursorPosition = allNodes[leftIndex]?.id;
     }
   }
 
