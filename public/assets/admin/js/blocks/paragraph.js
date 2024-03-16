@@ -145,7 +145,6 @@ export class ParagraphBlock extends LitElement {
     }
 
     if (e.shiftKey && e.key === "ArrowLeft") {
-      // TODO: Implement select left
       e.preventDefault();
       this.cursorPosition = this.computeTreeNodeIdLeftOf(this.cursorPosition);
       this.content = this.toggleNodeAsSelected(this.content, this.cursorPosition);
@@ -153,7 +152,6 @@ export class ParagraphBlock extends LitElement {
     }
 
     if (e.shiftKey && e.key === "ArrowRight") {
-      // TODO: Implement select right
       e.preventDefault();
       this.content = this.toggleNodeAsSelected(this.content, this.cursorPosition);
       this.cursorPosition = this.computeTreeNodeIdRightOf(this.cursorPosition);
