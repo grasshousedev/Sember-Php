@@ -23,6 +23,8 @@ export class ParagraphBlock extends LitElement {
           this.cursorProvider.setValue({value, setValue: this.cursorProviderUpdateHandle});
           this.cursorPosition = value;
         }
+
+        this.content = this.markAllNodesAsDeselected(this.content);
       }
     });
   }
