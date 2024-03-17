@@ -29,6 +29,7 @@ export class ParagraphChar extends LitElement {
           width: 50%;
           height: 100%;
           z-index: 1;
+          cursor: text;
           background: transparent;
       }
       
@@ -39,6 +40,7 @@ export class ParagraphChar extends LitElement {
           width: 50%;
           height: 100%;
           z-index: 1;
+          cursor: text;
           background: transparent;
       }
   `;
@@ -78,6 +80,5 @@ export class ParagraphChar extends LitElement {
     </span>`;
   }
 }
-
 
 customElements.define('paragraph-char', ParagraphChar);

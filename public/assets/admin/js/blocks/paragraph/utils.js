@@ -21,4 +21,6 @@ export function nodeFlattenFn(item) {
       ...item.content.flatMap(nodeFlattenFn)
     ]
   }
+
+  return [];
 }

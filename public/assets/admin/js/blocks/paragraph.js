@@ -68,7 +68,7 @@ export class ParagraphBlock extends LitElement {
           {id: uuidv4(), type: 'char', value: 'o'},
           {id: uuidv4(), type: 'char', value: 'r'},
           {id: uuidv4(), type: 'char', value: 'l'},
-          {id: uuidv4(), type: 'char', value: 'd'},
+          {id: uuidv4(), type: 'char', value: 'd'}
         ]
       }];
   }
@@ -81,18 +81,21 @@ export class ParagraphBlock extends LitElement {
   listenKeyPress = (e) => {
     if (!this.active) return;
 
+    // Move left (without shift)
     if (!e.shiftKey && e.key === "ArrowLeft") {
       e.preventDefault();
       this.cursorPosition = this.computeTreeNodeIdLeftOf(this.cursorPosition);
       return;
     }
 
+    // Move right (without shift)
     if (!e.shiftKey && e.key === "ArrowRight") {
       e.preventDefault();
       this.cursorPosition = this.computeTreeNodeIdRightOf(this.cursorPosition);
       return;
     }
 
+    // Delete text
     if (e.key === "Backspace") {
       e.preventDefault();
       const nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(this.cursorPosition);
@@ -118,6 +121,7 @@ export class ParagraphBlock extends LitElement {
       // TODO: Implement underline
     }
 
+    // Select all
     if ((e.metaKey || e.ctrlKey) && e.key === "a") {
       e.preventDefault();
       this.content = this.markAllNodesAsSelected(this.content);
@@ -178,7 +182,7 @@ export class ParagraphBlock extends LitElement {
 
     if (!notAllowedChars.includes(e.key) && !e.metaKey) {
       e.preventDefault();
-      this.content = this.addCharToContent(this.content, e.key);
+      this.addCharToContent(e.key);
     }
   }
 
@@ -374,14 +378,16 @@ export class ParagraphBlock extends LitElement {
   /**
    * Adds a character to the content
    *
-   * @param content
    * @param char
-   * @returns {*[]}
    */
-  addCharToContent(content, char) {
+  addCharToContent(char) {
+    let content = this.content;
+
+    // If we're in the end of the content
     if (this.cursorPosition === "0") {
+      // If there is no content
       if (this.isContentEmpty()) {
-        return [
+        this.content = [
           {
             id: uuidv4(),
             type: 'char',
@@ -392,9 +398,12 @@ export class ParagraphBlock extends LitElement {
             type: 'cursor'
           }
         ];
+
+        return;
       }
 
-      return this.addNodeRightOfId(
+      // If there is, add to the right of the last node
+      this.content = this.addNodeRightOfId(
         content,
         this.computeLastContentTreeNodeId(content),
         {
@@ -402,9 +411,37 @@ export class ParagraphBlock extends LitElement {
           type: 'char',
           value: char
         });
+
+      return;
     }
 
-    return this.addNodeLeftOfId(
+    // If we're in the beginning or middle of the content
+    // and there is text selected, remove the selected text
+    if (this.selectionExists()) {
+      const newCharId = uuidv4();
+      content = this.addNodeRightOfId(
+        content,
+        this.cursorPosition,
+        {
+          id: newCharId,
+          type: 'char',
+          value: char
+        });
+
+      console.log('selection exists')
+      const selectedNodes = this.selectedNodes();
+
+      for (let i = 0; i < selectedNodes.length; i++) {
+        content = this.removeNodeFromContent(content, selectedNodes[i].id);
+      }
+
+      this.content = content;
+      this.cursorPosition = this.computeTreeNodeIdRightOf(newCharId);
+      return;
+    }
+
+    // Otherwise proceed as normal
+    this.content = this.addNodeLeftOfId(
       content,
       this.cursorPosition,
       {
@@ -421,6 +458,24 @@ export class ParagraphBlock extends LitElement {
    */
   isContentEmpty() {
     return this.content.length === 0 || this.content.every((item) => item.type === 'cursor');
+  }
+
+  /**
+   * Checks if there is a selection
+   *
+   * @returns {boolean}
+   */
+  selectionExists() {
+    return this.charNodesFlatten(this.content).some((item) => item?.selected === true);
+  }
+
+  /**
+   * Returns the selected nodes
+   *
+   * @returns {*[]}
+   */
+  selectedNodes() {
+    return this.charNodesFlatten(this.content).filter((item) => item?.selected === true);
   }
 
   /**
@@ -652,8 +707,8 @@ export class ParagraphBlock extends LitElement {
   render() {
     return html`
         <div class="editor">
-          <paragraph-group type="normal" .content=${this.content}>
-          </paragraph-group>
+            <paragraph-group type="normal" .content=${this.content}>
+            </paragraph-group>
         </div>
     `;
   }
