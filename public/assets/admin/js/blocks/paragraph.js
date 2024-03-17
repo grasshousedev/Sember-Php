@@ -103,11 +103,11 @@ export class ParagraphBlock extends LitElement {
       let nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(this.content, this.cursorPosition);
 
       if (nodeIdBeforeCursor !== this.cursorPosition) {
+        // If the node before cursor is a group, we mean the node before that
         while(this.getNodeById(this.content, nodeIdBeforeCursor).type === 'group') {
           nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(this.content, nodeIdBeforeCursor);
         }
 
-        // If the node before cursor is a group, we mean the node before that
         this.cursorPosition = this.computeTreeNodeIdRightOf(this.content, nodeIdBeforeCursor);
         const content = this.removeNodeFromContent(this.content, nodeIdBeforeCursor);
         this.content = this.removeOrphanGroups(content);
