@@ -428,7 +428,6 @@ export class ParagraphBlock extends LitElement {
           value: char
         });
 
-      console.log('selection exists')
       const selectedNodes = this.selectedNodes();
 
       for (let i = 0; i < selectedNodes.length; i++) {
