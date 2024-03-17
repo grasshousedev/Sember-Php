@@ -348,6 +348,12 @@ export class ParagraphBlock extends LitElement {
     const allNodes = this.charNodesFlatten(this.content);
     const foundIndex = allNodes.findIndex((item) => item?.id === nodeId);
 
+    // Is this a space node? Because if it is, we just want to highlight that
+    if (allNodes[foundIndex]?.value === ' ') {
+      this.content = this.toggleNodeAsSelected(this.content, allNodes[foundIndex].id);
+      return;
+    }
+
     // Find first space node to the left
     let leftIndex = foundIndex;
     while (leftIndex > 0 && allNodes[leftIndex]?.value !== ' ') {
@@ -362,7 +368,11 @@ export class ParagraphBlock extends LitElement {
 
     // Mark all nodes between left and right index as selected
     for (let i = leftIndex; i < rightIndex; i++) {
-      if (allNodes[i]?.type === 'char' && allNodes[i]?.value !== ' ' && allNodes[i]?.value !== ',') {
+      if (
+        allNodes[i]?.type === 'char' &&
+        allNodes[i]?.value !== ' ' &&
+        allNodes[i]?.value !== ',' &&
+        allNodes[i]?.value !== '.') {
         this.content = this.toggleNodeAsSelected(this.content, allNodes[i].id);
       }
     }
