@@ -98,9 +98,14 @@ export class ParagraphBlock extends LitElement {
     // Delete text
     if (e.key === "Backspace") {
       e.preventDefault();
-      const nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(this.content, this.cursorPosition);
+      let nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(this.content, this.cursorPosition);
 
       if (nodeIdBeforeCursor !== this.cursorPosition) {
+        while(this.getNodeById(this.content, nodeIdBeforeCursor).type === 'group') {
+          nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(this.content, nodeIdBeforeCursor);
+        }
+
+        // If the node before cursor is a group, we mean the node before that
         this.cursorPosition = this.computeTreeNodeIdRightOf(this.content, nodeIdBeforeCursor);
         const content = this.removeNodeFromContent(this.content, nodeIdBeforeCursor);
         this.content = this.removeOrphanGroups(content);
@@ -208,8 +213,24 @@ export class ParagraphBlock extends LitElement {
   willUpdate() {
     const content = this.traverseContentTreeAndRemoveCursorNode(this.content);
     this.content = this.traverseContentTreeAndAddCursorNode(content, {hidden: this.selectionExists()});
+  }
 
-    console.log(this.content);
+  /**
+   * Gets a node by id
+   *
+   * @param content
+   * @param id
+   * @returns {*|null}
+   */
+  getNodeById(content, id) {
+    const nodes = this.allNodesFlatten(content);
+    const foundIndex = nodes.findIndex((item) => item?.id === id);
+
+    if (foundIndex === -1) {
+      return null;
+    }
+
+    return nodes[foundIndex];
   }
 
   /**
@@ -745,14 +766,14 @@ export class ParagraphBlock extends LitElement {
       return this.computeLastContentTreeNodeId(content);
     }
 
-    const charNodes = content.flatMap(charNodeFlattenFn).filter((item) => item?.type === 'char');
-    const foundIndex = charNodes.findIndex((item) => item?.id === id);
+    const nodes = this.allNodesFlatten(content);
+    const foundIndex = nodes.findIndex((item) => item?.id === id);
 
     if (foundIndex === -1 || foundIndex === 0) {
       return id;
     }
 
-    return charNodes[foundIndex - 1].id;
+    return nodes[foundIndex - 1].id;
   }
 
   /**
