@@ -36,7 +36,6 @@ export class ParagraphCursor extends LitElement {
 
   constructor() {
     super();
-    console.log(this.hidden);
   }
 
   render() {

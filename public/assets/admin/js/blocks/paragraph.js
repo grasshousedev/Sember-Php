@@ -16,7 +16,7 @@ export class ParagraphBlock extends LitElement {
       value,
       setValue: (value, right = false) => {
         if (right) {
-          const rightValue = this.computeTreeNodeIdRightOf(value);
+          const rightValue = this.computeTreeNodeIdRightOf(this.content, value);
           this.cursorProvider.setValue({rightValue, setValue: this.cursorProviderUpdateHandle});
           this.cursorPosition = rightValue;
         } else {
@@ -84,24 +84,24 @@ export class ParagraphBlock extends LitElement {
     // Move left (without shift)
     if (!e.shiftKey && e.key === "ArrowLeft") {
       e.preventDefault();
-      this.cursorPosition = this.computeTreeNodeIdLeftOf(this.cursorPosition);
+      this.cursorPosition = this.computeTreeNodeIdLeftOf(this.content, this.cursorPosition);
       return;
     }
 
     // Move right (without shift)
     if (!e.shiftKey && e.key === "ArrowRight") {
       e.preventDefault();
-      this.cursorPosition = this.computeTreeNodeIdRightOf(this.cursorPosition);
+      this.cursorPosition = this.computeTreeNodeIdRightOf(this.content, this.cursorPosition);
       return;
     }
 
     // Delete text
     if (e.key === "Backspace") {
       e.preventDefault();
-      const nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(this.cursorPosition);
+      const nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(this.content, this.cursorPosition);
 
       if (nodeIdBeforeCursor !== this.cursorPosition) {
-        this.cursorPosition = this.computeTreeNodeIdRightOf(nodeIdBeforeCursor);
+        this.cursorPosition = this.computeTreeNodeIdRightOf(this.content, nodeIdBeforeCursor);
         const content = this.removeNodeFromContent(this.content, nodeIdBeforeCursor);
         this.content = this.removeOrphanGroups(content);
       }
@@ -150,7 +150,7 @@ export class ParagraphBlock extends LitElement {
 
     if (e.shiftKey && e.key === "ArrowLeft") {
       e.preventDefault();
-      this.cursorPosition = this.computeTreeNodeIdLeftOf(this.cursorPosition);
+      this.cursorPosition = this.computeTreeNodeIdLeftOf(this.content, this.cursorPosition);
       this.content = this.toggleNodeAsSelected(this.content, this.cursorPosition);
       return;
     }
@@ -158,7 +158,7 @@ export class ParagraphBlock extends LitElement {
     if (e.shiftKey && e.key === "ArrowRight") {
       e.preventDefault();
       this.content = this.toggleNodeAsSelected(this.content, this.cursorPosition);
-      this.cursorPosition = this.computeTreeNodeIdRightOf(this.cursorPosition);
+      this.cursorPosition = this.computeTreeNodeIdRightOf(this.content, this.cursorPosition);
       return;
     }
 
@@ -208,6 +208,8 @@ export class ParagraphBlock extends LitElement {
   willUpdate() {
     const content = this.traverseContentTreeAndRemoveCursorNode(this.content);
     this.content = this.traverseContentTreeAndAddCursorNode(content, {hidden: this.selectionExists()});
+
+    console.log(this.content);
   }
 
   /**
@@ -348,21 +350,33 @@ export class ParagraphBlock extends LitElement {
     const allNodes = this.charNodesFlatten(this.content);
     const foundIndex = allNodes.findIndex((item) => item?.id === nodeId);
 
-    // Is this a space node? Because if it is, we just want to highlight that
-    if (allNodes[foundIndex]?.value === ' ') {
+    // Is this a space node or a comma/punctuation node?
+    // Because if it is, we just want to highlight that
+    if (
+      allNodes[foundIndex]?.value === ' ' ||
+      allNodes[foundIndex]?.value === ',' ||
+      allNodes[foundIndex]?.value === '.') {
       this.content = this.toggleNodeAsSelected(this.content, allNodes[foundIndex].id);
       return;
     }
 
     // Find first space node to the left
     let leftIndex = foundIndex;
-    while (leftIndex > 0 && allNodes[leftIndex]?.value !== ' ') {
+    while (
+      leftIndex > 0 &&
+      allNodes[leftIndex]?.value !== ' ' &&
+      allNodes[leftIndex]?.value !== ',' &&
+      allNodes[leftIndex]?.value !== '.') {
       leftIndex--;
     }
 
     // Find first space node to the right
     let rightIndex = foundIndex;
-    while (rightIndex < allNodes.length && allNodes[rightIndex]?.value !== ' ') {
+    while (
+      rightIndex < allNodes.length
+      && allNodes[rightIndex]?.value !== ' '
+      && allNodes[rightIndex]?.value !== ','
+      && allNodes[rightIndex]?.value !== '.') {
       rightIndex++;
     }
 
@@ -392,17 +406,15 @@ export class ParagraphBlock extends LitElement {
    */
   addCharToContent(char) {
     let content = this.content;
+    const newCharId = uuidv4();
+    const newChar = {id: newCharId, type: 'char', value: char};
 
     // If we're in the end of the content
     if (this.cursorPosition === "0") {
       // If there is no content
       if (this.isContentEmpty()) {
         this.content = [
-          {
-            id: uuidv4(),
-            type: 'char',
-            value: char
-          },
+          newChar,
           {
             id: uuidv4(),
             type: 'cursor'
@@ -416,11 +428,8 @@ export class ParagraphBlock extends LitElement {
       this.content = this.addNodeRightOfId(
         content,
         this.computeLastContentTreeNodeId(content),
-        {
-          id: uuidv4(),
-          type: 'char',
-          value: char
-        });
+        newChar
+      );
 
       return;
     }
@@ -428,24 +437,34 @@ export class ParagraphBlock extends LitElement {
     // If we're in the beginning or middle of the content
     // and there is text selected, remove the selected text
     if (this.selectionExists()) {
-      const newCharId = uuidv4();
-      content = this.addNodeRightOfId(
-        content,
-        this.cursorPosition,
-        {
-          id: newCharId,
-          type: 'char',
-          value: char
-        });
-
       const selectedNodes = this.selectedNodes();
 
-      for (let i = 0; i < selectedNodes.length; i++) {
-        content = this.removeNodeFromContent(content, selectedNodes[i].id);
+      // If the selection is a single char, replace it
+      if (selectedNodes.length === 1) {
+        content = this.replaceNode(content, selectedNodes[0].id, {
+          ...selectedNodes[0],
+          value: char,
+        });
+
+        this.content = this.markAllNodesAsDeselected(content);
+        this.cursorPosition = this.computeTreeNodeIdRightOf(this.content, selectedNodes[0].id);
       }
 
-      this.content = content;
-      this.cursorPosition = this.computeTreeNodeIdRightOf(newCharId);
+      // Otherwise, remove the selected nodes and add the new char
+      else {
+        content = this.addNodeLeftOfId(
+          content,
+          this.cursorPosition,
+          newChar);
+
+        for (let i = 0; i < selectedNodes.length; i++) {
+          content = this.removeNodeFromContent(content, selectedNodes[i].id);
+        }
+
+        this.content = content;
+        this.cursorPosition = this.computeTreeNodeIdRightOf(this.content, newCharId);
+      }
+
       return;
     }
 
@@ -453,11 +472,8 @@ export class ParagraphBlock extends LitElement {
     this.content = this.addNodeLeftOfId(
       content,
       this.cursorPosition,
-      {
-        id: uuidv4(),
-        type: 'char',
-        value: char
-      });
+      newChar
+    );
   }
 
   /**
@@ -520,6 +536,41 @@ export class ParagraphBlock extends LitElement {
   }
 
   /**
+   * Replaces a node in the content
+   *
+   * @param content
+   * @param nodeId
+   * @param newNode
+   * @returns {*[]}
+   */
+  replaceNode(content, nodeId, newNode) {
+    let newContent = [];
+
+    for (let i = 0; i < content.length; i++) {
+      const item = content[i];
+
+      // chars
+      if (item.type === 'char') {
+        if (item.id === nodeId) {
+          newContent.push(newNode);
+        } else {
+          newContent.push(item);
+        }
+      }
+
+      // groups
+      if (item.type === 'group') {
+        newContent.push({
+          ...item,
+          content: this.replaceNode(item.content, nodeId, newNode)
+        });
+      }
+    }
+
+    return newContent;
+  }
+
+  /**
    * Adds a node to the left of a given id
    *
    * @param content
@@ -544,6 +595,10 @@ export class ParagraphBlock extends LitElement {
 
       // groups
       if (item.type === 'group') {
+        if (item.id === id) {
+          newContent.push(node);
+        }
+
         newContent.push({
           ...item,
           content: this.addNodeLeftOfId(item.content, id, node)
@@ -648,6 +703,10 @@ export class ParagraphBlock extends LitElement {
 
       // groups
       if (item.type === 'group') {
+        if (item.id === this.cursorPosition) {
+          newContent.push(newCursor);
+        }
+
         newContent.push({
           ...item,
           content: this.traverseContentTreeAndAddCursorNode(item.content, opts)
@@ -677,15 +736,16 @@ export class ParagraphBlock extends LitElement {
   /**
    * Computes the id of the node left of a given id
    *
+   * @param content
    * @param id
    * @returns {*|number}
    */
-  computeTreeNodeIdLeftOf(id) {
+  computeTreeNodeIdLeftOf(content, id) {
     if (id === "0") {
-      return this.computeLastContentTreeNodeId(this.content);
+      return this.computeLastContentTreeNodeId(content);
     }
 
-    const charNodes = this.content.flatMap(charNodeFlattenFn).filter((item) => item?.type === 'char');
+    const charNodes = content.flatMap(charNodeFlattenFn).filter((item) => item?.type === 'char');
     const foundIndex = charNodes.findIndex((item) => item?.id === id);
 
     if (foundIndex === -1 || foundIndex === 0) {
@@ -698,22 +758,23 @@ export class ParagraphBlock extends LitElement {
   /**
    * Computes the id of the node right of a given id
    *
+   * @param content
    * @param id
    * @returns {*|string}
    */
-  computeTreeNodeIdRightOf(id) {
-    const charNodes = this.content.flatMap(charNodeFlattenFn).filter((item) => item?.type === 'char');
-    const foundIndex = charNodes.findIndex((item) => item?.id === id);
+  computeTreeNodeIdRightOf(content, id) {
+    const nodes = this.allNodesFlatten(content);
+    const foundIndex = nodes.findIndex((item) => item?.id === id);
 
     if (foundIndex === -1) {
       return "0";
     }
 
-    if (foundIndex === charNodes.length - 1) {
+    if (foundIndex === nodes.length - 1) {
       return "0";
     }
 
-    return charNodes[foundIndex + 1].id;
+    return nodes[foundIndex + 1].id;
   }
 
   render() {
