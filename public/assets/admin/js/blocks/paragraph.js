@@ -764,7 +764,7 @@ export class ParagraphBlock extends LitElement {
    * @returns {string}
    */
   computeLastContentTreeNodeId(content) {
-    const charNodes = this.content.flatMap(charNodeFlattenFn).filter((item) => item?.type === 'char');
+    const charNodes = this.charNodesFlatten();
 
     if (charNodes.length > 0) {
       return charNodes[charNodes.length - 1].id;
