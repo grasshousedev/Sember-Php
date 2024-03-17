@@ -742,6 +742,22 @@ export class ParagraphBlock extends LitElement {
   }
 
   /**
+   * Computes the id of the first content tree node
+   *
+   * @param content
+   * @returns {*|string}
+   */
+  computeFirstContentTreeNodeId(content) {
+    const charNodes = this.charNodesFlatten(content);
+
+    if (charNodes.length > 0) {
+      return charNodes[0].id;
+    }
+
+    return "0";
+  }
+
+  /**
    * Computes the id of the last content tree node
    *
    * @param content
