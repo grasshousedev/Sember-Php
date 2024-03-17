@@ -132,6 +132,7 @@ export class ParagraphBlock extends LitElement {
     if ((e.metaKey || e.ctrlKey) && e.key === "a") {
       e.preventDefault();
       this.content = this.markAllNodesAsSelected(this.content);
+      this.cursorPosition = this.computeFirstContentTreeNodeId(this.content);
       return false;
     }
 
