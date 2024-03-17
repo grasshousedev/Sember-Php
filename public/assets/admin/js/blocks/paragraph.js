@@ -85,6 +85,7 @@ export class ParagraphBlock extends LitElement {
     if (!e.shiftKey && e.key === "ArrowLeft") {
       e.preventDefault();
       this.cursorPosition = this.computeTreeNodeIdLeftOf(this.content, this.cursorPosition);
+      this.content = this.markAllNodesAsDeselected(this.content);
       return;
     }
 
@@ -92,6 +93,7 @@ export class ParagraphBlock extends LitElement {
     if (!e.shiftKey && e.key === "ArrowRight") {
       e.preventDefault();
       this.cursorPosition = this.computeTreeNodeIdRightOf(this.content, this.cursorPosition);
+      this.content = this.markAllNodesAsDeselected(this.content);
       return;
     }
 
