@@ -18,7 +18,7 @@ export class ParagraphCursor extends LitElement {
       
       span {
           display: inline-block;
-          height: 100%;
+          height: calc(1lh - 4px);
           width: 1px;
           background: #111;
           z-index: 2;

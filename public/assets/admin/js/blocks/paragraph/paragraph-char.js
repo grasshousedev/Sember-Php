@@ -30,7 +30,6 @@ export class ParagraphChar extends LitElement {
           height: 100%;
           z-index: 1;
           cursor: text;
-          background: transparent;
       }
       
       .right-side {
@@ -41,7 +40,6 @@ export class ParagraphChar extends LitElement {
           height: 100%;
           z-index: 1;
           cursor: text;
-          background: transparent;
       }
   `;
 
