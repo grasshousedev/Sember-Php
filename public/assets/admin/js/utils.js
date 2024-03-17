@@ -10,12 +10,6 @@ function debounce(f, ms) {
   };
 }
 
-function lines(el) {
-  const lineHeight = parseInt(getComputedStyle(el).lineHeight, 10);
-
-  return Math.floor(el.scrollHeight / lineHeight);
-}
-
 function updateTextareaSize(e) {
   e.target.style.height = `0px`;
   e.target.style.height = `${e.target.scrollHeight}px`;
@@ -26,10 +20,10 @@ function autogrow(els) {
     const textarea = el.querySelector("textarea");
 
     textarea.style.boxSizing = "border-box";
-    textarea.style.height = parseInt(getComputedStyle(textarea).lineHeight, 10);
+    textarea.style.height = '0px';
     textarea.style.height = `${textarea.scrollHeight}px`;
 
-    textarea.removeEventListener("input", updateTextareaSize);
-    textarea.addEventListener("input", updateTextareaSize);
+    textarea.removeEventListener("change", updateTextareaSize);
+    textarea.addEventListener("change", updateTextareaSize);
   });
 }
