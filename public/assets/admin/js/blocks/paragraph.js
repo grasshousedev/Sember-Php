@@ -194,6 +194,11 @@ export class ParagraphBlock extends LitElement {
     }
   }
 
+  /**
+   * Activates the editor
+   *
+   * @param e
+   */
   activateEditor = (e) => {
     if (e.target === this.node.host) {
       this.active = true;
@@ -204,6 +209,9 @@ export class ParagraphBlock extends LitElement {
     }
   }
 
+  /**
+   * Lifecycle method: first updated
+   */
   firstUpdated() {
     this.node = this.shadowRoot;
 
@@ -213,6 +221,9 @@ export class ParagraphBlock extends LitElement {
     window.addEventListener("click", this.activateEditor);
   }
 
+  /**
+   * Lifecycle method: will update
+   */
   willUpdate() {
     const content = this.traverseContentTreeAndRemoveCursorNode(this.content);
     this.content = this.traverseContentTreeAndAddCursorNode(content, {hidden: this.selectionExists()});
