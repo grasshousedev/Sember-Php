@@ -207,7 +207,7 @@ export class ParagraphBlock extends LitElement {
 
   willUpdate() {
     const content = this.traverseContentTreeAndRemoveCursorNode(this.content);
-    this.content = this.traverseContentTreeAndAddCursorNode(content);
+    this.content = this.traverseContentTreeAndAddCursorNode(content, {hidden: this.selectionExists()});
   }
 
   /**
@@ -622,11 +622,14 @@ export class ParagraphBlock extends LitElement {
    * Traverses the content tree and adds the cursor node
    *
    * @param content
+   * @param opts
    * @returns {*[]}
    */
-  traverseContentTreeAndAddCursorNode(content) {
+  traverseContentTreeAndAddCursorNode(content, opts = {}) {
+    const newCursor = {id: uuidv4(), type: 'cursor', ...opts};
+
     if (this.cursorPosition === "0") {
-      return [...content, {id: uuidv4(), type: 'cursor'}];
+      return [...content, newCursor];
     }
 
     let newContent = [];
@@ -637,7 +640,7 @@ export class ParagraphBlock extends LitElement {
       // chars
       if (item.type === 'char') {
         if (item.id === this.cursorPosition) {
-          newContent.push({id: uuidv4(), type: 'cursor'});
+          newContent.push(newCursor);
         }
 
         newContent.push(item);
@@ -647,7 +650,7 @@ export class ParagraphBlock extends LitElement {
       if (item.type === 'group') {
         newContent.push({
           ...item,
-          content: this.traverseContentTreeAndAddCursorNode(item.content)
+          content: this.traverseContentTreeAndAddCursorNode(item.content, opts)
         })
       }
     }

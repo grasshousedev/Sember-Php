@@ -16,7 +16,7 @@ export class ParagraphGroup extends LitElement {
     const out = html`${this.content.map((item) => {
       switch(item.type) {
         case 'cursor':
-          return html`<paragraph-cursor></paragraph-cursor>`;
+          return html`<paragraph-cursor .hidden=${item.hidden}></paragraph-cursor>`;
         case 'char':
           return html`<paragraph-char id=${item.id} .selected=${item.selected} .value=${item.value}></paragraph-char>`;
         case 'group':

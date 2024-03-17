@@ -1,7 +1,9 @@
 import {LitElement, html, css} from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';
 
 export class ParagraphCursor extends LitElement {
-  static properties = {}
+  static properties = {
+    hidden: {type: Boolean, attribute: true, state: false}
+  }
 
   static styles = css`
       @keyframes blink {
@@ -26,14 +28,19 @@ export class ParagraphCursor extends LitElement {
           animation: blink 1s infinite;
           margin-top: 2px;
       }
+      
+      span.hidden {
+          display: none;
+      }
   `;
 
   constructor() {
     super();
+    console.log(this.hidden);
   }
 
   render() {
-    return html`<span></span>`;
+    return html`<span class="${this.hidden ? 'hidden' : ''}"></span>`;
   }
 }
 
