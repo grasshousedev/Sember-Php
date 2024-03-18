@@ -39,6 +39,12 @@ export class ParagraphBlock extends LitElement {
     node: {type: Object, state: true, attribute: false},
   }
 
+  static styles = css`
+      .editor {
+          min-height: 1lh;
+      }
+  `;
+
   constructor() {
     super();
 
@@ -100,17 +106,30 @@ export class ParagraphBlock extends LitElement {
     // Delete text
     if (e.key === "Backspace") {
       e.preventDefault();
-      let nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(this.content, this.cursorPosition);
 
-      if (nodeIdBeforeCursor !== this.cursorPosition) {
-        // If the node before cursor is a group, we mean the node before that
-        while(this.getNodeById(this.content, nodeIdBeforeCursor).type === 'group') {
-          nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(this.content, nodeIdBeforeCursor);
+      if (this.selectionExists()) {
+        const selectedNodes = this.selectedNodes();
+
+        for (let i = 0; i < selectedNodes.length; i++) {
+          this.content = this.removeNodeFromContent(this.content, selectedNodes[i].id);
         }
 
-        this.cursorPosition = this.computeTreeNodeIdRightOf(this.content, nodeIdBeforeCursor);
-        const content = this.removeNodeFromContent(this.content, nodeIdBeforeCursor);
-        this.content = this.removeOrphanGroups(content);
+        this.cursorPosition = this.computeTreeNodeIdLeftOf(this.content, this.cursorPosition);
+        this.content = this.removeOrphanGroups(this.markAllNodesAsDeselected(this.content));
+        return;
+      } else {
+        let nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(this.content, this.cursorPosition);
+
+        if (nodeIdBeforeCursor !== this.cursorPosition) {
+          // If the node before cursor is a group, we mean the node before that
+          while (this.getNodeById(this.content, nodeIdBeforeCursor).type === 'group') {
+            nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(this.content, nodeIdBeforeCursor);
+          }
+
+          this.cursorPosition = this.computeTreeNodeIdRightOf(this.content, nodeIdBeforeCursor);
+          const content = this.removeNodeFromContent(this.content, nodeIdBeforeCursor);
+          this.content = this.removeOrphanGroups(content);
+        }
       }
 
       return;
@@ -445,7 +464,8 @@ export class ParagraphBlock extends LitElement {
     const newChar = {id: newCharId, type: 'char', value: char};
 
     // If we're in the end of the content
-    if (this.cursorPosition === "0") {
+    if (this.cursorPosition === "0" || this.isContentEmpty()) {
+      console.log('yolo')
       // If there is no content
       if (this.isContentEmpty()) {
         this.content = [
@@ -455,6 +475,8 @@ export class ParagraphBlock extends LitElement {
             type: 'cursor'
           }
         ];
+
+        this.cursorPosition = "0";
 
         return;
       }
@@ -517,6 +539,10 @@ export class ParagraphBlock extends LitElement {
    * @returns {boolean}
    */
   isContentEmpty() {
+    console.log(this.content.length);
+    console.log(this.content.every((item) => item.type === 'cursor'));
+    console.log(this.content)
+
     return this.content.length === 0 || this.content.every((item) => item.type === 'cursor');
   }
 
@@ -718,7 +744,7 @@ export class ParagraphBlock extends LitElement {
   traverseContentTreeAndAddCursorNode(content, opts = {}) {
     const newCursor = {id: uuidv4(), type: 'cursor', ...opts};
 
-    if (this.cursorPosition === "0") {
+    if (this.cursorPosition === "0" || content.length === 0) {
       return [...content, newCursor];
     }
 
