@@ -118,6 +118,7 @@ class BlockHelper
                 'key' => $key,
                 'name' => $instance->name,
                 'icon' => $instance->icon,
+                'beta' => $instance->beta ?? false,
             ];
         }
 

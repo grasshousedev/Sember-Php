@@ -10,6 +10,9 @@ class ParagraphBlock implements Block
     // The name of the block.
     public string $name = 'Paragraph';
 
+    // Is the block in beta?
+    public bool $beta = true;
+
     // The icon of the block.
     public string $icon = 'fa-solid fa-paragraph';
 

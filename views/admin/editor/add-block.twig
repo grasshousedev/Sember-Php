@@ -12,6 +12,9 @@
                     hx-target=".blocks">
                 <i class="{{ block.icon }}"></i>
                 <span class="name">{{ block.name }}</span>
+                {% if block.beta %}
+                    <span class="beta">beta</span>
+                {% endif %}
             </button>
         {% endfor %}
     </div>
