@@ -20,7 +20,7 @@ body {
 
 @media all and (max-width: 750px) {
     body {
-        padding-top: 30px;
+        padding-top: 90px;
         padding-bottom: 30px;
         margin: 0;
     }
@@ -85,8 +85,6 @@ pre code {
 
 @media all and (max-width: 750px) {
     .header {
-        top: auto;
-        bottom: 0;
         background: #111;
     }
 }
@@ -314,6 +312,44 @@ article .body ul li {
     list-style: square;
 }
 
+/** PAGINATION */
+.pagination {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+    color: #777;
+    background: #f6f6f6;
+    border-top: 1px solid #ddd;
+    gap: 30px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.pagination .btn {
+    display: flex;
+    width: 135px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    border-radius: 25px;
+    padding: 6px 14px;
+}
+
+.pagination a.btn {
+    background: #111;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #fff;
+}
+
+.pagination span.btn {
+    border: 1px solid #999;
+    color: #999;
+}
+
 /** FOOTER */
 .footer {
     display: flex;
@@ -322,7 +358,7 @@ article .body ul li {
     font-size: 14px;
     color: #999;
     background: #fff;
-    border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #ddd;
     padding-top: 30px;
     padding-bottom: 30px;
 }

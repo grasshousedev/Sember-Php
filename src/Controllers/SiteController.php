@@ -22,13 +22,24 @@ readonly class SiteController
      * @param Response $response
      * @return Response
      */
-    public function home(Response $response): Response
+    public function home(Request $request, Response $response, ?int $page = 1): Response
     {
+        $offset = ($page - 1) * 10;
+        $limit = 10;
+
+        // Total posts
+        $total_posts = $this->db->count(
+            model: Post::class,
+            query: "where status = ? and published_at <= ?",
+            data: ["published", time()]
+        );
+
+        // Posts
         $posts = $this->db
             ->find(
                 model: Post::class,
-                query: "where status = ? and published_at <= ? order by published_at desc",
-                data: ["published", time()]
+                query: "where status = ? and published_at <= ? order by published_at desc limit ? offset ?",
+                data: ["published", time(), $limit, $offset]
             )
             ->map(function (Post $post) {
                 $post->set("html", $post->renderHtml());
@@ -46,6 +57,12 @@ readonly class SiteController
             "page_title" => false,
             "posts" => $posts,
             "site_name" => $site_title->get("meta_value"),
+            "pagination" => [
+                "total_pages" => ceil($total_posts / $limit),
+                "current_page" => $page,
+                "prev_page" => $page > 1 ? $page - 1 : null,
+                "next_page" => $page < ceil($total_posts / $limit) ? ($page ?? 1) + 1 : null,
+            ]
         ]);
     }
 

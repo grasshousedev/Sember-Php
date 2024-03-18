@@ -219,6 +219,15 @@ class Database
         $stmt->execute([$model->get('id')]);
     }
 
+    public function count(string $model, string $query = '', array $data = []): int
+    {
+        $storage_name = (new $model)->getStorageName();
+        $stmt = $this->instance->prepare("SELECT COUNT(*) FROM {$storage_name} {$query}");
+        $stmt->execute($data);
+
+        return (int)$stmt->fetchColumn();
+    }
+
     /**
      * Run a raw fetch query.
      *
