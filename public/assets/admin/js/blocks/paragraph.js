@@ -775,10 +775,10 @@ export class ParagraphBlock extends LitElement {
    * @returns {string}
    */
   computeLastContentTreeNodeId(content) {
-    const charNodes = this.charNodesFlatten();
+    const nodes = this.allNodesFlatten(content);
 
-    if (charNodes.length > 0) {
-      return charNodes[charNodes.length - 1].id;
+    if (nodes.length > 0) {
+      return nodes[nodes.length - 1].id;
     }
 
     return "0";
