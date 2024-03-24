@@ -16,7 +16,7 @@ function onHeadingBlockKeyDown(e) {
   }
 }
 
-window.addEventListener("htmx:afterOnLoad", () => {
+window.addEventListener("htmx:load", () => {
   autogrow(document.querySelectorAll(".heading-block"));
 
   // Listen to enter key press and add new block

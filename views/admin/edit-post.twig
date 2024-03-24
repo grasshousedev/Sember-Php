@@ -7,19 +7,7 @@
 
     <div class="content-area content-area--edit-post">
         <div id="editor">
-            <div class="editor-content">
-                {% include 'admin/editor/title.twig' %}
-                {% include 'admin/editor/slug.twig' %}
-
-                <div class="post-content">
-                    <label>Content</label>
-                    <div class="blocks"
-                         hx-get="/admin/api/post/{{ id }}/editor"
-                         hx-trigger="load"
-                         hx-swap="outerHTML">Loading ...
-                    </div>
-                </div>
-            </div>
+            {% include 'admin/editor.twig' %}
         </div>
     </div>
 </div>

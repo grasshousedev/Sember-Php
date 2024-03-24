@@ -27,19 +27,19 @@
                                     {% endif %}
                                 </a>
                             </td>
-                            <td tyle="min-width: 100px;">
+                            <td style="width: 100px;" class="status">
                                 {% if post.data.status is same as 'published' %}
-                                    Published
+                                    <span>Published</span>
                                 {% elseif post.data.status is same as 'scheduled' %}
-                                    Scheduled
+                                    <span>Scheduled</span>
                                 {% else %}
-                                    Draft
+                                    <span>Draft</span>
                                 {% endif %}
                             </td>
-                            <td tyle="min-width: 125px;">
+                            <td style="width: 125px;">
                                 {{ post.data.published_at|date('M jS, Y') }}
                             </td>
-                            <td style="min-width: 50px;">
+                            <td style="width: 75px;">
                                 {{ post.data.views ?? 0 }}
                             </td>
                         </tr>

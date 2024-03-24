@@ -6,9 +6,9 @@
     font-family: "Jetbrains Mono", monospace;
     resize: none;
     line-height: 1.45;
-    background: #fefefe;
-    border: 1px solid #ddd;
-    border-radius: 3px;
+    color: #eee;
+    background: #111;
+    border: 0;
     overflow: hidden;
     padding: 20px;
     margin-top: 4px;

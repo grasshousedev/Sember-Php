@@ -2,7 +2,7 @@
     <h1>
         Edit Post
         <a href="/admin/posts/delete/{{ id }}" onclick="confirm('Are you sure?');" class="btn btn-warning">
-            <i class="fas fa-trash"></i>
+            <i class="fas fa-trash"></i> Delete
         </a>
     </h1>
 
@@ -25,13 +25,24 @@
 
     <div class="section">
         <label>
-            <span class="title">Published Date</span>
+            <span class="title">Date</span>
 
             <input type="datetime-local"
                    id="published-at"
                    name="published_at"
                    hx-post="/admin/api/post/{{ post.data.id }}/update-published-at"
                    value="{{ post.data.published_at|date('Y-m-d H:i') }}">
+        </label>
+    </div>
+
+    <div class="section">
+        <label>
+            <span class="title">Slug</span>
+            <input type="text"
+                   name="slug"
+                   id="slug"
+                   hx-post="/admin/api/post/{{ post.data.id }}/update-slug"
+                   value="{{ post.data.slug }}">
         </label>
     </div>
 </div>
