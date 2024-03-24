@@ -449,9 +449,10 @@ input, textarea, select, button {
 
 .posts-table tr td.status span {
     color: var(--gray-500);
+    font-size: 12px;
     background: transparent;
     border: 1px solid var(--gray-300);
-    padding: 4px 8px;
+    padding: 2px 6px;
     border-radius: 8px;
 }
 
