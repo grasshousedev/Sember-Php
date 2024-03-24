@@ -68,6 +68,20 @@ export class ParagraphBlock extends LitElement {
       {
         id: uuidv4(),
         type: 'group',
+        groupType: 'italic',
+        content: [
+          {id: uuidv4(), type: 'char', value: 'W'},
+          {id: uuidv4(), type: 'char', value: 'o'},
+          {id: uuidv4(), type: 'char', value: 'r'},
+          {id: uuidv4(), type: 'char', value: 'l'},
+          {id: uuidv4(), type: 'char', value: 'd'},
+          {id: uuidv4(), type: 'char', value: ','},
+          {id: uuidv4(), type: 'char', value: ' '},
+        ]
+      },
+      {
+        id: uuidv4(),
+        type: 'group',
         groupType: 'bold',
         content: [
           {id: uuidv4(), type: 'char', value: 'W'},
@@ -105,34 +119,7 @@ export class ParagraphBlock extends LitElement {
 
     // Delete text
     if (e.key === "Backspace") {
-      e.preventDefault();
-
-      if (this.selectionExists()) {
-        const selectedNodes = this.selectedNodes();
-
-        for (let i = 0; i < selectedNodes.length; i++) {
-          this.content = this.removeNodeFromContent(this.content, selectedNodes[i].id);
-        }
-
-        this.cursorPosition = this.computeTreeNodeIdLeftOf(this.content, this.cursorPosition);
-        this.content = this.removeOrphanGroups(this.markAllNodesAsDeselected(this.content));
-        return;
-      } else {
-        let nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(this.content, this.cursorPosition);
-
-        if (nodeIdBeforeCursor !== this.cursorPosition) {
-          // If the node before cursor is a group, we mean the node before that
-          while (this.getNodeById(this.content, nodeIdBeforeCursor).type === 'group') {
-            nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(this.content, nodeIdBeforeCursor);
-          }
-
-          this.cursorPosition = this.computeTreeNodeIdRightOf(this.content, nodeIdBeforeCursor);
-          const content = this.removeNodeFromContent(this.content, nodeIdBeforeCursor);
-          this.content = this.removeOrphanGroups(content);
-        }
-      }
-
-      return;
+      this.doDelete(e); return;
     }
 
     if ((e.metaKey || e.ctrlKey) && e.key === "b") {
@@ -244,8 +231,69 @@ export class ParagraphBlock extends LitElement {
    * Lifecycle method: will update
    */
   willUpdate() {
+    console.log('[update]')
     const content = this.traverseContentTreeAndRemoveCursorNode(this.content);
     this.content = this.traverseContentTreeAndAddCursorNode(content, {hidden: this.selectionExists()});
+  }
+
+  /**
+   * Deletes a character or a selection
+   *
+   * @param e
+   */
+  doDelete = (e) => {
+    e.preventDefault();
+    let content = this.content;
+
+    // There's a selection, which means we want to delete the selected text
+    if (this.selectionExists()) {
+      const selectedNodes = this.selectedNodes();
+
+      let nodeIdBeforeSelection = this.computeTreeNodeIdRightOf(content, selectedNodes[0].id);
+      if (selectedNodes.length > 1) {
+        nodeIdBeforeSelection = this.computeTreeNodeIdRightOf(content, selectedNodes[selectedNodes.length - 1].id);
+      }
+
+      const fromBeginning = selectedNodes[0].id === this.computeFirstContentTreeNodeId(content);
+      const fromEnd = selectedNodes[selectedNodes.length - 1].id === this.computeLastContentTreeNodeId(content);
+
+      for (let i = 0; i < selectedNodes.length; i++) {
+        content = this.removeNodeFromContent(content, selectedNodes[i].id);
+      }
+
+      content = this.removeOrphanGroups(this.markAllNodesAsDeselected(content));
+
+      // Is the selection at the beginning?
+      if (fromBeginning) {
+        this.cursorPosition = this.computeFirstContentTreeNodeId(content);
+      } else if(fromEnd) {
+        this.cursorPosition = "0";
+      } else {
+        this.cursorPosition = nodeIdBeforeSelection;
+      }
+
+      this.content = this.removeOrphanGroups(content);
+    }
+
+    // There's no selection, which means we want to delete the character to the left
+    else {
+      let nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(content, this.cursorPosition);
+
+      if (nodeIdBeforeCursor !== this.cursorPosition) {
+        while (this.getNodeById(content, nodeIdBeforeCursor).type === 'group') {
+          nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(content, nodeIdBeforeCursor);
+        }
+      }
+
+      // Do not delete if the cursor is at the beginning
+      if (this.content.length > 0 && this.content[0].type === 'cursor') {
+        return;
+      }
+
+      this.cursorPosition = this.computeTreeNodeIdRightOf(content, nodeIdBeforeCursor);
+      content = this.removeNodeFromContent(content, nodeIdBeforeCursor);
+      this.content = this.removeOrphanGroups(content);
+    }
   }
 
   /**
