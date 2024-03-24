@@ -8,11 +8,11 @@
     <div class="content-area content-area--edit-post">
         <div id="editor">
             <div class="editor-content">
-                {% include 'admin/editor/post-title.twig' %}
-                {% include 'admin/editor/post-slug.twig' %}
+                {% include 'admin/editor/title.twig' %}
+                {% include 'admin/editor/slug.twig' %}
 
                 <div class="post-content">
-                    <label>Post content</label>
+                    <label>Content</label>
                     <div class="blocks"
                          hx-get="/admin/api/post/{{ id }}/editor"
                          hx-trigger="load"

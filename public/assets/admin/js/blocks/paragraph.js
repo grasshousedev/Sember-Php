@@ -1,6 +1,6 @@
-import {css, html, LitElement} from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';
-import {ContextProvider} from 'https://cdn.jsdelivr.net/npm/@lit/context@1.1.0/+esm';
-import {v4 as uuidv4} from 'https://cdn.jsdelivr.net/npm/uuid@9.0.1/+esm'
+import {css, html, LitElement} from '../deps/lit.js';
+import {ContextProvider} from '../deps/lit-context.js';
+import {v4 as uuidv4} from '../deps/uuid.js'
 import './paragraph/paragraph-group.js';
 import {cursorPosition, meta} from './paragraph/contexts.js';
 import {charNodeFlattenFn, nodeFlattenFn} from './paragraph/utils.js';
@@ -208,6 +208,10 @@ export class ParagraphBlock extends LitElement {
   activateEditor = (e) => {
     if (e.target === this.node.host) {
       this.active = true;
+
+      if (!this.cursorPosition) {
+        this.cursorPosition = "0";
+      }
     } else {
       this.active = false;
       this.cursorPosition = null;
@@ -397,6 +401,40 @@ export class ParagraphBlock extends LitElement {
   }
 
   /**
+   * Toggles nodes as selected
+   *
+   * @param content
+   * @param nodeIds
+   * @returns {*[]}
+   */
+  toggleNodesAsSelected(content, nodeIds) {
+    let newContent = [];
+
+    for (let i = 0; i < content.length; i++) {
+      const item = content[i];
+
+      // chars
+      if (item.type === 'char') {
+        if (nodeIds.includes(item.id)) {
+          newContent.push({...item, selected: typeof item.selected === 'boolean' ? !item.selected : true});
+        } else {
+          newContent.push(item);
+        }
+      }
+
+      // groups
+      if (item.type === 'group') {
+        newContent.push({
+          ...item,
+          content: this.toggleNodesAsSelected(item.content, nodeIds)
+        })
+      }
+    }
+
+    return newContent;
+  }
+
+  /**
    * Marks all nodes as selected
    *
    * @param content
@@ -482,16 +520,14 @@ export class ParagraphBlock extends LitElement {
     }
 
     // Mark all nodes between left and right index as selected
-    // TODO: improve this to mark a range of nodes as selected for better perf
-    for (let i = leftIndex; i < rightIndex; i++) {
-      if (
-        allNodes[i]?.type === 'char' &&
-        allNodes[i]?.value !== ' ' &&
-        allNodes[i]?.value !== ',' &&
-        allNodes[i]?.value !== '.') {
-        this.content = this.toggleNodeAsSelected(this.content, allNodes[i].id);
-      }
-    }
+    const nodes = allNodes.slice(leftIndex, rightIndex);
+
+    this.content = this.toggleNodesAsSelected(this.content, nodes.filter((item) => {
+      return item?.type === 'char' &&
+        item?.value !== ' ' &&
+        item?.value !== ',' &&
+        item?.value !== '.';
+    }).map((item) => item.id));
 
     // Move cursor to the beginning
     if (allNodes[leftIndex]?.value === ' ') {
@@ -587,10 +623,6 @@ export class ParagraphBlock extends LitElement {
    * @returns {boolean}
    */
   isContentEmpty() {
-    console.log(this.content.length);
-    console.log(this.content.every((item) => item.type === 'cursor'));
-    console.log(this.content)
-
     return this.content.length === 0 || this.content.every((item) => item.type === 'cursor');
   }
 
