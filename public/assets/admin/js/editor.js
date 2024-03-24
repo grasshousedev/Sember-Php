@@ -47,18 +47,6 @@ htmx.onLoad(() => {
         });
     });
   });
-
-  // Post settings
-  const postSettingsToggle = document.querySelector(".toggle-post-settings");
-  const postSettings = document.querySelector(".post-settings");
-
-  postSettingsToggle.addEventListener("click", () => {
-    postSettings.classList.add("active");
-
-    postSettings.addEventListener("mouseleave", () => {
-      postSettings.classList.remove("active");
-    });
-  });
 });
 
 // Called after adding a new block, which scrolls the

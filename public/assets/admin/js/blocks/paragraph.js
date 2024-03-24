@@ -231,7 +231,6 @@ export class ParagraphBlock extends LitElement {
    * Lifecycle method: will update
    */
   willUpdate() {
-    console.log('[update]')
     const content = this.traverseContentTreeAndRemoveCursorNode(this.content);
     this.content = this.traverseContentTreeAndAddCursorNode(content, {hidden: this.selectionExists()});
   }
@@ -483,6 +482,7 @@ export class ParagraphBlock extends LitElement {
     }
 
     // Mark all nodes between left and right index as selected
+    // TODO: improve this to mark a range of nodes as selected for better perf
     for (let i = leftIndex; i < rightIndex; i++) {
       if (
         allNodes[i]?.type === 'char' &&

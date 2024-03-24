@@ -1,0 +1,37 @@
+<div class="sidebar-meta post-meta" hx-ext="path-deps">
+    <h1>
+        Edit Post
+        <a href="/admin/posts/delete/{{ id }}" onclick="confirm('Are you sure?');" class="btn btn-warning">
+            <i class="fas fa-trash"></i>
+        </a>
+    </h1>
+
+    <div class="section">
+        <label>
+            <span class="title">Status</span>
+            <select name="status"
+                    id="status"
+                    hx-post="/admin/api/post/{{ id }}/update-status"
+                    hx-swap="none">
+                <option value="draft" {% if post.data.status is same as 'draft' %} selected {% endif %}>
+                    Draft
+                </option>
+                <option value="published" {% if post.data.status is same as 'published' %} selected {% endif %}>
+                    Published
+                </option>
+            </select>
+        </label>
+    </div>
+
+    <div class="section">
+        <label>
+            <span class="title">Published Date</span>
+
+            <input type="datetime-local"
+                   id="published-at"
+                   name="published_at"
+                   hx-post="/admin/api/post/{{ post.data.id }}/update-published-at"
+                   value="{{ post.data.published_at|date('Y-m-d H:i') }}">
+        </label>
+    </div>
+</div>

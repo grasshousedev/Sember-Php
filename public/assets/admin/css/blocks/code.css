@@ -7,10 +7,8 @@
     resize: none;
     line-height: 1.45;
     background: #fafafa;
-    border-top: 1px solid #ddd;
-    border-left: 0;
-    border-right: 0;
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #ddd;
+    border-radius: 3px;
     overflow: hidden;
     padding: 20px;
     margin-top: 4px;

@@ -1,19 +1,21 @@
 <div class="sidebar">
     <ul class="nav">
         <li {% if active is same as 'posts' %} class="active" {% endif %}>
-            <a href="/admin/posts">Posts</a>
+            <a href="/admin/posts">
+                <i class="fas fa-list"></i>
+            </a>
         </li>
 
         <li {% if active is same as 'settings' %} class="active" {% endif %}>
-            <a href="/admin/settings">Settings</a>
+            <a href="/admin/settings"><i class="fas fa-cog"></i></a>
         </li>
     </ul>
 
-    <div class="bottom">
-        <a class="link-to-site" href="{{ url }}" target="_blank">
-            <i class="fas fa-link"></i>
-            <span>{{ url_without_protocol }}</span>
-            <i class="fas fa-arrow-right"></i>
-        </a>
-    </div>
+    <ul class="nav bottom">
+        <li>
+            <a href="{{ url }}" target="_blank">
+                <i class="fas fa-link"></i>
+            </a>
+        </li>
+    </ul>
 </div>

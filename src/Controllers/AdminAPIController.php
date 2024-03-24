@@ -157,13 +157,7 @@ readonly class AdminAPIController
         $post->set('updated_at', time());
         $this->db->update($post);
 
-        if ($post->get('status') !== 'published') {
-            return $response->make('');
-        }
-
-        return $response->view('admin/editor/post-published-at', [
-            'post' => $post,
-        ]);
+        return $response->json(['status' => 'success']);
     }
 
     /**

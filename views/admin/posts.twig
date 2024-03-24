@@ -1,55 +1,51 @@
 {% include 'admin/partials/header.twig' with {'page_title': 'Posts'} %}
 
-<div class="wrap">
+<div class="wrap has-meta">
     {% include 'admin/partials/sidebar.twig' with {'active': 'posts'} %}
+    {% include 'admin/partials/meta-sidebars/posts.twig' %}
 
-    <div class="content-area">
-        <div class="page-heading">
-            <h2 class="title">Posts</h2>
-            <a href="/admin/posts/new" class="btn btn-primary">New Post</a>
-        </div>
-
+    <div class="content-area content-area--posts">
         <div class="posts">
-            {% for post in posts %}
-                <div class="post" data-status="{{ post.data.status }}">
-                    <a href="/admin/posts/edit/{{ post.data.id }}">
-                        <div class="row">
-                            <h3 class="title">
-                                {% if post.data.title is same as '' %}
-                                    <em>Untitled...</em>
-                                {% else %}
-                                    {{ post.data.title  }}
-                                {% endif %}
-                            </h3>
-                        </div>
-
-                        <div class="row">
-                            <div class="meta">
+            <table class="posts-table">
+                <thead>
+                    <tr>
+                        <th colspan="3">Title</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Views</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for post in posts %}
+                        <tr class="post" data-status="{{ post.data.status }}">
+                            <td colspan="3" style="min-width: 300px;">
+                                <a href="/admin/posts/edit/{{ post.data.id }}">
+                                    {% if post.data.title is same as '' %}
+                                        <em>Untitled...</em>
+                                    {% else %}
+                                        {{ post.data.title  }}
+                                    {% endif %}
+                                </a>
+                            </td>
+                            <td tyle="min-width: 100px;">
                                 {% if post.data.status is same as 'published' %}
-                                    Published {{ post.data.published_at|date('M jS, Y') }}
+                                    Published
                                 {% elseif post.data.status is same as 'scheduled' %}
-                                    Scheduled {{ post.data.published_at|date('M jS, Y') }}
+                                    Scheduled
                                 {% else %}
-                                    {{ post.data.status }}
+                                    Draft
                                 {% endif %}
-
-                                &mdash; Updated {{ post.data.updated_at|date('M jS, Y') }}
-                            </div>
-
-                            {% if post.data.status is same as 'published' %}
-                            <div class="views">
-                                <strong>{{ post.data.views ?? 0 }}</strong>
-                                {% if post.data.views ?? 0 is same as 1 %}
-                                    view
-                                {% else %}
-                                    views
-                                {% endif %}
-                            </div>
-                            {% endif %}
-                        </div>
-                    </a>
-                </div>
-            {% endfor %}
+                            </td>
+                            <td tyle="min-width: 125px;">
+                                {{ post.data.published_at|date('M jS, Y') }}
+                            </td>
+                            <td style="min-width: 50px;">
+                                {{ post.data.views ?? 0 }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

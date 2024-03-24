@@ -1,62 +1,23 @@
 {% include 'admin/partials/header.twig' with {'page_title': 'Edit Post', 'is_editor': true } %}
 
 
-<div class="wrap">
+<div class="wrap has-meta">
     {% include 'admin/partials/sidebar.twig' %}
+    {% include 'admin/partials/meta-sidebars/edit-post.twig' %}
 
-    <div class="content-area edit-post">
-        <div class="page-heading">
-            <h2 class="title">Edit Post</h2>
-
-            <div class="post-meta" hx-ext="path-deps">
-                <button type="button" class="toggle-post-settings">
-                    <span class="js-post-status"
-                          hx-get="/admin/api/post/{{ id }}/status"
-                          hx-trigger="path-deps"
-                          path-deps="/admin/api/post/{{ id }}/update-status"
-                          hx-swap="innerHTML">{{ post.data.status }}</span>
-                    <i class="fas fa-cog"></i>
-                </button>
-
-                <div class="post-settings">
-                    <div class="post-status">
-                        <label for="status">Status</label>
-                        <select name="status"
-                                id="status"
-                                hx-post="/admin/api/post/{{ id }}/update-status"
-                                hx-swap="innerHTML"
-                                hx-target=".post-published-date">
-                            <option value="draft" {% if post.data.status is same as 'draft' %} selected {% endif %}>
-                                Draft
-                            </option>
-                            <option value="published" {% if post.data.status is same as 'published' %} selected {% endif %}>
-                                Published
-                            </option>
-                        </select>
-                    </div>
-
-                    <div class="post-published-date"
-                         hx-get="/admin/api/post/{{ id }}/published-at"
-                         hx-trigger="load"
-                         hx-swap="innerHTML"></div>
-
-                    <hr/>
-
-                    <a href="/admin/posts/delete/{{ id }}" class="btn btn-warning">Delete post</a>
-                </div>
-            </div>
-        </div>
-
+    <div class="content-area content-area--edit-post">
         <div id="editor">
-            {% include 'admin/editor/post-title.twig' %}
-            {% include 'admin/editor/post-slug.twig' %}
+            <div class="editor-content">
+                {% include 'admin/editor/post-title.twig' %}
+                {% include 'admin/editor/post-slug.twig' %}
 
-            <div class="post-content">
-                <label>Post content</label>
-                <div class="blocks"
-                     hx-get="/admin/api/post/{{ id }}/editor"
-                     hx-trigger="load"
-                     hx-swap="outerHTML">Loading ...
+                <div class="post-content">
+                    <label>Post content</label>
+                    <div class="blocks"
+                         hx-get="/admin/api/post/{{ id }}/editor"
+                         hx-trigger="load"
+                         hx-swap="outerHTML">Loading ...
+                    </div>
                 </div>
             </div>
         </div>
