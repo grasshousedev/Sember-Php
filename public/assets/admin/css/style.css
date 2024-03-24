@@ -253,12 +253,8 @@ input, textarea, select, button {
     padding-right: 20px;
 }
 
-.posts-table td:first-child {
-    font-weight: 600;
-}
-
 .posts-table td:first-child a {
-    font-size: 15px;
+    font-size: 16px;
     color: #111;
     text-decoration: none;
     border-bottom: 1px solid transparent;
