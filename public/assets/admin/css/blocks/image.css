@@ -1,6 +1,7 @@
 #editor .block[data-block="image"] .upload-image {
     text-align: center;
-    background: #fafafa;
+    background: var(--zinc-100);
+    border-radius: 4px;
     cursor: pointer;
     padding: 20px;
 }
@@ -9,4 +10,5 @@
     display: block;
     max-width: 100%;
     height: auto;
+    border-radius: 4px;
 }

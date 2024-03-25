@@ -7,8 +7,9 @@
     resize: none;
     line-height: 1.45;
     color: var(--slate-800);
-    background: var(--zinc-200);
-    border: 0;
+    background: var(--zinc-100);
+    border: 1px solid var(--zinc-400);
+    border-radius: 4px;
     overflow: hidden;
     padding: 20px;
     margin-top: 4px;
