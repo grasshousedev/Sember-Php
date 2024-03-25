@@ -6,8 +6,8 @@
     font-family: "Jetbrains Mono", monospace;
     resize: none;
     line-height: 1.45;
-    color: #eee;
-    background: #111;
+    color: var(--slate-800);
+    background: var(--zinc-200);
     border: 0;
     overflow: hidden;
     padding: 20px;

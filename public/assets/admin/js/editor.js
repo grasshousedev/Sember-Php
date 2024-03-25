@@ -1,4 +1,7 @@
 htmx.onLoad(() => {
+  // Title
+  autogrow([document.querySelector('.post-title')]);
+
   // Block list
   const toggles = document.querySelectorAll(".toggle-block-list");
 

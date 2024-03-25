@@ -225,35 +225,59 @@ input, textarea, select, button {
 
 .wrap {
     display: grid;
-    grid-template-columns: 50px 1fr;
+    grid-template-columns: 60px 1fr;
 }
 
 .wrap.has-meta {
-    grid-template-columns: 50px 250px 1fr;
+    grid-template-columns: 60px 275px 1fr;
 }
 
 .btn {
     display: flex;
-    gap: 8px;
-    font-size: 13px;
-    font-weight: 500;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 600;
     text-decoration: none;
     border: 0;
     transition: all 0.15s ease-in-out;
     text-transform: capitalize;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    padding: 4px 8px;
+}
+
+.btn i {
+    font-size: 15px;
 }
 
 .btn-primary {
-    color: var(--sky-500) !important;
+    color: var(--sky-700);
+    background: var(--sky-50);
+    border: 1px solid var(--sky-400);
+}
+
+.btn-primary:hover {
+    color: var(--sky-800);
+    background: var(--sky-100);
+    border: 1px solid var(--sky-500);
 }
 
 .btn-warning {
-    color: var(--red-500) !important;
+    color: var(--red-700) !important;
+    background: var(--red-50);
+    border: 1px solid var(--red-400)
+}
+
+.btn-warning:hover {
+    color: var(--red-800) !important;
+    background: var(--red-100);
+    border: 1px solid var(--red-500)
 }
 
 /** SIDEBAR */
 .sidebar {
-    background: var(--zinc-100);
+    background: var(--zinc-200);
     border-right: 1px solid var(--zinc-500);
     position: relative;
     box-shadow: 0 0 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
@@ -267,34 +291,44 @@ input, textarea, select, button {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .sidebar .nav li {
-    width: 100%;
+    width: 50px;
     height: 50px;
     list-style: none;
-    color: var(--zinc-700);
-    border-bottom: 1px solid var(--zinc-500);
-    transition: all 0.1s;
+    color: var(--zinc-900);
+    transition: all 0.15s ease-in-out;
 }
 
 .sidebar .nav li a {
     display: flex;
+    width: 40px;
+    height: 40px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 100%;
     text-decoration: none;
     color: inherit;
+    background: #fff;
+    box-shadow: 0 2px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    border: 1px solid var(--zinc-800);
+    border-radius: 4px;
+    transition: all 0.15s ease-in-out;
+    margin: 5px;
 }
 
 .sidebar .nav li:hover {
     color: var(--slate-900);
 }
 
-.sidebar .nav li.active a {
+.sidebar .nav li.active a,
+.sidebar .nav li:hover a {
     color: var(--slate-900);
+    background: var(--zinc-100);
+    border: 1px solid var(--zinc-900);
 }
 
 .sidebar .bottom {
@@ -304,13 +338,12 @@ input, textarea, select, button {
 }
 
 .sidebar .bottom li {
-    border-top: 1px solid var(--slate-200);
     border-bottom: 0;
 }
 
 .sidebar-meta {
     display: block;
-    background: var(--zinc-50);
+    background: #fff;
     box-shadow: 0 0 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
     border-right: 1px solid var(--zinc-500);
     z-index: 5;
@@ -320,25 +353,17 @@ input, textarea, select, button {
 
 .sidebar-meta h1 {
     display: flex;
-    height: 50px;
+    height: 55px;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
+    gap: 14px;
     line-height: 1;
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 18px;
+    font-weight: 400;
     color: var(--gray-900);
     border-bottom: 1px solid var(--gray-300);
     padding-left: 20px;
     padding-right: 20px;
-}
-
-.sidebar-meta h1 .btn {
-    font-size: 13px;
-}
-
-.sidebar-meta h1 .btn i {
-    font-size: 14px;
 }
 
 .sidebar-meta .section {
@@ -348,7 +373,7 @@ input, textarea, select, button {
 .sidebar-meta .section .title {
     display: block;
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 400;
     color: var(--slate-600);
     text-transform: uppercase;
     margin-bottom: 5px;
@@ -362,7 +387,7 @@ input, textarea, select, button {
     font-size: 13px;
     border: 0;
     background: transparent;
-    border-bottom: 1px solid var(--slate-200);
+    border-bottom: 1px solid var(--slate-300);
     outline: none;
     padding-bottom: 5px;
 }
@@ -386,12 +411,12 @@ input, textarea, select, button {
 }
 
 .posts-table th {
-    height: 49.5px;
+    height: 54.5px;
     text-align: left;
     font-size: 12px;
     text-transform: uppercase;
     color: var(--slate-600);
-    font-weight: 500;
+    font-weight: 400;
     padding-left: 20px;
     padding-right: 20px;
 }
@@ -452,8 +477,8 @@ input, textarea, select, button {
     font-size: 12px;
     background: transparent;
     border: 1px solid var(--gray-300);
-    padding: 2px 6px;
-    border-radius: 8px;
+    padding: 2px 8px;
+    border-radius: 20px;
 }
 
 .post-table tr[data-status="draft"] td.status span {
@@ -488,20 +513,20 @@ input, textarea, select, button {
 #editor .post-title label {
     display: block;
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 400;
     color: #999;
     text-transform: uppercase;
-    margin-bottom: 4px;
+    margin-bottom: 13px;
 }
 
-#editor .post-title input {
+#editor .post-title textarea {
     width: 100%;
-    height: 38px;
-    font-size: 18px;
-    font-weight: 500;
+    height: 0;
+    font-size: 30px;
+    font-weight: 700;
     color: #111;
     border: 0;
-    border-bottom: 1px solid #ddd;
+    resize: none;
     outline: none;
 }
 
@@ -510,7 +535,7 @@ input, textarea, select, button {
 }
 
 #editor .post-slug {
-    font-size: 13px;
+    font-size: 12px;
     color: #777;
     margin-bottom: 50px;
 }
@@ -547,8 +572,8 @@ input, textarea, select, button {
 
 #editor .post-content label {
     color: #999;
-    font-size: 13px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 400;
     display: block;
     text-transform: uppercase;
     margin-bottom: -5px;

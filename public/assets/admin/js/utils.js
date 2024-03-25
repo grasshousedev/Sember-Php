@@ -24,7 +24,7 @@ function autogrow(els) {
     textarea.style.height = '0px';
     textarea.style.height = `${textarea.scrollHeight}px`;
 
-    textarea.removeEventListener("change", updateTextareaSize);
-    textarea.addEventListener("change", updateTextareaSize);
+    textarea.removeEventListener("input", updateTextareaSize);
+    textarea.addEventListener("input", updateTextareaSize);
   });
 }

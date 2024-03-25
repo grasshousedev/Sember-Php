@@ -1,9 +1,7 @@
 <div class="post-title">
     <label for="post-title">Title</label>
-    <input type="text"
-           id="post-title"
-           name="title"
-           value="{{ post.data.title }}"
-           hx-post="/admin/api/post/{{ post.data.id }}/update-title"
-           hx-trigger="input changed delay:250ms"/>
+    <textarea id="post-title"
+              name="title"
+              hx-post="/admin/api/post/{{ post.data.id }}/update-title"
+              hx-trigger="input changed delay:250ms">{{ post.data.title }}</textarea>
 </div>
