@@ -549,7 +549,6 @@ export class ParagraphBlock extends LitElement {
 
     // If we're in the end of the content
     if (this.cursorPosition === "0" || this.isContentEmpty()) {
-      console.log('yolo')
       // If there is no content
       if (this.isContentEmpty()) {
         this.content = [

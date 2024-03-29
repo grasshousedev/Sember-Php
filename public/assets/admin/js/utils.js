@@ -17,7 +17,6 @@ function updateTextareaSize(e) {
 
 function autogrow(els) {
   els.forEach((el) => {
-    console.log(el);
     const textarea = el.querySelector("textarea");
 
     textarea.style.boxSizing = "border-box";
