@@ -1,9 +1,9 @@
-import {css, html, LitElement} from '../deps/lit.js';
-import {ContextProvider} from '../deps/lit-context.js';
-import {v4 as uuidv4} from '../deps/uuid.js'
-import './paragraph/paragraph-group.js';
-import {cursorPosition, meta} from './paragraph/contexts.js';
-import {charNodeFlattenFn, nodeFlattenFn} from './paragraph/utils.js';
+import { css, html, LitElement } from "../deps/lit.js";
+import { ContextProvider } from "../deps/lit-context.js";
+import { v4 as uuidv4 } from "../deps/uuid.js";
+import "./paragraph/paragraph-group.js";
+import { cursorPosition, meta } from "./paragraph/contexts.js";
+import { charNodeFlattenFn, nodeFlattenFn } from "./paragraph/utils.js";
 
 export class ParagraphBlock extends LitElement {
   /**
@@ -17,32 +17,43 @@ export class ParagraphBlock extends LitElement {
       setValue: (value, right = false) => {
         if (right) {
           const rightValue = this.computeTreeNodeIdRightOf(this.content, value);
-          this.cursorProvider.setValue({rightValue, setValue: this.cursorProviderUpdateHandle});
+          this.cursorProvider.setValue({
+            rightValue,
+            setValue: this.cursorProviderUpdateHandle,
+          });
           this.cursorPosition = rightValue;
         } else {
-          this.cursorProvider.setValue({value, setValue: this.cursorProviderUpdateHandle});
+          this.cursorProvider.setValue({
+            value,
+            setValue: this.cursorProviderUpdateHandle,
+          });
           this.cursorPosition = value;
         }
 
         this.content = this.markAllNodesAsDeselected(this.content);
-      }
+      },
     });
-  }
+  };
 
-  cursorProvider = new ContextProvider(this, {context: cursorPosition});
-  metaProvider = new ContextProvider(this, {context: meta});
+  cursorProvider = new ContextProvider(this, { context: cursorPosition });
+  metaProvider = new ContextProvider(this, { context: meta });
 
   static properties = {
-    active: {type: Boolean, state: true, attribute: false},
-    cursorPosition: {type: String, state: true, attribute: false},
-    content: {type: Array, state: true, attribute: false},
-    node: {type: Object, state: true, attribute: false},
-  }
+    active: { type: Boolean, state: true, attribute: false },
+    cursorPosition: { type: String, state: true, attribute: false },
+    content: { type: Array, state: true, attribute: false },
+    node: { type: Object, state: true, attribute: false },
+    placeholder: { type: String, state: false, attribute: true },
+  };
 
   static styles = css`
-      .editor {
-          min-height: 1lh;
-      }
+    .editor {
+      min-height: 1lh;
+    }
+
+    .placeholder {
+      color: #777;
+    }
   `;
 
   constructor() {
@@ -55,42 +66,10 @@ export class ParagraphBlock extends LitElement {
 
     this.metaProvider.setValue({
       selectWordOfNode: this.selectWordOfNodeId,
-    })
+    });
 
-    this.content = [
-      {id: uuidv4(), type: 'char', value: 'H'},
-      {id: uuidv4(), type: 'char', value: 'e'},
-      {id: uuidv4(), type: 'char', value: 'l'},
-      {id: uuidv4(), type: 'char', value: 'l'},
-      {id: uuidv4(), type: 'char', value: 'o'},
-      {id: uuidv4(), type: 'char', value: ','},
-      {id: uuidv4(), type: 'char', value: ' '},
-      {
-        id: uuidv4(),
-        type: 'group',
-        groupType: 'italic',
-        content: [
-          {id: uuidv4(), type: 'char', value: 'W'},
-          {id: uuidv4(), type: 'char', value: 'o'},
-          {id: uuidv4(), type: 'char', value: 'r'},
-          {id: uuidv4(), type: 'char', value: 'l'},
-          {id: uuidv4(), type: 'char', value: 'd'},
-          {id: uuidv4(), type: 'char', value: ','},
-          {id: uuidv4(), type: 'char', value: ' '},
-        ]
-      },
-      {
-        id: uuidv4(),
-        type: 'group',
-        groupType: 'bold',
-        content: [
-          {id: uuidv4(), type: 'char', value: 'W'},
-          {id: uuidv4(), type: 'char', value: 'o'},
-          {id: uuidv4(), type: 'char', value: 'r'},
-          {id: uuidv4(), type: 'char', value: 'l'},
-          {id: uuidv4(), type: 'char', value: 'd'}
-        ]
-      }];
+    this.content = [];
+    this.placeholder = "";
   }
 
   /**
@@ -104,7 +83,10 @@ export class ParagraphBlock extends LitElement {
     // Move left (without shift)
     if (!e.shiftKey && e.key === "ArrowLeft") {
       e.preventDefault();
-      this.cursorPosition = this.computeTreeNodeIdLeftOf(this.content, this.cursorPosition);
+      this.cursorPosition = this.computeTreeNodeIdLeftOf(
+        this.content,
+        this.cursorPosition,
+      );
       this.content = this.markAllNodesAsDeselected(this.content);
       return;
     }
@@ -112,14 +94,18 @@ export class ParagraphBlock extends LitElement {
     // Move right (without shift)
     if (!e.shiftKey && e.key === "ArrowRight") {
       e.preventDefault();
-      this.cursorPosition = this.computeTreeNodeIdRightOf(this.content, this.cursorPosition);
+      this.cursorPosition = this.computeTreeNodeIdRightOf(
+        this.content,
+        this.cursorPosition,
+      );
       this.content = this.markAllNodesAsDeselected(this.content);
       return;
     }
 
     // Delete text
     if (e.key === "Backspace") {
-      this.doDelete(e); return;
+      this.doDelete(e);
+      return;
     }
 
     if ((e.metaKey || e.ctrlKey) && e.key === "b") {
@@ -164,41 +150,117 @@ export class ParagraphBlock extends LitElement {
 
     if (e.shiftKey && e.key === "ArrowLeft") {
       e.preventDefault();
-      this.cursorPosition = this.computeTreeNodeIdLeftOf(this.content, this.cursorPosition);
-      this.content = this.toggleNodeAsSelected(this.content, this.cursorPosition);
+      this.cursorPosition = this.computeTreeNodeIdLeftOf(
+        this.content,
+        this.cursorPosition,
+      );
+      this.content = this.toggleNodeAsSelected(
+        this.content,
+        this.cursorPosition,
+      );
       return;
     }
 
     if (e.shiftKey && e.key === "ArrowRight") {
       e.preventDefault();
-      this.content = this.toggleNodeAsSelected(this.content, this.cursorPosition);
-      this.cursorPosition = this.computeTreeNodeIdRightOf(this.content, this.cursorPosition);
+      this.content = this.toggleNodeAsSelected(
+        this.content,
+        this.cursorPosition,
+      );
+      this.cursorPosition = this.computeTreeNodeIdRightOf(
+        this.content,
+        this.cursorPosition,
+      );
       return;
     }
 
     const notAllowedChars = [
-      'ArrowLeft', 'ArrowRight', 'Backspace', 'Meta', 'Control', 'Shift',
-      'Alt', 'CapsLock', 'Tab', 'Enter', 'Escape', 'PageUp', 'PageDown',
-      'End', 'Home', 'Insert', 'Delete', 'F1', 'F2', 'F3', 'F4', 'F5',
-      'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12', 'PrintScreen',
-      'ScrollLock', 'Pause', 'ContextMenu', 'OS', 'MediaTrackPrevious',
-      'MediaTrackNext', 'MediaPlayPause', 'MediaStop', 'MediaTrackNext',
-      'MediaSelect', 'Mail', 'Calculator', 'BrowserSearch', 'BrowserHome',
-      'BrowserBack', 'BrowserForward', 'BrowserStop', 'BrowserRefresh',
-      'BrowserFavorites', 'VolumeMute', 'VolumeDown', 'VolumeUp', 'MediaPlay',
-      'MediaPause', 'MediaRecord', 'MediaFastForward', 'MediaRewind',
-      'MediaTrackNext', 'MediaTrackPrevious', 'MediaStop', 'MediaEject',
-      'MediaPlayPause', 'LaunchMail', 'LaunchApp2', 'LaunchApp1', 'Select',
-      'Open', 'Find', 'Help', 'Clear', 'Symbol', 'Unidentified',
-      'Dead', 'IntlBackslash', 'IntlRo', 'IntlYen', 'IntlPipe', 'ArrowUp',
-      'ArrowDown'
+      "ArrowLeft",
+      "ArrowRight",
+      "Backspace",
+      "Meta",
+      "Control",
+      "Shift",
+      "Alt",
+      "CapsLock",
+      "Tab",
+      "Enter",
+      "Escape",
+      "PageUp",
+      "PageDown",
+      "End",
+      "Home",
+      "Insert",
+      "Delete",
+      "F1",
+      "F2",
+      "F3",
+      "F4",
+      "F5",
+      "F6",
+      "F7",
+      "F8",
+      "F9",
+      "F10",
+      "F11",
+      "F12",
+      "PrintScreen",
+      "ScrollLock",
+      "Pause",
+      "ContextMenu",
+      "OS",
+      "MediaTrackPrevious",
+      "MediaTrackNext",
+      "MediaPlayPause",
+      "MediaStop",
+      "MediaTrackNext",
+      "MediaSelect",
+      "Mail",
+      "Calculator",
+      "BrowserSearch",
+      "BrowserHome",
+      "BrowserBack",
+      "BrowserForward",
+      "BrowserStop",
+      "BrowserRefresh",
+      "BrowserFavorites",
+      "VolumeMute",
+      "VolumeDown",
+      "VolumeUp",
+      "MediaPlay",
+      "MediaPause",
+      "MediaRecord",
+      "MediaFastForward",
+      "MediaRewind",
+      "MediaTrackNext",
+      "MediaTrackPrevious",
+      "MediaStop",
+      "MediaEject",
+      "MediaPlayPause",
+      "LaunchMail",
+      "LaunchApp2",
+      "LaunchApp1",
+      "Select",
+      "Open",
+      "Find",
+      "Help",
+      "Clear",
+      "Symbol",
+      "Unidentified",
+      "Dead",
+      "IntlBackslash",
+      "IntlRo",
+      "IntlYen",
+      "IntlPipe",
+      "ArrowUp",
+      "ArrowDown",
     ];
 
     if (!notAllowedChars.includes(e.key) && !e.metaKey) {
       e.preventDefault();
       this.addCharToContent(e.key);
     }
-  }
+  };
 
   /**
    * Activates the editor
@@ -217,7 +279,7 @@ export class ParagraphBlock extends LitElement {
       this.cursorPosition = null;
       this.content = this.markAllNodesAsDeselected(this.content);
     }
-  }
+  };
 
   /**
    * Lifecycle method: first updated
@@ -225,8 +287,8 @@ export class ParagraphBlock extends LitElement {
   firstUpdated() {
     this.node = this.shadowRoot;
 
-    window.removeEventListener('keydown', this.listenKeyPress);
-    window.addEventListener('keydown', this.listenKeyPress);
+    window.removeEventListener("keydown", this.listenKeyPress);
+    window.addEventListener("keydown", this.listenKeyPress);
     window.removeEventListener("click", this.activateEditor);
     window.addEventListener("click", this.activateEditor);
   }
@@ -236,7 +298,9 @@ export class ParagraphBlock extends LitElement {
    */
   willUpdate() {
     const content = this.traverseContentTreeAndRemoveCursorNode(this.content);
-    this.content = this.traverseContentTreeAndAddCursorNode(content, {hidden: this.selectionExists()});
+    this.content = this.traverseContentTreeAndAddCursorNode(content, {
+      hidden: this.selectionExists(),
+    });
   }
 
   /**
@@ -252,13 +316,22 @@ export class ParagraphBlock extends LitElement {
     if (this.selectionExists()) {
       const selectedNodes = this.selectedNodes();
 
-      let nodeIdBeforeSelection = this.computeTreeNodeIdRightOf(content, selectedNodes[0].id);
+      let nodeIdBeforeSelection = this.computeTreeNodeIdRightOf(
+        content,
+        selectedNodes[0].id,
+      );
       if (selectedNodes.length > 1) {
-        nodeIdBeforeSelection = this.computeTreeNodeIdRightOf(content, selectedNodes[selectedNodes.length - 1].id);
+        nodeIdBeforeSelection = this.computeTreeNodeIdRightOf(
+          content,
+          selectedNodes[selectedNodes.length - 1].id,
+        );
       }
 
-      const fromBeginning = selectedNodes[0].id === this.computeFirstContentTreeNodeId(content);
-      const fromEnd = selectedNodes[selectedNodes.length - 1].id === this.computeLastContentTreeNodeId(content);
+      const fromBeginning =
+        selectedNodes[0].id === this.computeFirstContentTreeNodeId(content);
+      const fromEnd =
+        selectedNodes[selectedNodes.length - 1].id ===
+        this.computeLastContentTreeNodeId(content);
 
       for (let i = 0; i < selectedNodes.length; i++) {
         content = this.removeNodeFromContent(content, selectedNodes[i].id);
@@ -269,7 +342,7 @@ export class ParagraphBlock extends LitElement {
       // Is the selection at the beginning?
       if (fromBeginning) {
         this.cursorPosition = this.computeFirstContentTreeNodeId(content);
-      } else if(fromEnd) {
+      } else if (fromEnd) {
         this.cursorPosition = "0";
       } else {
         this.cursorPosition = nodeIdBeforeSelection;
@@ -280,24 +353,33 @@ export class ParagraphBlock extends LitElement {
 
     // There's no selection, which means we want to delete the character to the left
     else {
-      let nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(content, this.cursorPosition);
+      let nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(
+        content,
+        this.cursorPosition,
+      );
 
       if (nodeIdBeforeCursor !== this.cursorPosition) {
-        while (this.getNodeById(content, nodeIdBeforeCursor).type === 'group') {
-          nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(content, nodeIdBeforeCursor);
+        while (this.getNodeById(content, nodeIdBeforeCursor).type === "group") {
+          nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(
+            content,
+            nodeIdBeforeCursor,
+          );
         }
       }
 
       // Do not delete if the cursor is at the beginning
-      if (this.content.length > 0 && this.content[0].type === 'cursor') {
+      if (this.content.length > 0 && this.content[0].type === "cursor") {
         return;
       }
 
-      this.cursorPosition = this.computeTreeNodeIdRightOf(content, nodeIdBeforeCursor);
+      this.cursorPosition = this.computeTreeNodeIdRightOf(
+        content,
+        nodeIdBeforeCursor,
+      );
       content = this.removeNodeFromContent(content, nodeIdBeforeCursor);
       this.content = this.removeOrphanGroups(content);
     }
-  }
+  };
 
   /**
    * Gets a node by id
@@ -330,15 +412,15 @@ export class ParagraphBlock extends LitElement {
       const item = content[i];
 
       // chars
-      if (item.type === 'char') {
+      if (item.type === "char") {
         newContent.push(item);
       }
 
       // groups
-      if (item.type === 'group' && item.content.length > 0) {
+      if (item.type === "group" && item.content.length > 0) {
         newContent.push({
           ...item,
-          content: this.removeOrphanGroups(item.content)
+          content: this.removeOrphanGroups(item.content),
         });
       }
     }
@@ -380,20 +462,24 @@ export class ParagraphBlock extends LitElement {
       const item = content[i];
 
       // chars
-      if (item.type === 'char') {
+      if (item.type === "char") {
         if (item.id === nodeId) {
-          newContent.push({...item, selected: typeof item.selected === 'boolean' ? !item.selected : true});
+          newContent.push({
+            ...item,
+            selected:
+              typeof item.selected === "boolean" ? !item.selected : true,
+          });
         } else {
           newContent.push(item);
         }
       }
 
       // groups
-      if (item.type === 'group') {
+      if (item.type === "group") {
         newContent.push({
           ...item,
-          content: this.toggleNodeAsSelected(item.content, nodeId)
-        })
+          content: this.toggleNodeAsSelected(item.content, nodeId),
+        });
       }
     }
 
@@ -414,20 +500,24 @@ export class ParagraphBlock extends LitElement {
       const item = content[i];
 
       // chars
-      if (item.type === 'char') {
+      if (item.type === "char") {
         if (nodeIds.includes(item.id)) {
-          newContent.push({...item, selected: typeof item.selected === 'boolean' ? !item.selected : true});
+          newContent.push({
+            ...item,
+            selected:
+              typeof item.selected === "boolean" ? !item.selected : true,
+          });
         } else {
           newContent.push(item);
         }
       }
 
       // groups
-      if (item.type === 'group') {
+      if (item.type === "group") {
         newContent.push({
           ...item,
-          content: this.toggleNodesAsSelected(item.content, nodeIds)
-        })
+          content: this.toggleNodesAsSelected(item.content, nodeIds),
+        });
       }
     }
 
@@ -442,15 +532,15 @@ export class ParagraphBlock extends LitElement {
    */
   markAllNodesAsSelected(content) {
     return content.map((item) => {
-      if (item.type === 'char') {
-        return {...item, selected: true};
+      if (item.type === "char") {
+        return { ...item, selected: true };
       }
 
-      if (item.type === 'group') {
+      if (item.type === "group") {
         return {
           ...item,
-          content: this.markAllNodesAsSelected(item.content)
-        }
+          content: this.markAllNodesAsSelected(item.content),
+        };
       }
 
       return item;
@@ -465,15 +555,15 @@ export class ParagraphBlock extends LitElement {
    */
   markAllNodesAsDeselected(content) {
     return content.map((item) => {
-      if (item.type === 'char') {
-        return {...item, selected: false};
+      if (item.type === "char") {
+        return { ...item, selected: false };
       }
 
-      if (item.type === 'group') {
+      if (item.type === "group") {
         return {
           ...item,
-          content: this.markAllNodesAsDeselected(item.content)
-        }
+          content: this.markAllNodesAsDeselected(item.content),
+        };
       }
 
       return item;
@@ -492,10 +582,14 @@ export class ParagraphBlock extends LitElement {
     // Is this a space node or a comma/punctuation node?
     // Because if it is, we just want to highlight that
     if (
-      allNodes[foundIndex]?.value === ' ' ||
-      allNodes[foundIndex]?.value === ',' ||
-      allNodes[foundIndex]?.value === '.') {
-      this.content = this.toggleNodeAsSelected(this.content, allNodes[foundIndex].id);
+      allNodes[foundIndex]?.value === " " ||
+      allNodes[foundIndex]?.value === "," ||
+      allNodes[foundIndex]?.value === "."
+    ) {
+      this.content = this.toggleNodeAsSelected(
+        this.content,
+        allNodes[foundIndex].id,
+      );
       return;
     }
 
@@ -503,39 +597,48 @@ export class ParagraphBlock extends LitElement {
     let leftIndex = foundIndex;
     while (
       leftIndex > 0 &&
-      allNodes[leftIndex]?.value !== ' ' &&
-      allNodes[leftIndex]?.value !== ',' &&
-      allNodes[leftIndex]?.value !== '.') {
+      allNodes[leftIndex]?.value !== " " &&
+      allNodes[leftIndex]?.value !== "," &&
+      allNodes[leftIndex]?.value !== "."
+    ) {
       leftIndex--;
     }
 
     // Find first space node to the right
     let rightIndex = foundIndex;
     while (
-      rightIndex < allNodes.length
-      && allNodes[rightIndex]?.value !== ' '
-      && allNodes[rightIndex]?.value !== ','
-      && allNodes[rightIndex]?.value !== '.') {
+      rightIndex < allNodes.length &&
+      allNodes[rightIndex]?.value !== " " &&
+      allNodes[rightIndex]?.value !== "," &&
+      allNodes[rightIndex]?.value !== "."
+    ) {
       rightIndex++;
     }
 
     // Mark all nodes between left and right index as selected
     const nodes = allNodes.slice(leftIndex, rightIndex);
 
-    this.content = this.toggleNodesAsSelected(this.content, nodes.filter((item) => {
-      return item?.type === 'char' &&
-        item?.value !== ' ' &&
-        item?.value !== ',' &&
-        item?.value !== '.';
-    }).map((item) => item.id));
+    this.content = this.toggleNodesAsSelected(
+      this.content,
+      nodes
+        .filter((item) => {
+          return (
+            item?.type === "char" &&
+            item?.value !== " " &&
+            item?.value !== "," &&
+            item?.value !== "."
+          );
+        })
+        .map((item) => item.id),
+    );
 
     // Move cursor to the beginning
-    if (allNodes[leftIndex]?.value === ' ') {
+    if (allNodes[leftIndex]?.value === " ") {
       this.cursorPosition = allNodes[leftIndex + 1]?.id;
     } else {
       this.cursorPosition = allNodes[leftIndex]?.id;
     }
-  }
+  };
 
   /**
    * Adds a character to the content
@@ -545,7 +648,7 @@ export class ParagraphBlock extends LitElement {
   addCharToContent(char) {
     let content = this.content;
     const newCharId = uuidv4();
-    const newChar = {id: newCharId, type: 'char', value: char};
+    const newChar = { id: newCharId, type: "char", value: char };
 
     // If we're in the end of the content
     if (this.cursorPosition === "0" || this.isContentEmpty()) {
@@ -555,8 +658,8 @@ export class ParagraphBlock extends LitElement {
           newChar,
           {
             id: uuidv4(),
-            type: 'cursor'
-          }
+            type: "cursor",
+          },
         ];
 
         this.cursorPosition = "0";
@@ -568,7 +671,7 @@ export class ParagraphBlock extends LitElement {
       this.content = this.addNodeRightOfId(
         content,
         this.computeLastContentTreeNodeId(content),
-        newChar
+        newChar,
       );
 
       return;
@@ -587,33 +690,32 @@ export class ParagraphBlock extends LitElement {
         });
 
         this.content = this.markAllNodesAsDeselected(content);
-        this.cursorPosition = this.computeTreeNodeIdRightOf(this.content, selectedNodes[0].id);
+        this.cursorPosition = this.computeTreeNodeIdRightOf(
+          this.content,
+          selectedNodes[0].id,
+        );
       }
 
       // Otherwise, remove the selected nodes and add the new char
       else {
-        content = this.addNodeLeftOfId(
-          content,
-          this.cursorPosition,
-          newChar);
+        content = this.addNodeLeftOfId(content, this.cursorPosition, newChar);
 
         for (let i = 0; i < selectedNodes.length; i++) {
           content = this.removeNodeFromContent(content, selectedNodes[i].id);
         }
 
         this.content = content;
-        this.cursorPosition = this.computeTreeNodeIdRightOf(this.content, newCharId);
+        this.cursorPosition = this.computeTreeNodeIdRightOf(
+          this.content,
+          newCharId,
+        );
       }
 
       return;
     }
 
     // Otherwise proceed as normal
-    this.content = this.addNodeLeftOfId(
-      content,
-      this.cursorPosition,
-      newChar
-    );
+    this.content = this.addNodeLeftOfId(content, this.cursorPosition, newChar);
   }
 
   /**
@@ -622,7 +724,10 @@ export class ParagraphBlock extends LitElement {
    * @returns {boolean}
    */
   isContentEmpty() {
-    return this.content.length === 0 || this.content.every((item) => item.type === 'cursor');
+    return (
+      this.content.length === 0 ||
+      this.content.every((item) => item.type === "cursor")
+    );
   }
 
   /**
@@ -631,7 +736,9 @@ export class ParagraphBlock extends LitElement {
    * @returns {boolean}
    */
   selectionExists() {
-    return this.charNodesFlatten(this.content).some((item) => item?.selected === true);
+    return this.charNodesFlatten(this.content).some(
+      (item) => item?.selected === true,
+    );
   }
 
   /**
@@ -640,7 +747,9 @@ export class ParagraphBlock extends LitElement {
    * @returns {*[]}
    */
   selectedNodes() {
-    return this.charNodesFlatten(this.content).filter((item) => item?.selected === true);
+    return this.charNodesFlatten(this.content).filter(
+      (item) => item?.selected === true,
+    );
   }
 
   /**
@@ -657,17 +766,17 @@ export class ParagraphBlock extends LitElement {
       const item = content[i];
 
       // chars
-      if (item.type === 'char') {
+      if (item.type === "char") {
         if (item.id !== nodeId) {
           newContent.push(item);
         }
       }
 
       // groups
-      if (item.type === 'group') {
+      if (item.type === "group") {
         newContent.push({
           ...item,
-          content: this.removeNodeFromContent(item.content, nodeId)
+          content: this.removeNodeFromContent(item.content, nodeId),
         });
       }
     }
@@ -690,7 +799,7 @@ export class ParagraphBlock extends LitElement {
       const item = content[i];
 
       // chars
-      if (item.type === 'char') {
+      if (item.type === "char") {
         if (item.id === nodeId) {
           newContent.push(newNode);
         } else {
@@ -699,10 +808,10 @@ export class ParagraphBlock extends LitElement {
       }
 
       // groups
-      if (item.type === 'group') {
+      if (item.type === "group") {
         newContent.push({
           ...item,
-          content: this.replaceNode(item.content, nodeId, newNode)
+          content: this.replaceNode(item.content, nodeId, newNode),
         });
       }
     }
@@ -725,7 +834,7 @@ export class ParagraphBlock extends LitElement {
       const item = content[i];
 
       // chars
-      if (item.type === 'char') {
+      if (item.type === "char") {
         if (item.id === id) {
           newContent.push(node);
         }
@@ -734,15 +843,15 @@ export class ParagraphBlock extends LitElement {
       }
 
       // groups
-      if (item.type === 'group') {
+      if (item.type === "group") {
         if (item.id === id) {
           newContent.push(node);
         }
 
         newContent.push({
           ...item,
-          content: this.addNodeLeftOfId(item.content, id, node)
-        })
+          content: this.addNodeLeftOfId(item.content, id, node),
+        });
       }
     }
 
@@ -764,7 +873,7 @@ export class ParagraphBlock extends LitElement {
       const item = content[i];
 
       // chars
-      if (item.type === 'char') {
+      if (item.type === "char") {
         newContent.push(item);
 
         if (item.id === id) {
@@ -773,11 +882,11 @@ export class ParagraphBlock extends LitElement {
       }
 
       // groups
-      if (item.type === 'group') {
+      if (item.type === "group") {
         newContent.push({
           ...item,
-          content: this.addNodeRightOfId(item.content, id, node)
-        })
+          content: this.addNodeRightOfId(item.content, id, node),
+        });
       }
     }
 
@@ -797,16 +906,16 @@ export class ParagraphBlock extends LitElement {
       const item = content[i];
 
       // chars
-      if (item.type === 'char') {
+      if (item.type === "char") {
         newContent.push(item);
       }
 
       // groups
-      if (item.type === 'group') {
+      if (item.type === "group") {
         newContent.push({
           ...item,
-          content: this.traverseContentTreeAndRemoveCursorNode(item.content)
-        })
+          content: this.traverseContentTreeAndRemoveCursorNode(item.content),
+        });
       }
     }
 
@@ -821,9 +930,9 @@ export class ParagraphBlock extends LitElement {
    * @returns {*[]}
    */
   traverseContentTreeAndAddCursorNode(content, opts = {}) {
-    const newCursor = {id: uuidv4(), type: 'cursor', ...opts};
+    const newCursor = { id: uuidv4(), type: "cursor", ...opts };
 
-    if (this.cursorPosition === "0" || content.length === 0) {
+    if (this.cursorPosition === "0" || (content.length === 0 && this.active)) {
       return [...content, newCursor];
     }
 
@@ -833,7 +942,7 @@ export class ParagraphBlock extends LitElement {
       const item = content[i];
 
       // chars
-      if (item.type === 'char') {
+      if (item.type === "char") {
         if (item.id === this.cursorPosition) {
           newContent.push(newCursor);
         }
@@ -842,15 +951,15 @@ export class ParagraphBlock extends LitElement {
       }
 
       // groups
-      if (item.type === 'group') {
+      if (item.type === "group") {
         if (item.id === this.cursorPosition) {
           newContent.push(newCursor);
         }
 
         newContent.push({
           ...item,
-          content: this.traverseContentTreeAndAddCursorNode(item.content, opts)
-        })
+          content: this.traverseContentTreeAndAddCursorNode(item.content, opts),
+        });
       }
     }
 
@@ -935,12 +1044,14 @@ export class ParagraphBlock extends LitElement {
 
   render() {
     return html`
-        <div class="editor">
-            <paragraph-group type="normal" .content=${this.content}>
-            </paragraph-group>
-        </div>
+      <div class="editor">
+        ${!this.active && this.isContentEmpty()
+          ? html` <span class="placeholder">${this.placeholder}</span>`
+          : html` <paragraph-group type="normal" .content=${this.content}>
+            </paragraph-group>`}
+      </div>
     `;
   }
 }
 
-customElements.define('paragraph-block', ParagraphBlock);
+customElements.define("paragraph-block", ParagraphBlock);
