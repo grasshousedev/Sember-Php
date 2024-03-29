@@ -15,6 +15,14 @@ htmx.onLoad(() => {
       // Open the clicked options
       el.parentElement.classList.toggle("active");
 
+      // How far is the block list from the top of the window
+      const distanceToTop = el.parentElement.querySelector('.block-list').getBoundingClientRect().top;
+
+      // If the block list is too close to the top, move it down
+      if (distanceToTop < 10) {
+        el.parentElement.querySelector('.block-list').style.bottom = `-${Math.abs(distanceToTop) + 30}px`;
+      }
+
       // Close the block options when leaving the block list
       el.parentElement
         .querySelector(".block-list")
