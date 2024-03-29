@@ -53,6 +53,7 @@ export class ParagraphBlock extends LitElement {
 
     .placeholder {
       color: #777;
+      position: absolute;
     }
   `;
 
@@ -1045,10 +1046,12 @@ export class ParagraphBlock extends LitElement {
   render() {
     return html`
       <div class="editor">
-        ${!this.active && this.isContentEmpty()
+        ${this.isContentEmpty()
           ? html` <span class="placeholder">${this.placeholder}</span>`
-          : html` <paragraph-group type="normal" .content=${this.content}>
-            </paragraph-group>`}
+          : ""}
+
+        <paragraph-group type="normal" .content=${this.content}>
+        </paragraph-group>
       </div>
     `;
   }
