@@ -344,7 +344,7 @@ article .body ul li {
 }
 
 .pagination a.btn {
-    text-shadow: 0 -1px 0 rgba(0,0,0,.5);
+    text-shadow: 0 -1px 0 rgba(0,0,0,.3);
     background: linear-gradient(var(--blue-500), var(--blue-600));
     box-shadow: 0 2px 6px -1px rgb(0 0 0 / 0.03), 0 2px 4px -2px rgb(0 0 0 / 0.03), inset 0 1px 0 rgba(255,255,255,.25);
     color: #fff;
@@ -354,6 +354,7 @@ article .body ul li {
     border: 1px solid var(--slate-700);
     box-shadow: inset 0 1px 0 rgba(0,0,0,.5);
     color: var(--slate-500);
+    text-shadow: 0 -1px 0 rgba(0,0,0,.5);
 }
 
 /** FOOTER */
@@ -364,6 +365,7 @@ article .body ul li {
     font-size: 14px;
     text-shadow: 0 1px 0 #fff;
     color: var(--slate-400);
+    border-top: 1px solid var(--zinc-500);
     padding-top: 20px;
     padding-bottom: 20px;
 }
