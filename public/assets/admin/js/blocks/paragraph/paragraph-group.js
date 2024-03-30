@@ -1,12 +1,12 @@
-import {LitElement, html} from '../../deps/lit.js';
-import './paragraph-cursor.js';
-import './paragraph-char.js';
+import { LitElement, html } from "../../deps/lit.js";
+import "./paragraph-cursor.js";
+import "./paragraph-char.js";
 
 export class ParagraphGroup extends LitElement {
   static properties = {
-    type: 'normal',
-    content: []
-  }
+    type: "normal",
+    content: [],
+  };
 
   constructor() {
     super();
@@ -22,12 +22,12 @@ export class ParagraphGroup extends LitElement {
         case 'group':
           return html`<paragraph-group id=${item.id} type=${item.groupType} .content=${item.content}></paragraph-group>`;
       }
-    })}`
+    })}`;
 
-    switch(this.type) {
-      case 'bold':
+    switch (this.type) {
+      case "bold":
         return html`<strong>${out}</strong>`;
-      case 'italic':
+      case "italic":
         return html`<em>${out}</em>`;
       default:
         return out;
@@ -35,4 +35,4 @@ export class ParagraphGroup extends LitElement {
   }
 }
 
-customElements.define('paragraph-group', ParagraphGroup);
+customElements.define("paragraph-group", ParagraphGroup);

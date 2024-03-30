@@ -67,9 +67,72 @@ export class ParagraphBlock extends LitElement {
 
     this.metaProvider.setValue({
       selectWordOfNode: this.selectWordOfNodeId,
+      toggleNodeAsSelected: (id) => {
+        console.log("id", id);
+        this.content = this.toggleNodeAsSelected(this.content, id);
+      },
+      markAllNodesAsDeselected: () => {
+        this.content = this.markAllNodesAsDeselected(this.content);
+      },
     });
 
-    this.content = [];
+    this.content = [
+      {
+        id: uuidv4(),
+        type: "char",
+        value: "H",
+      },
+      {
+        id: uuidv4(),
+        type: "char",
+        value: "e",
+      },
+      {
+        id: uuidv4(),
+        type: "char",
+        value: "l",
+      },
+      {
+        id: uuidv4(),
+        type: "char",
+        value: "l",
+      },
+      {
+        id: uuidv4(),
+        type: "char",
+        value: "o",
+      },
+      {
+        id: uuidv4(),
+        type: "char",
+        value: " ",
+      },
+      {
+        id: uuidv4(),
+        type: "char",
+        value: "W",
+      },
+      {
+        id: uuidv4(),
+        type: "char",
+        value: "o",
+      },
+      {
+        id: uuidv4(),
+        type: "char",
+        value: "r",
+      },
+      {
+        id: uuidv4(),
+        type: "char",
+        value: "l",
+      },
+      {
+        id: uuidv4(),
+        type: "char",
+        value: "d",
+      },
+    ];
     this.placeholder = "";
   }
 
@@ -110,15 +173,18 @@ export class ParagraphBlock extends LitElement {
     }
 
     if ((e.metaKey || e.ctrlKey) && e.key === "b") {
-      // TODO: Implement bold
+      this.groupSelectedNodes("bold");
+      return;
     }
 
     if ((e.metaKey || e.ctrlKey) && e.key === "i") {
-      // TODO: Implement italic
+      this.groupSelectedNodes("italic");
+      return;
     }
 
     if ((e.metaKey || e.ctrlKey) && e.key === "u") {
-      // TODO: Implement underline
+      this.groupSelectedNodes("underline");
+      return;
     }
 
     // Select all
@@ -309,7 +375,7 @@ export class ParagraphBlock extends LitElement {
    *
    * @param e
    */
-  doDelete = (e) => {
+  doDelete(e) {
     e.preventDefault();
     let content = this.content;
 
@@ -381,6 +447,80 @@ export class ParagraphBlock extends LitElement {
       this.content = this.removeOrphanGroups(content);
     }
   };
+
+  /**
+   * Groups selected node(s).
+   * If the selection is already within a group of the same type, ungroups.
+   *
+   * @param type
+   */
+  groupSelectedNodes(type) {
+    const selectedNodes = this.selectedNodes();
+
+    // If there is no selection, stop
+    if (selectedNodes.length === 0) {
+      return;
+    }
+
+    // If any of the selected nodes is already within a group of this type, ungroup
+    if (selectedNodes.some((node) => this.nodeIdBelongsToGroup(node.id, type))) {
+      this.ungroupSelectedNodes(type);
+      return;
+    }
+
+    // Otherwise all is good, let's group the selection
+    const group = {
+      id: uuidv4(),
+      type: "group",
+      groupType: type,
+      content: selectedNodes,
+    };
+
+    let content = this.content;
+
+    for (let i = 1; i < selectedNodes.length; i++) {
+      content = this.removeNodeFromContent(content, selectedNodes[i].id);
+    }
+
+    content = this.replaceNode(content, selectedNodes[0].id, group);
+
+    this.content = this.removeOrphanGroups(content);
+  }
+
+  /**
+   * Ungroups selected node(s) of a given type
+   *
+   * @param type
+   */
+  ungroupSelectedNodes(type) {
+    const selectedNodes = this.selectedNodes();
+
+    // Get the parent group of the selected nodes of type `type`
+    const parentGroup = this.allNodesFlatten(this.content).find((node) => {
+      return (
+        node.type === "group" &&
+        node.groupType === type &&
+        node.content.some((item) => selectedNodes.some((node) => node.id === item.id))
+      );
+    });
+
+    if (!parentGroup) {
+      return;
+    }
+
+    // Replace the parent group with its content
+    const content = this.replaceNode(this.content, parentGroup.id, parentGroup.content);
+
+    this.content = this.removeOrphanGroups(content);
+  }
+
+  nodeIdBelongsToGroup(nodeId, groupType) {
+    const groups = this.allNodesFlatten(this.content).filter((node) => node.type === 'group');
+
+    return groups.some((group) => {
+      return group.groupType === groupType && group.content.some((node) => node.id === nodeId);
+    });
+  }
 
   /**
    * Gets a node by id
@@ -802,7 +942,11 @@ export class ParagraphBlock extends LitElement {
       // chars
       if (item.type === "char") {
         if (item.id === nodeId) {
-          newContent.push(newNode);
+          if (Array.isArray(newNode)) {
+            newContent.push(...newNode);
+          } else {
+            newContent.push(newNode);
+          }
         } else {
           newContent.push(item);
         }
@@ -810,10 +954,18 @@ export class ParagraphBlock extends LitElement {
 
       // groups
       if (item.type === "group") {
-        newContent.push({
-          ...item,
-          content: this.replaceNode(item.content, nodeId, newNode),
-        });
+        if (item.id === nodeId) {
+          if (Array.isArray(newNode)) {
+            newContent.push(...newNode);
+          } else {
+            newContent.push(newNode);
+          }
+        } else {
+          newContent.push({
+            ...item,
+            content: this.replaceNode(item.content, nodeId, newNode),
+          });
+        }
       }
     }
 
