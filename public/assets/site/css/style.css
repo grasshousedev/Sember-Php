@@ -324,7 +324,7 @@ article .body ul li {
     justify-content: center;
     width: 100%;
     color: #777;
-    background: #fff;
+    background: var(--zinc-100);
     border-top: 1px solid var(--zinc-500);
     gap: 30px;
     padding-top: 60px;
