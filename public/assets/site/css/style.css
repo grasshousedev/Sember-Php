@@ -214,6 +214,8 @@ article .body picture {
     height: auto;
     position: relative;
     background: var(--zinc-100);
+    box-shadow: 0 2px 6px -1px rgb(0 0 0 / 0.03), 0 2px 4px -2px rgb(0 0 0 / 0.03);
+    border-radius: 4px;
     margin-bottom: 30px;
 }
 
@@ -230,6 +232,7 @@ article .body picture:before {
     width: calc(100% - 2px);
     height: calc(100% - 2px);
     border: 1px solid rgba(0,0,0,.1);
+    border-radius: 4px;
     z-index: 4;
     position: absolute;
     top: 0;
@@ -250,6 +253,7 @@ article .body picture img {
     width: 100%;
     height: auto;
     position: relative;
+    border-radius: 4px;
     z-index: 2;
 }
 
