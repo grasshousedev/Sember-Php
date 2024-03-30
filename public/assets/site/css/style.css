@@ -82,8 +82,9 @@ pre code {
 }
 
 .header.not-top {
-    background: linear-gradient(#fff, var(--slate-50));
-    box-shadow: 0 2px 12px -1px rgb(0 0 0 / 0.03), 0 2px 8px -2px rgb(0 0 0 / 0.03);
+    background: rgba(255,255,255,.9);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 2px 12px -1px rgb(0 0 0 / 0.02), 0 2px 8px -2px rgb(0 0 0 / 0.02);
     border-bottom: 1px solid var(--slate-200);
 }
 
