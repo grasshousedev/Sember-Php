@@ -6,7 +6,7 @@
 * {
     box-sizing: border-box;
     position: relative;
-    letter-spacing: -0.015rem;
+    letter-spacing: -0.025rem;
 }
 
 /** OVERALL */
@@ -15,7 +15,7 @@ body {
     font-size: 1rem;
     line-height: 1.75;
     color: var(--slate-900);
-    background: var(--zinc-50);
+    background: var(--zinc-100);
     padding: 0;
     margin: 60px 0 0;
 }
@@ -85,7 +85,7 @@ pre code {
     background: rgba(255,255,255,.9);
     backdrop-filter: blur(20px);
     box-shadow: 0 2px 12px -1px rgb(0 0 0 / 0.02), 0 2px 8px -2px rgb(0 0 0 / 0.02);
-    border-bottom: 1px solid var(--slate-200);
+    border-bottom: 1px solid var(--zinc-500);
 }
 
 .header h1 {
@@ -115,7 +115,8 @@ pre code {
 
 /** ARTICLE */
 article {
-    border-bottom: 1px solid var(--slate-200);
+    text-shadow: 0 1px 0 #fff;
+    border-bottom: 1px solid var(--zinc-500);
     padding-top: 120px;
     padding-bottom: 120px;
 }
@@ -207,12 +208,12 @@ article .body b {
 
 article .body picture {
     display: block;
-    width: calc(100% + 80px);
+    width: calc(100% + 100px);
     height: auto;
     position: relative;
-    background: var(--slate-50);
+    background: #fff;
     border-radius: 4px;
-    margin-left: -40px;
+    margin-left: -50px;
     margin-bottom: 30px;
 }
 
@@ -229,9 +230,9 @@ article .body picture:before {
     display: block;
     width: calc(100% - 2px);
     height: calc(100% - 2px);
-    border: 1px solid rgba(23,23,23,.2);
+    border: 1px solid rgba(0,0,0,.2);
     box-shadow: inset 0 1px 0 rgba(255,255,255,.45);
-    border-radius: 4px;
+    border-radius: 20px;
     z-index: 4;
     position: absolute;
     top: 0;
@@ -251,7 +252,7 @@ article .body picture img {
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 4px;
+    border-radius: 20px;
     box-shadow: 0 2px 6px -1px rgb(0 0 0 / 0.03), 0 2px 4px -2px rgb(0 0 0 / 0.03);
     position: relative;
     z-index: 2;
@@ -268,10 +269,10 @@ article pre {
     max-height: 400px;
     color: var(--slate-900);
     line-height: 1.1;
-    background: var(--slate-50);
+    background: var(--zinc-200);
     box-shadow: 0 2px 6px -1px rgb(0 0 0 / 0.03), 0 2px 4px -2px rgb(0 0 0 / 0.03), inset 0 1px 0 #fff;
-    border: 1px solid var(--slate-200);
-    border-radius: 4px;
+    border: 1px solid var(--zinc-500);
+    border-radius: 20px;
     overflow: auto;
     z-index: 10;
     position: relative;
@@ -327,8 +328,8 @@ article .body ul li {
     justify-content: center;
     width: 100%;
     color: #777;
-    background: var(--slate-50);
-    border-top: 1px solid var(--slate-200);
+    background: #fff;
+    border-top: 1px solid var(--zinc-500);
     gap: 30px;
     padding-top: 60px;
     padding-bottom: 60px;
@@ -364,9 +365,9 @@ article .body ul li {
     align-items: center;
     justify-content: center;
     font-size: 14px;
+    text-shadow: 0 1px 0 #fff;
     color: var(--slate-400);
-    background: #fff;
-    border-top: 1px solid var(--slate-200);
+    border-top: 1px solid var(--zinc-500);
     padding-top: 30px;
     padding-bottom: 30px;
 }
