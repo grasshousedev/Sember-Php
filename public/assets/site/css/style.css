@@ -6,7 +6,7 @@
 * {
     box-sizing: border-box;
     position: relative;
-    letter-spacing: -0.025rem;
+    letter-spacing: -0.02rem;
 }
 
 /** OVERALL */
@@ -29,7 +29,7 @@ body {
 }
 
 .wrap {
-    width: 600px;
+    width: 620px;
     margin: 0 auto;
 }
 
@@ -290,7 +290,7 @@ article pre {
 
 article .body h2 {
     font-family: 'Inter', sans-serif;
-    font-size: 1.35rem;
+    font-size: 1.3rem;
     line-height: 1.25;
     color: #111;
     font-weight: 550;
@@ -323,9 +323,8 @@ article .body ul li {
     align-content: center;
     justify-content: center;
     width: 100%;
-    color: #777;
-    background: var(--zinc-100);
-    border-top: 1px solid var(--zinc-500);
+    color: var(--slate-50);
+    background: var(--slate-900);
     gap: 30px;
     padding-top: 60px;
     padding-bottom: 60px;
@@ -340,18 +339,19 @@ article .body ul li {
     font-size: 14px;
     font-weight: 500;
     color: #fff;
-    border-radius: 4px;
+    border-radius: 20px;
     padding: 6px 14px;
 }
 
 .pagination a.btn {
-    background: var(--slate-900);
+    text-shadow: 0 -1px 0 rgba(0,0,0,.5);
+    background: linear-gradient(var(--blue-500), var(--blue-600));
     box-shadow: 0 2px 6px -1px rgb(0 0 0 / 0.03), 0 2px 4px -2px rgb(0 0 0 / 0.03);
     color: #fff;
 }
 
 .pagination span.btn {
-    border: 1px solid var(--slate-200);
+    border: 1px solid var(--slate-700);
     color: var(--slate-500);
 }
 
@@ -363,9 +363,8 @@ article .body ul li {
     font-size: 14px;
     text-shadow: 0 1px 0 #fff;
     color: var(--slate-400);
-    border-top: 1px solid var(--zinc-500);
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 @media all and (max-width: 750px) {
