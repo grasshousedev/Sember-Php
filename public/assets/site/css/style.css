@@ -207,24 +207,60 @@ article .body b {
 
 article .body picture {
     display: block;
-    width: auto;
+    width: calc(100% + 80px);
     height: auto;
     position: relative;
-    padding: 4px;
     background: var(--slate-50);
-    box-shadow: 0 2px 6px -1px rgb(0 0 0 / 0.03), 0 2px 4px -2px rgb(0 0 0 / 0.03), inset 0 1px 0 #fff;
-    border: 1px solid var(--slate-200);
     border-radius: 4px;
+    margin-left: -40px;
     margin-bottom: 30px;
+}
+
+@media all and (max-width: 750px) {
+    article .body picture {
+        width: calc(100% + 60px);
+        border-radius: 0;
+        margin-left: -30px;
+    }
+}
+
+article .body picture:before {
+    content: '';
+    display: block;
+    width: calc(100% - 2px);
+    height: calc(100% - 2px);
+    border: 1px solid rgba(23,23,23,.45);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.45);
+    border-radius: 4px;
+    z-index: 4;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+@media all and (max-width: 750px) {
+    article .body picture:before {
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0;
+    }
+
 }
 
 article .body picture img {
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 2px;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px -1px rgb(0 0 0 / 0.15), 0 2px 4px -2px rgb(0 0 0 / 0.15);
     position: relative;
     z-index: 2;
+}
+
+@media all and (max-width: 750px) {
+    article .body picture img {
+        border-radius: 0;
+    }
 }
 
 article pre {
