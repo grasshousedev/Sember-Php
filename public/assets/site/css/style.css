@@ -12,10 +12,10 @@
 /** OVERALL */
 body {
     font-family: 'Inter', sans-serif;
-    font-size: 1rem;
+    font-size: .95rem;
     line-height: 1.75;
     color: var(--slate-900);
-    background: var(--zinc-100);
+    background: #fff;
     padding: 0;
     margin: 60px 0 0;
 }
@@ -29,7 +29,7 @@ body {
 }
 
 .wrap {
-    width: 620px;
+    width: 600px;
     margin: 0 auto;
 }
 
@@ -52,6 +52,7 @@ code {
     font-size: 0.85rem;
     color: var(--slate-900);
     background: #fff;
+    box-shadow: 0 2px 6px -1px rgb(0 0 0 / 0.03), 0 2px 4px -2px rgb(0 0 0 / 0.03);
     border: 1px solid var(--zinc-500);
     border-radius: 10px;
     padding: 2px 4px;
@@ -62,6 +63,7 @@ pre code {
     padding: 0;
     background: none;
     border: 0;
+    box-shadow: none;
     border-radius: 0;
 }
 
@@ -138,7 +140,7 @@ article:last-child {
 
 article .title {
     width: 95%;
-    font-size: 2rem;
+    font-size: 1.95rem;
     line-height: 1.2;
     font-weight: 750;
     margin-top: -5px;
@@ -157,7 +159,7 @@ article .title a {
 }
 
 article .date {
-    font-size: .95rem;
+    font-size: .9rem;
     font-weight: 400;
     color: var(--slate-500);
 }
@@ -174,7 +176,7 @@ article .date a {
 }
 
 article .body {
-    font-size: 1.07rem;
+    font-size: 1.02rem;
     font-weight: 400;
     line-height: 1.75;
     color: var(--slate-900);
@@ -208,19 +210,16 @@ article .body b {
 
 article .body picture {
     display: block;
-    width: calc(100% + 100px);
+    width: 100%;
     height: auto;
     position: relative;
-    background: #fff;
-    border-radius: 4px;
-    margin-left: -50px;
+    background: var(--zinc-100);
     margin-bottom: 30px;
 }
 
 @media all and (max-width: 750px) {
     article .body picture {
         width: calc(100% + 60px);
-        border-radius: 0;
         margin-left: -30px;
     }
 }
@@ -230,9 +229,7 @@ article .body picture:before {
     display: block;
     width: calc(100% - 2px);
     height: calc(100% - 2px);
-    border: 1px solid rgba(0,0,0,.2);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.45);
-    border-radius: 20px;
+    border: 1px solid rgba(0,0,0,.1);
     z-index: 4;
     position: absolute;
     top: 0;
@@ -252,8 +249,6 @@ article .body picture img {
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 20px;
-    box-shadow: 0 2px 6px -1px rgb(0 0 0 / 0.03), 0 2px 4px -2px rgb(0 0 0 / 0.03);
     position: relative;
     z-index: 2;
 }
@@ -265,19 +260,16 @@ article .body picture img {
 }
 
 article pre {
-    width: calc(100% + 100px);
+    width: 100vw;
     max-height: 400px;
     color: var(--slate-900);
     line-height: 1.1;
     background: var(--zinc-200);
-    box-shadow: 0 2px 6px -1px rgb(0 0 0 / 0.03), 0 2px 4px -2px rgb(0 0 0 / 0.03), inset 0 1px 0 #fff;
-    border: 1px solid var(--zinc-500);
-    border-radius: 20px;
     overflow: auto;
     z-index: 10;
     position: relative;
-    padding: 30px 50px;
-    margin-left: -50px;
+    padding: 30px calc(100vw / 2 - 310px);
+    margin-left: calc(-100vw / 2 + 310px);
     margin-bottom: 30px;
 }
 
