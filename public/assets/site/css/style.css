@@ -326,6 +326,9 @@ article .body ul li {
     color: var(--slate-50);
     background: var(--slate-900);
     gap: 30px;
+    position: relative;
+    z-index: 2;
+    margin-bottom: -1px;
     padding-top: 60px;
     padding-bottom: 60px;
 }
