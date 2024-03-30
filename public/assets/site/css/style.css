@@ -1,10 +1,12 @@
 @import url('../../shared/css/fonts.css');
+@import url('../../shared/css/colors.css');
 @import url('hljs.css');
 
 /** RESET */
 * {
     box-sizing: border-box;
     position: relative;
+    letter-spacing: -0.015rem;
 }
 
 /** OVERALL */
@@ -12,8 +14,8 @@ body {
     font-family: 'Inter', sans-serif;
     font-size: 1rem;
     line-height: 1.75;
-    color: #242424;
-    background: #fefefe;
+    color: var(--slate-900);
+    background: var(--zinc-50);
     padding: 0;
     margin: 60px 0 0;
 }
@@ -41,16 +43,16 @@ body {
 }
 
 a {
-    color: #111;
+    color: var(--blue-600);
     text-decoration: none;
 }
 
 code {
     font-family: "Jetbrains Mono", monospace;
     font-size: 0.85rem;
-    color: #111;
+    color: var(--slate-900);
     background: #fff;
-    border: 1px solid #ccc;
+    border: 1px solid var(--zinc-500);
     border-radius: 10px;
     padding: 2px 4px;
 }
@@ -70,9 +72,9 @@ pre code {
     justify-content: space-between;
     width: 100%;
     height: 60px;
-    border-bottom: 1px solid transparent;
     padding-left: 30px;
     padding-right: 30px;
+    border-bottom: 1px solid transparent;
     z-index: 100;
     position: fixed;
     top: 0;
@@ -80,13 +82,9 @@ pre code {
 }
 
 .header.not-top {
-    background: #111;
-}
-
-@media all and (max-width: 750px) {
-    .header {
-        background: #111;
-    }
+    background: linear-gradient(#fff, var(--slate-50));
+    box-shadow: 0 2px 12px -1px rgb(0 0 0 / 0.03), 0 2px 8px -2px rgb(0 0 0 / 0.03);
+    border-bottom: 1px solid var(--slate-200);
 }
 
 .header h1 {
@@ -97,59 +95,26 @@ pre code {
 
 .header h1 a {
     font-weight: 500;
-    color: #111;
+    color: var(--slate-900);
     border: 0;
-}
-
-.header.not-top h1 a {
-    color: #fff;
-}
-
-@media all and (max-width: 750px) {
-    .header h1 a {
-        color: #fff;
-    }
-
 }
 
 .header .nav a {
     font-size: .9rem;
     font-weight: 400;
-    color: #888;
+    color: var(--slate-700);
     border-bottom: 1px solid transparent;
     margin-left: 30px;
 }
 
-.header.not-top .nav a {
-    color: #999;
-}
-
-@media all and (max-width: 750px) {
-    .header .nav a {
-        color: #999;
-    }
-}
-
 .header .nav a:hover {
-    color: #111;
-    border-bottom: 1px solid #111;
-}
-
-.header.not-top .nav a:hover {
-    color: #fff;
-    border-bottom: 1px solid #fff;
-}
-
-@media all and (max-width: 750px) {
-    .header .nav a:hover {
-        color: #fff;
-        border-bottom: 1px solid #fff;
-    }
+    color: var(--slate-900);
+    border-bottom: 1px solid var(--slate-900);
 }
 
 /** ARTICLE */
 article {
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid var(--slate-200);
     padding-top: 120px;
     padding-bottom: 120px;
 }
@@ -185,15 +150,14 @@ article .title {
 }
 
 article .title a {
-    color: #111;
+    color: var(--slate-900);
     font-weight: 750;
-    letter-spacing: -0.028rem;
 }
 
 article .date {
     font-size: .95rem;
     font-weight: 400;
-    color: #888;
+    color: var(--slate-500);
 }
 
 @media all and (max-width: 750px) {
@@ -209,10 +173,9 @@ article .date a {
 
 article .body {
     font-size: 1.07rem;
-    letter-spacing: -0.015rem;
     font-weight: 400;
     line-height: 1.75;
-    color: #111;
+    color: var(--slate-900);
     margin-top: 30px;
 }
 
@@ -223,6 +186,7 @@ article .body {
 }
 
 article .body p {
+    word-break: break-word;
     margin-bottom: 30px;
 }
 
@@ -231,15 +195,13 @@ article .body p:last-child {
 }
 
 article .body a {
-    font-weight: 500;
-    color: #4078f2;
-    border-bottom: 1px solid #4078f2;
+    border-bottom: 1px solid var(--blue-600);
 }
 
 article .body strong,
 article .body b {
     font-weight: 600;
-    color: #111;
+    color: var(--slate-900);
 }
 
 article .body picture {
@@ -247,6 +209,11 @@ article .body picture {
     width: auto;
     height: auto;
     position: relative;
+    padding: 4px;
+    background: var(--slate-50);
+    box-shadow: 0 2px 6px -1px rgb(0 0 0 / 0.03), 0 2px 4px -2px rgb(0 0 0 / 0.03), inset 0 1px 0 #fff;
+    border: 1px solid var(--slate-200);
+    border-radius: 4px;
     margin-bottom: 30px;
 }
 
@@ -254,16 +221,20 @@ article .body picture img {
     display: block;
     width: 100%;
     height: auto;
-    background: #eee;
+    border-radius: 2px;
     position: relative;
     z-index: 2;
 }
 
 article pre {
     width: calc(100% + 100px);
-    color: #333;
+    max-height: 400px;
+    color: var(--slate-900);
     line-height: 1.1;
-    background: #f2f2f2;
+    background: var(--slate-50);
+    box-shadow: 0 2px 6px -1px rgb(0 0 0 / 0.03), 0 2px 4px -2px rgb(0 0 0 / 0.03), inset 0 1px 0 #fff;
+    border: 1px solid var(--slate-200);
+    border-radius: 4px;
     overflow: auto;
     z-index: 10;
     position: relative;
@@ -319,8 +290,8 @@ article .body ul li {
     justify-content: center;
     width: 100%;
     color: #777;
-    background: #f6f6f6;
-    border-top: 1px solid #ddd;
+    background: var(--slate-50);
+    border-top: 1px solid var(--slate-200);
     gap: 30px;
     padding-top: 60px;
     padding-bottom: 60px;
@@ -335,19 +306,19 @@ article .body ul li {
     font-size: 14px;
     font-weight: 500;
     color: #fff;
-    border-radius: 25px;
+    border-radius: 4px;
     padding: 6px 14px;
 }
 
 .pagination a.btn {
-    background: #111;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: var(--slate-900);
+    box-shadow: 0 2px 6px -1px rgb(0 0 0 / 0.03), 0 2px 4px -2px rgb(0 0 0 / 0.03);
     color: #fff;
 }
 
 .pagination span.btn {
-    border: 1px solid #999;
-    color: #999;
+    border: 1px solid var(--slate-200);
+    color: var(--slate-500);
 }
 
 /** FOOTER */
@@ -356,9 +327,9 @@ article .body ul li {
     align-items: center;
     justify-content: center;
     font-size: 14px;
-    color: #999;
+    color: var(--slate-400);
     background: #fff;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid var(--slate-200);
     padding-top: 30px;
     padding-bottom: 30px;
 }
@@ -370,6 +341,5 @@ article .body ul li {
 }
 
 .footer a {
-    color: #111;
-    border-bottom: 1px solid #111;
+    border-bottom: 1px solid var(--blue-600);
 }

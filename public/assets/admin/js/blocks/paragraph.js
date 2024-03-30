@@ -168,21 +168,25 @@ export class ParagraphBlock extends LitElement {
 
     // Delete text
     if (e.key === "Backspace") {
-      this.doDelete(e);
+      e.preventDefault();
+      this.doDelete();
       return;
     }
 
     if ((e.metaKey || e.ctrlKey) && e.key === "b") {
+      e.preventDefault();
       this.groupSelectedNodes("bold");
       return;
     }
 
     if ((e.metaKey || e.ctrlKey) && e.key === "i") {
       this.groupSelectedNodes("italic");
+      e.preventDefault();
       return;
     }
 
     if ((e.metaKey || e.ctrlKey) && e.key === "u") {
+      e.preventDefault();
       this.groupSelectedNodes("underline");
       return;
     }
@@ -372,21 +376,16 @@ export class ParagraphBlock extends LitElement {
 
   /**
    * Deletes a character or a selection
-   *
-   * @param e
    */
-  doDelete(e) {
-    e.preventDefault();
+  doDelete() {
     let content = this.content;
 
     // There's a selection, which means we want to delete the selected text
     if (this.selectionExists()) {
       const selectedNodes = this.selectedNodes();
 
-      let nodeIdBeforeSelection = this.computeTreeNodeIdRightOf(
-        content,
-        selectedNodes[0].id,
-      );
+      let nodeIdBeforeSelection = this.computeTreeNodeIdRightOf(content, selectedNodes[0].id);
+
       if (selectedNodes.length > 1) {
         nodeIdBeforeSelection = this.computeTreeNodeIdRightOf(
           content,
@@ -394,11 +393,8 @@ export class ParagraphBlock extends LitElement {
         );
       }
 
-      const fromBeginning =
-        selectedNodes[0].id === this.computeFirstContentTreeNodeId(content);
-      const fromEnd =
-        selectedNodes[selectedNodes.length - 1].id ===
-        this.computeLastContentTreeNodeId(content);
+      const fromBeginning = selectedNodes[0].id === this.computeFirstContentTreeNodeId(content);
+      const fromEnd = selectedNodes[selectedNodes.length - 1].id === this.computeLastContentTreeNodeId(content);
 
       for (let i = 0; i < selectedNodes.length; i++) {
         content = this.removeNodeFromContent(content, selectedNodes[i].id);
@@ -420,17 +416,11 @@ export class ParagraphBlock extends LitElement {
 
     // There's no selection, which means we want to delete the character to the left
     else {
-      let nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(
-        content,
-        this.cursorPosition,
-      );
+      let nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(content, this.cursorPosition);
 
       if (nodeIdBeforeCursor !== this.cursorPosition) {
         while (this.getNodeById(content, nodeIdBeforeCursor).type === "group") {
-          nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(
-            content,
-            nodeIdBeforeCursor,
-          );
+          nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(content, nodeIdBeforeCursor);
         }
       }
 
@@ -439,10 +429,7 @@ export class ParagraphBlock extends LitElement {
         return;
       }
 
-      this.cursorPosition = this.computeTreeNodeIdRightOf(
-        content,
-        nodeIdBeforeCursor,
-      );
+      this.cursorPosition = this.computeTreeNodeIdRightOf(content, nodeIdBeforeCursor);
       content = this.removeNodeFromContent(content, nodeIdBeforeCursor);
       this.content = this.removeOrphanGroups(content);
     }
