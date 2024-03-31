@@ -20,38 +20,38 @@ export class ParagraphChar extends LitElement {
   };
 
   static styles = css`
-    .char {
-      display: inline-block;
-      position: relative;
-      user-select: none;
-    }
+      .char {
+          display: inline-block;
+          position: relative;
+          user-select: none;
+      }
 
-    .char.selected {
-      background: lightskyblue;
-    }
+      .char.selected {
+          background: rgba(147, 197, 253, .5);
+      }
 
-    .sides {
-      display: grid;
-      width: 100%;
-      height: 100%;
-      grid-template-columns: 1fr 1fr;
-      user-select: all;
-      cursor: text;
-      z-index: 2;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
+      .sides {
+          display: grid;
+          width: 100%;
+          height: 100%;
+          grid-template-columns: 1fr 1fr;
+          user-select: all;
+          cursor: text;
+          z-index: 2;
+          position: absolute;
+          top: 0;
+          left: 0;
+      }
 
-    .left-side {
-      width: 100%;
-      height: 100%;
-    }
+      .left-side {
+          width: 100%;
+          height: 100%;
+      }
 
-    .right-side {
-      width: 100%;
-      height: 100%;
-    }
+      .right-side {
+          width: 100%;
+          height: 100%;
+      }
   `;
 
   constructor() {

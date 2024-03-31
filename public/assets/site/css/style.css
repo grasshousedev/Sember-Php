@@ -140,7 +140,7 @@ article:last-child {
 
 article .title {
     width: 95%;
-    font-size: 1.95rem;
+    font-size: 1.85rem;
     line-height: 1.2;
     font-weight: 750;
     margin-top: -5px;
@@ -213,39 +213,7 @@ article .body picture {
     width: 100%;
     height: auto;
     position: relative;
-    background: var(--zinc-100);
-    box-shadow: 0 2px 6px -1px rgb(0 0 0 / 0.03), 0 2px 4px -2px rgb(0 0 0 / 0.03);
-    border-radius: 4px;
     margin-bottom: 30px;
-}
-
-@media all and (max-width: 750px) {
-    article .body picture {
-        width: calc(100% + 60px);
-        margin-left: -30px;
-    }
-}
-
-article .body picture:before {
-    content: '';
-    display: block;
-    width: calc(100% - 2px);
-    height: calc(100% - 2px);
-    border: 1px solid rgba(0,0,0,.1);
-    border-radius: 4px;
-    z-index: 4;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-@media all and (max-width: 750px) {
-    article .body picture:before {
-        border-left: 0;
-        border-right: 0;
-        border-radius: 0;
-    }
-
 }
 
 article .body picture img {
@@ -253,14 +221,7 @@ article .body picture img {
     width: 100%;
     height: auto;
     position: relative;
-    border-radius: 4px;
     z-index: 2;
-}
-
-@media all and (max-width: 750px) {
-    article .body picture img {
-        border-radius: 0;
-    }
 }
 
 article pre {
@@ -329,8 +290,8 @@ article .body ul li {
     position: relative;
     z-index: 2;
     margin-bottom: -1px;
-    padding-top: 60px;
-    padding-bottom: 60px;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 .pagination .btn {

@@ -23,7 +23,8 @@
     "asko/hird": "^2.1",
     "erusev/parsedown": "^1.7",
     "ext-pdo": "*",
-    "scrivo/highlight.php": "^9.18"
+    "scrivo/highlight.php": "^9.18",
+    "spatie/ray": "^1.41"
   },
   "require-dev": {
     "symfony/var-dumper": "^7.0"
