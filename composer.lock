@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "690e50a3f3a853a7d40253378f38cd0d",
+    "content-hash": "882da02dc2ef8df897967487027d41d0",
     "packages": [
         {
             "name": "asko/hird",
@@ -52,16 +52,16 @@
         },
         {
             "name": "asko/router",
-            "version": "v2.1.0",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/askonomm/router.git",
-                "reference": "ea9e78fed4d42330e3456e64fbdd58e9037a1430"
+                "reference": "37a78c7982e0352443acd1cc17f4386e53dfdd01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/askonomm/router/zipball/ea9e78fed4d42330e3456e64fbdd58e9037a1430",
-                "reference": "ea9e78fed4d42330e3456e64fbdd58e9037a1430",
+                "url": "https://api.github.com/repos/askonomm/router/zipball/37a78c7982e0352443acd1cc17f4386e53dfdd01",
+                "reference": "37a78c7982e0352443acd1cc17f4386e53dfdd01",
                 "shasum": ""
             },
             "require": {
@@ -89,9 +89,9 @@
             "description": "A minimal PHP router with configuration-free dependency injection",
             "support": {
                 "issues": "https://github.com/askonomm/router/issues",
-                "source": "https://github.com/askonomm/router/tree/v2.1.0"
+                "source": "https://github.com/askonomm/router/tree/v2.2.0"
             },
-            "time": "2024-02-11T22:01:19+00:00"
+            "time": "2024-03-31T12:06:55+00:00"
         },
         {
             "name": "brick/math",
