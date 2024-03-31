@@ -11,7 +11,8 @@
                     <tr>
                         <th colspan="3">Title</th>
                         <th>Status</th>
-                        <th>Date</th>
+                        <th>Published at</th>
+                        <th>Created at</th>
                         <th>Views</th>
                     </tr>
                 </thead>
@@ -37,7 +38,14 @@
                                 {% endif %}
                             </td>
                             <td style="width: 125px;">
-                                {{ post.data.published_at|date('M jS, Y') }}
+                                {% if post.data.published_at and (post.data.status is same as 'published' or post.data.status is same as 'scheduled')%}
+                                    {{ post.data.published_at|date('M jS, Y') }}
+                                {% else %}
+                                    &mdash;
+                                {% endif %}
+                            </td>
+                            <td style="width: 125px;">
+                                {{ post.data.created_at|date('M jS, Y') }}
                             </td>
                             <td style="width: 90px;">
                                 {{ post.data.views ?? 0 }}
