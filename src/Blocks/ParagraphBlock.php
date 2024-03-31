@@ -57,14 +57,14 @@ class ParagraphBlock implements Block
         ]);
     }
 
-    private static function nodeGroup(array $nodes, ?string $groupType = null): string
+    private static function composeHtml(array $nodes, ?string $groupType = null): string
     {
         $html = "";
 
         foreach($nodes as $node) {
             $html .= match($node['type']) {
                 'char' => $node['value'],
-                'group' => self::nodeGroup($node['content'], $node['groupType']),
+                'group' => self::composeHtml($node['content'], $node['groupType']),
             };
         }
 
@@ -80,7 +80,7 @@ class ParagraphBlock implements Block
     public static function viewable(Post $post, array $block): string
     {
         $nodes = json_decode($block['value'], true) ?? [];
-        $html = self::nodeGroup($nodes);
+        $html = self::composeHtml($nodes);
 
         return <<<HTML
             <p>
