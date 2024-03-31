@@ -34,6 +34,10 @@
         </script>
     {% endif %}
 
+    {% if is_posts %}
+        <script src="{{  asset('/assets/admin/js/posts.js') }}"></script>
+    {% endif %}
+
     {% for js in injected_js %}
         <script type="module" src="{{ asset(js) }}"></script>
     {% endfor %}

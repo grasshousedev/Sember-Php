@@ -9,11 +9,10 @@
     <div class="section">
         <label>
             <span class="title">Filter by status</span>
-            <select name="status">
-                <option value="all">All</option>
-                <option value="published">Published</option>
-                <option value="draft">Draft</option>
-                <option value="scheduled">Scheduled</option>
+            <select name="status" onchange="filterByStatus(this);">
+                <option value="all" {% if filter_by_status is same as 'all' %} selected {% endif %}>All</option>
+                <option value="published" {% if filter_by_status is same as 'published' %} selected {% endif %}>Published</option>
+                <option value="draft" {% if filter_by_status is same as 'draft' %} selected {% endif %}>Draft</option>
             </select>
         </label>
     </div>
@@ -21,12 +20,12 @@
     <div class="section">
         <label>
             <span class="title">Sort by</span>
-            <select name="status">
-                <option value="title">Title</option>
-                <option value="status">Status</option>
-                <option value="published_at">Published at</option>
-                <option value="created_at">Created at</option>
-                <option value="views">Views</option>
+            <select name="status" onchange="sortBy(this);">
+                <option value="title" {% if sort_by is same as 'title' %} selected {% endif %}>Title</option>
+                <option value="status" {% if sort_by is same as 'status' %} selected {% endif %}>Status</option>
+                <option value="published_at" {% if sort_by is same as 'published_at' %} selected {% endif %}>Published at</option>
+                <option value="created_at" {% if sort_by is same as 'created_at' %} selected {% endif %}>Created at</option>
+                <option value="views" {% if sort_by is same as 'views' %} selected {% endif %}>Views</option>
             </select>
         </label>
     </div>
@@ -34,9 +33,9 @@
     <div class="section">
         <label>
             <span class="title">Order</span>
-            <select name="status">
-                <option value="asc">Ascending</option>
-                <option value="desc">Descending</option>
+            <select name="status" onchange="orderBy(this);">
+                <option value="asc" {% if sort_order is same as 'asc' %} selected {% endif %}>Ascending</option>
+                <option value="desc" {% if sort_order is same as 'desc' %} selected {% endif %}>Descending</option>
             </select>
         </label>
     </div>

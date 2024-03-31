@@ -56,11 +56,26 @@ readonly class AdminController
      */
     public function posts(Request $request, Response $response): Response
     {
+        $status = match($request->input('status')) {
+            'draft' => "'draft'",
+            'published' => "'published'",
+            default => 'status',
+        };
+
+        $sort_by = match($request->input('sort_by')) {
+            'title', 'status', 'published_at', 'created_at', 'updated_at', 'views' => $request->input('sort_by'),
+            default => 'created_at',
+        };
+
+        $sort_order = match($request->input('sort_order')) {
+            'asc', 'desc' => $request->input('sort_order'),
+            default => 'desc',
+        };
+
+        $query = "where status = {$status} order by {$sort_by} {$sort_order}";
+
         $posts = $this->db
-            ->find(
-                model: Post::class,
-                query: "order by created_at desc"
-            )
+            ->find(Post::class, $query)
             ->map(function (Post $post) {
                 if ($post->get("status") === "published" && $post->get("published_at") <= time()) {
                     $post->set("status", "published");
@@ -79,6 +94,9 @@ readonly class AdminController
         ]);
 
         return $response->view("admin/posts", [
+            "filter_by_status" => $request->input("status", 'all'),
+            "sort_by" => $request->input("sort_by", 'created_at'),
+            "sort_order" => $request->input("sort_order", 'desc'),
             "posts" => $posts,
             "site_name" => $site_name?->get("meta_value") ?? "",
             "url" => $request->protocol() . "://" . $request->hostname(),
