@@ -226,7 +226,6 @@ article .body picture img {
 
 article pre {
     width: 100vw;
-    max-height: 400px;
     color: var(--slate-900);
     line-height: 1.1;
     background: var(--zinc-200);
