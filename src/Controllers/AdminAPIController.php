@@ -205,7 +205,8 @@ readonly class AdminAPIController
     ): Response
     {
         $post = $this->db->findOne(Post::class, 'where id = ?', [$id]);
-        $block = BlockHelper::new($type);
+        $opts = $request->input('content') ? ['value' => $request->input('content')] : [];
+        $block = BlockHelper::new($type, $opts);
         $content = json_decode($post->get('content'), true);
         $blocks = match ($position) {
             'beginning' => [$block, ...$content],

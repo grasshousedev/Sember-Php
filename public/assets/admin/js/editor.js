@@ -69,10 +69,15 @@ htmx.on("focusBlockBeginning", (event) => {
   );
 
   if (block) {
-    block.scrollIntoView({ behavior: "instant", block: "start" });
+    block.scrollIntoView({ behavior: "instant", block: "end" });
 
     if (block.querySelector("textarea")) {
       block.querySelector("textarea").focus();
+    }
+
+    if (block.querySelector('paragraph-block')) {
+      block.querySelector('paragraph-block').setCursorToBeginning();
+      block.querySelector('paragraph-block').click();
     }
   }
 });

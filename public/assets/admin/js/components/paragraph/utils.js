@@ -24,3 +24,10 @@ export function nodeFlattenFn(item) {
 
   return [];
 }
+
+export function charNodesAfterId(nodes, id) {
+  const allCharNodes = nodes.flatMap(charNodeFlattenFn);
+  const index = allCharNodes.findIndex((node) => node.id === id);
+
+  return allCharNodes.slice(index);
+}

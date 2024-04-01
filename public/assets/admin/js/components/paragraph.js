@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "../deps/uuid.js";
 import "./paragraph/paragraph-group.js";
 import { cursorPosition, meta } from "./paragraph/contexts.js";
 import { charNodeFlattenFn, nodeFlattenFn } from "./paragraph/utils.js";
+import ParagraphAction from "./paragraph/actions.js";
 
 export class ParagraphBlock extends LitElement {
   /**
@@ -48,12 +49,18 @@ export class ParagraphBlock extends LitElement {
 
   static styles = css`
     .editor {
-      min-height: 1lh;
+        min-height: 1lh;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+      
+    .editor.active {
+        border: 1px solid var(--outlineColor);
     }
 
     .placeholder {
-      color: #777;
-      position: absolute;
+        color: #777;
+        position: absolute;
     }
   `;
 
@@ -163,6 +170,7 @@ export class ParagraphBlock extends LitElement {
       // TODO: Implement paste
     }
 
+    // Select left
     if (e.shiftKey && e.key === "ArrowLeft") {
       e.preventDefault();
       this.cursorPosition = this.computeTreeNodeIdLeftOf(
@@ -176,6 +184,7 @@ export class ParagraphBlock extends LitElement {
       return;
     }
 
+    // Select right
     if (e.shiftKey && e.key === "ArrowRight") {
       e.preventDefault();
       this.content = this.toggleNodeAsSelected(
@@ -186,6 +195,12 @@ export class ParagraphBlock extends LitElement {
         this.content,
         this.cursorPosition,
       );
+      return;
+    }
+
+    // Enter (create new block)
+    if (e.key === "Enter") {
+      ParagraphAction.enter(e, this);
       return;
     }
 
@@ -317,7 +332,9 @@ export class ParagraphBlock extends LitElement {
 
     if (changedProperties.has("content") && oldContent !== newContent) {
       this.dispatchEvent(new CustomEvent("content-changed", {
-        detail: this.markAllNodesAsDeselected(this.traverseContentTreeAndRemoveCursorNode(this.content)),
+        detail: {
+          content: this.markAllNodesAsDeselected(this.traverseContentTreeAndRemoveCursorNode(this.content))
+        },
         bubbles: true,
         composed: true,
       }));
@@ -327,6 +344,10 @@ export class ParagraphBlock extends LitElement {
     this.content = this.traverseContentTreeAndAddCursorNode(content, {
       hidden: this.selectionExists(),
     });
+  }
+
+  setCursorToBeginning() {
+    this.cursorPosition = this.computeFirstContentTreeNodeId(this.content);
   }
 
   /**
@@ -1139,7 +1160,7 @@ export class ParagraphBlock extends LitElement {
 
   render() {
     return html`
-      <div class="editor">
+      <div class="editor ${this.active ? 'active' : ''}">
         ${this.isContentEmpty()
           ? html` <span class="placeholder">${this.placeholder}</span>`
           : ""}

@@ -4,13 +4,28 @@ window.addEventListener("htmx:load", () => {
       const postId = block.getAttribute('data-post-id');
       const blockId = block.getAttribute('data-id');
 
-
-      console.log(e);
       htmx.ajax('POST', `/admin/api/post/${postId}/blocks/${blockId}/opt/update`, {
+        values: {
+          content: JSON.stringify(e.detail.content)
+        },
+        swap: 'none'
+      }).then(() => {
+        if (typeof e.detail.after === 'function') {
+          e.detail.after();
+        }
+      });
+    });
+
+    block.querySelector('paragraph-block').addEventListener('createParagraphBlock', (e) => {
+      const postId = block.getAttribute('data-post-id');
+      const blockId = block.getAttribute('data-id');
+
+      htmx.ajax('POST', `/admin/api/post/${postId}/blocks/add/paragraph/${blockId}`, {
         values: {
           content: JSON.stringify(e.detail)
         },
-        swap: 'none'
+        swap: 'outerHTML',
+        target: '.blocks'
       });
     });
   });

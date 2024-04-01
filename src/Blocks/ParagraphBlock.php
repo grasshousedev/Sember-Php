@@ -32,8 +32,6 @@ class ParagraphBlock implements Block
 
     public static function editable(Post $post, array $block): string
     {
-        ray($block);
-
         return (new Response)->view('admin/editor/blocks/paragraph', [
             'post' => $post->toArray(),
             'block' => $block,

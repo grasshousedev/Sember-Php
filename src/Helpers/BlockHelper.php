@@ -20,14 +20,14 @@ class BlockHelper
      * @param string $key
      * @return array
      */
-    public static function new(string $key): array
+    public static function new(string $key, array $opts = []): array
     {
         $class = Config::getBlock($key);
 
         return [
             'id' => Uuid::uuid4()->toString(),
             'key' => $key,
-            'value' => '',
+            'value' => $opts['value'] ?? '',
             ...call_user_func([$class, 'model']),
         ];
     }
