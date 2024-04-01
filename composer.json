@@ -5,7 +5,8 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Asko\\Sember\\": "src/"
+      "Sember\\System\\": "system/",
+      "Sember\\App\\" : "app/"
     }
   },
   "authors": [
