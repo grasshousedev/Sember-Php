@@ -2,6 +2,7 @@
 
 namespace Sember\System\Controllers;
 
+use Sember\System\Config;
 use Sember\System\Database;
 use Sember\System\Helpers\BlockHelper;
 use Sember\System\Models\Meta;
@@ -56,6 +57,11 @@ readonly class AdminController
      */
     public function posts(Request $request, Response $response): Response
     {
+        $post_type = match($request->input('type')) {
+            'post', 'page' => $request->input('type'),
+            default => 'post',
+        };
+
         $status = match($request->input('status')) {
             'draft' => "'draft'",
             'published' => "'published'",
@@ -72,10 +78,9 @@ readonly class AdminController
             default => 'desc',
         };
 
-        $query = "where status = {$status} order by {$sort_by} {$sort_order}";
+        $query = "where type = ? and status = {$status} order by {$sort_by} {$sort_order}";
 
-        $posts = $this->db
-            ->find(Post::class, $query)
+        $posts = Post::findAll($query, [$post_type])
             ->map(function (Post $post) {
                 if ($post->get("status") === "published" && $post->get("published_at") <= time()) {
                     $post->set("status", "published");
@@ -89,11 +94,12 @@ readonly class AdminController
             })
             ->toArray();
 
-        $site_name = $this->db->findOne(Meta::class, "where meta_name = ?", [
-            "site_name",
-        ]);
+        $site_name = Meta::find("where meta_name = ?", ["site_name"]);
 
         return $response->systemView("admin/posts", [
+            "post_type" => Config::get("post_types")[$request->input('type') ?? "post"],
+            "post_type_key" => $request->input('type'),
+            "post_types" => Config::get("post_types"),
             "filter_by_status" => $request->input("status", 'all'),
             "sort_by" => $request->input("sort_by", 'created_at'),
             "sort_order" => $request->input("sort_order", 'desc'),
@@ -156,9 +162,7 @@ readonly class AdminController
             return $response->redirect("/admin/posts");
         }
 
-        $site_name = $this->db->findOne(Meta::class, "where meta_name = ?", [
-            "site_name",
-        ]);
+        $site_name = Meta::find("where meta_name = ?", ["site_name",]);
 
         return $response->systemView("admin/edit-post", [
             "id" => $id,
@@ -170,6 +174,9 @@ readonly class AdminController
             "blocks" => BlockHelper::editableBlocks($post),
             "block_list" => BlockHelper::list(),
             "site_name" => $site_name?->get("meta_value") ?? "",
+            "post_type" => Config::get("post_types")[$request->input('type') ?? "post"],
+            "post_type_key" => $request->input('type'),
+            "post_types" => Config::get("post_types"),
         ]);
     }
 
@@ -219,6 +226,7 @@ readonly class AdminController
             "site_description" => $site_description?->get("meta_value") ?? "",
             "url" => $request->protocol() . "://" . $request->hostname(),
             "url_without_protocol" => $request->hostname(),
+            "post_types" => Config::get("post_types"),
         ]);
     }
 }

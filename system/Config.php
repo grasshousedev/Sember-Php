@@ -9,12 +9,14 @@ class Config
         $config = [];
 
         if (file_exists(SEMBER_ROOT . '/system/Config/config.php')) {
-            $config = [...$config, ...require SEMBER_ROOT . '/system/Config/config.php'];
+            $config = array_merge_recursive($config, require SEMBER_ROOT . '/system/Config/config.php');
         }
 
         if (file_exists(SEMBER_ROOT . '/app/config.php')) {
-            $config = [...$config, ...require SEMBER_ROOT . '/app/config.php'];
+            $config = array_merge_recursive($config, require SEMBER_ROOT . '/app/config.php');
         }
+
+        ray($config);
 
         return $config[$key] ?? $default;
     }

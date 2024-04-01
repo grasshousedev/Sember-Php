@@ -2,6 +2,12 @@
 
 namespace Sember\System\Models;
 
+use Sember\System\Collection;
+use Sember\System\Database;
+
+/**
+ * @template T
+ */
 class Model
 {
     protected string $storage_name;
@@ -41,5 +47,25 @@ class Model
     public function toArray(): array
     {
         return $this->data;
+    }
+
+    /**
+     * @param string $query
+     * @param array $params
+     * @return T
+     */
+    public static function find(string $query, array $params = []): static
+    {
+        return (new Database())->findOne(static::class, $query, $params);
+    }
+
+    /**
+     * @param string $query
+     * @param array $params
+     * @return Collection<T>
+     */
+    public static function findAll(string $query, array $params = []): Collection
+    {
+        return (new Database())->find(static::class, $query, $params);
     }
 }

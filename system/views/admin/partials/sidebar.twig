@@ -1,10 +1,12 @@
 <div class="sidebar">
     <ul class="nav">
-        <li {% if active is same as 'posts' %} class="active" {% endif %}>
-            <a href="/admin/posts">
-                <i class="fas fa-list-ol"></i>
+        {% for k, post_type in post_types %}
+        <li {% if active is same as 'posts' and post_type_key is same as k %} class="active" {% endif %}>
+            <a href="/admin/posts?type={{ k }}">
+                <i class="{{ post_type.icon }}"></i>
             </a>
         </li>
+        {% endfor %}
 
         <li {% if active is same as 'settings' %} class="active" {% endif %}>
             <a href="/admin/settings"><i class="fas fa-cog"></i></a>

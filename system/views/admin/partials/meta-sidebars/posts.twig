@@ -1,7 +1,7 @@
 <div class="sidebar-meta">
     <h1>
-        Posts
-        <a href="/admin/posts/new" class="btn btn-primary">
+        {{ post_type.name }}
+        <a href="/admin/posts/new?type={{ post_type_key }}" class="btn btn-primary">
             <i class="fas fa-plus"></i> Add
         </a>
     </h1>

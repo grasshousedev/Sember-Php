@@ -4,6 +4,9 @@ namespace Sember\System\Models;
 
 use Sember\System\Config;
 
+/**
+ * @extends Model<Post>
+ */
 class Post extends Model
 {
     public function __construct(array $data = [])
