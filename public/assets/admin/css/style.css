@@ -152,6 +152,10 @@ input, textarea, select, button {
     border-bottom: 0;
 }
 
+.sidebar .bottom.nav li a {
+    border-radius: 100%;
+}
+
 .sidebar-meta {
     display: block;
     background: #fff;

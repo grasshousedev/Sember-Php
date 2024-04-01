@@ -7,13 +7,13 @@
             </a>
         </li>
         {% endfor %}
-
-        <li {% if active is same as 'settings' %} class="active" {% endif %}>
-            <a href="/admin/settings"><i class="fas fa-cog"></i></a>
-        </li>
     </ul>
 
     <ul class="nav bottom">
+        <li {% if active is same as 'settings' %} class="active" {% endif %}>
+            <a href="/admin/settings"><i class="fas fa-cog"></i></a>
+        </li>
+
         <li>
             <a href="{{ url }}" target="_blank">
                 <i class="fas fa-link"></i>
