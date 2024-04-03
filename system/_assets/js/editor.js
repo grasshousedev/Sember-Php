@@ -99,5 +99,10 @@ htmx.on("focusBlockEnd", (event) => {
       block.querySelector("textarea").value = temp_value;
       block.querySelector("textarea").focus();
     }
+
+    if (block.querySelector('paragraph-block')) {
+      block.querySelector('paragraph-block').setCursorToEnd();
+      block.querySelector('paragraph-block').click();
+    }
   }
 });

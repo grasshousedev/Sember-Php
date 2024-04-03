@@ -106,7 +106,7 @@ readonly class SiteController
     {
         return $response->view("404", [
             "page_title" => "Not Found",
-            "site_name" => Meta::find("where meta_name = ?", ["site_name"])?->get("meta_value") ?? "",
+            "site_name" => Meta::getValue('site_name'),
         ]);
     }
 }

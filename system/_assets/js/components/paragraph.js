@@ -119,8 +119,7 @@ export class ParagraphBlock extends LitElement {
 
     // Delete text
     if (e.key === "Backspace") {
-      e.preventDefault();
-      this.doDelete();
+      ParagraphAction.backspace(e, this);
       return;
     }
 
@@ -331,7 +330,7 @@ export class ParagraphBlock extends LitElement {
     const newContent = JSON.stringify(this.markAllNodesAsDeselected(this.traverseContentTreeAndRemoveCursorNode(this.content)));
 
     if (changedProperties.has("content") && oldContent !== newContent) {
-      this.dispatchEvent(new CustomEvent("content-changed", {
+      this.dispatchEvent(new CustomEvent("contentChanged", {
         detail: {
           content: this.markAllNodesAsDeselected(this.traverseContentTreeAndRemoveCursorNode(this.content))
         },
@@ -350,66 +349,9 @@ export class ParagraphBlock extends LitElement {
     this.cursorPosition = this.computeFirstContentTreeNodeId(this.content);
   }
 
-  /**
-   * Deletes a character or a selection
-   */
-  doDelete() {
-    let content = this.content;
-
-    // There's a selection, which means we want to delete the selected text
-    if (this.selectionExists()) {
-      const selectedNodes = this.selectedNodes();
-
-      let nodeIdBeforeSelection = this.computeTreeNodeIdRightOf(content, selectedNodes[0].id);
-
-      if (selectedNodes.length > 1) {
-        nodeIdBeforeSelection = this.computeTreeNodeIdRightOf(
-          content,
-          selectedNodes[selectedNodes.length - 1].id,
-        );
-      }
-
-      const fromBeginning = selectedNodes[0].id === this.computeFirstContentTreeNodeId(content);
-      const fromEnd = selectedNodes[selectedNodes.length - 1].id === this.computeLastContentTreeNodeId(content);
-
-      for (let i = 0; i < selectedNodes.length; i++) {
-        content = this.removeNodeFromContent(content, selectedNodes[i].id);
-      }
-
-      content = this.removeOrphanGroups(this.markAllNodesAsDeselected(content));
-
-      // Is the selection at the beginning?
-      if (fromBeginning) {
-        this.cursorPosition = this.computeFirstContentTreeNodeId(content);
-      } else if (fromEnd) {
-        this.cursorPosition = "0";
-      } else {
-        this.cursorPosition = nodeIdBeforeSelection;
-      }
-
-      this.content = this.removeOrphanGroups(content);
-    }
-
-    // There's no selection, which means we want to delete the character to the left
-    else {
-      let nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(content, this.cursorPosition);
-
-      if (nodeIdBeforeCursor !== this.cursorPosition) {
-        while (this.getNodeById(content, nodeIdBeforeCursor).type === "group") {
-          nodeIdBeforeCursor = this.computeTreeNodeIdLeftOf(content, nodeIdBeforeCursor);
-        }
-      }
-
-      // Do not delete if the cursor is at the beginning
-      if (this.content.length > 0 && this.content[0].type === "cursor") {
-        return;
-      }
-
-      this.cursorPosition = this.computeTreeNodeIdRightOf(content, nodeIdBeforeCursor);
-      content = this.removeNodeFromContent(content, nodeIdBeforeCursor);
-      this.content = this.removeOrphanGroups(content);
-    }
-  };
+  setCursorToEnd() {
+    this.cursorPosition = "0";
+  }
 
   /**
    * Groups selected node(s).
