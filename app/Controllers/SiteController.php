@@ -120,6 +120,6 @@ readonly class SiteController
      */
     public function notFound(Response $response): Response
     {
-        return $response->view("site/404");
+        return $response->view("404");
     }
 }
