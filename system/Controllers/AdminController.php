@@ -196,7 +196,7 @@ readonly class AdminController
             return $response->redirect("/admin/posts?type={$default_post_type}");
         }
 
-        $this->db->delete($post);
+        $post->delete();
 
         return $response->redirect("/admin/posts?type=" . $post->get("type"));
     }

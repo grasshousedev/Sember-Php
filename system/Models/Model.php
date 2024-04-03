@@ -78,4 +78,14 @@ class Model
     {
         (new Database())->update($this);
     }
+
+    /**
+     * Delete the model from the database.
+     *
+     * @return void
+     */
+    public function delete(): void
+    {
+        (new Database())->delete($this);
+    }
 }
