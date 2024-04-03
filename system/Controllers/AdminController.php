@@ -31,7 +31,9 @@ readonly class AdminController
             return $response->redirect("/admin/signin");
         }
 
-        return $response->redirect("/admin/posts?type=post");
+        $default_post_type = array_key_first(Config::get("post_types"));
+
+        return $response->redirect("/admin/posts?type={$default_post_type}");
     }
 
     /**
@@ -57,10 +59,10 @@ readonly class AdminController
      */
     public function posts(Request $request, Response $response): Response
     {
-        $post_type = match($request->input('type')) {
-            'post', 'page' => $request->input('type'),
-            default => 'post',
-        };
+        if (!$request->input('type')) {
+            $default_post_type = array_key_first(Config::get("post_types"));
+            return $response->redirect("/admin/posts?type={$default_post_type}");
+        }
 
         $status = match($request->input('status')) {
             'draft' => "'draft'",
@@ -79,8 +81,7 @@ readonly class AdminController
         };
 
         $query = "where type = ? and status = {$status} order by {$sort_by} {$sort_order}";
-
-        $posts = Post::findAll($query, [$post_type])
+        $posts = Post::find($query, [$request->input('type')])
             ->map(function (Post $post) {
                 if ($post->get("status") === "published" && $post->get("published_at") <= time()) {
                     $post->set("status", "published");
@@ -94,8 +95,6 @@ readonly class AdminController
             })
             ->toArray();
 
-        $site_name = Meta::find("where meta_name = ?", ["site_name"])?->get("meta_value") ?? "";
-
         return $response->systemView("admin/posts", [
             "post_type" => Config::get("post_types")[$request->input('type') ?? "post"],
             "post_type_key" => $request->input('type'),
@@ -104,7 +103,7 @@ readonly class AdminController
             "sort_by" => $request->input("sort_by", 'created_at'),
             "sort_order" => $request->input("sort_order", 'desc'),
             "posts" => $posts,
-            "site_name" => $site_name,
+            "site_name" => Meta::getValue('site_name'),
             "url" => $request->protocol() . "://" . $request->hostname(),
             "url_without_protocol" => $request->hostname(),
         ]);
@@ -142,7 +141,7 @@ readonly class AdminController
             return $response->redirect("/admin/posts/edit/{$id}");
         }
 
-        return $response->redirect("/admin/posts?type=" . $request->input('type', 'post'));
+        return $response->redirect("/admin/posts?type=" . $request->input('type'));
     }
 
     /**
@@ -158,13 +157,12 @@ readonly class AdminController
         Response $response,
         string $id
     ): Response {
-        $post = $this->db->findOne(Post::class, "where id = ?", [$id]);
+        $post = Post::findOne("where id = ?", [$id]);
+        $default_post_type = array_key_first(Config::get("post_types"));
 
         if (!$post) {
-            return $response->redirect("/admin/posts?type=post");
+            return $response->redirect("/admin/posts?type={$default_post_type}");
         }
-
-        $site_name = Meta::find("where meta_name = ?", ["site_name"]);
 
         return $response->systemView("admin/edit-post", [
             "id" => $id,
@@ -175,9 +173,9 @@ readonly class AdminController
             "url_without_protocol" => $request->hostname(),
             "blocks" => BlockHelper::editableBlocks($post),
             "block_list" => BlockHelper::list(),
-            "site_name" => $site_name?->get("meta_value") ?? "",
-            "post_type" => Config::get("post_types")[$request->input('type') ?? "post"],
-            "post_type_key" => $request->input('type'),
+            "site_name" => Meta::getValue('site_name'),
+            "post_type" => Config::get("post_types")[$post->get('type') ?? $default_post_type],
+            "post_type_key" => $request->input('type') ?? $default_post_type,
             "post_types" => Config::get("post_types"),
         ]);
     }
@@ -191,10 +189,11 @@ readonly class AdminController
      */
     public function deletePost(Response $response, string $id): Response
     {
-        $post = $this->db->findOne(Post::class, "where id = ?", [$id]);
+        $default_post_type = array_key_first(Config::get("post_types"));
+        $post = Post::findOne("where id = ?", [$id]);
 
         if (!$post) {
-            return $response->redirect("/admin/posts?type=post");
+            return $response->redirect("/admin/posts?type={$default_post_type}");
         }
 
         $this->db->delete($post);
@@ -211,21 +210,9 @@ readonly class AdminController
      */
     public function settings(Request $request, Response $response): Response
     {
-        $site_name = $this->db->findOne(
-            model: Meta::class,
-            query: "where meta_name = ?",
-            data: ["site_name"]
-        );
-
-        $site_description = $this->db->findOne(
-            model: Meta::class,
-            query: "where meta_name = ?",
-            data: ["site_description"]
-        );
-
         return $response->systemView("admin/settings", [
-            "site_name" => $site_name?->get("meta_value") ?? "",
-            "site_description" => $site_description?->get("meta_value") ?? "",
+            "site_name" => Meta::getValue('site_name'),
+            "site_description" => Meta::getValue('site_description'),
             "url" => $request->protocol() . "://" . $request->hostname(),
             "url_without_protocol" => $request->hostname(),
             "post_types" => Config::get("post_types"),

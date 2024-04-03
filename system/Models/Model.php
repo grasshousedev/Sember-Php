@@ -54,7 +54,7 @@ class Model
      * @param array $params
      * @return ?T
      */
-    public static function find(string $query, array $params = []): ?static
+    public static function findOne(string $query, array $params = []): ?static
     {
         return (new Database())->findOne(static::class, $query, $params);
     }
@@ -64,8 +64,18 @@ class Model
      * @param array $params
      * @return Collection<T>
      */
-    public static function findAll(string $query, array $params = []): Collection
+    public static function find(string $query, array $params = []): Collection
     {
         return (new Database())->find(static::class, $query, $params);
+    }
+
+    /**
+     * Update the model in the database.
+     *
+     * @return void
+     */
+    public function update(): void
+    {
+        (new Database())->update($this);
     }
 }
