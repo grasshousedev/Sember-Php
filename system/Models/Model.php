@@ -34,9 +34,9 @@ class Model
         $this->data[$key] = $value;
     }
 
-    public function get(string $key): mixed
+    public function get(string $key, mixed $default = null): mixed
     {
-        return $this->data[$key] ?? null;
+        return $this->data[$key] ?? $default;
     }
 
     public function remove(string $key): void

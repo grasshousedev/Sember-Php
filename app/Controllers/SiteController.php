@@ -120,6 +120,9 @@ readonly class SiteController
      */
     public function notFound(Response $response): Response
     {
-        return $response->view("404");
+        return $response->view("404", [
+            "page_title" => "Not Found",
+            "site_name" => Meta::find("where meta_name = ?", ["site_name"])?->get("meta_value") ?? "",
+        ]);
     }
 }
