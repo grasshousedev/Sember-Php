@@ -21,13 +21,13 @@ class ParagraphBlock implements Block
 
     // Injected JS
     public array $js = [
-        '/assets/admin/js/components/paragraph.js',
-        '/assets/admin/js/blocks/paragraph.js'
+        '/system/js/components/paragraph.js',
+        '/system/js/blocks/paragraph.js'
     ];
 
     // Injected CSS
     public array $css = [
-        '/assets/admin/css/blocks/paragraph.css'
+        '/system/css/blocks/paragraph.css'
     ];
 
     public static function editable(Post $post, array $block): string

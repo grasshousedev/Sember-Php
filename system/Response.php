@@ -69,7 +69,7 @@ class Response
     {
         http_response_code($status);
 
-        $viewRenderer = new View(SEMBER_ROOT . '/system/views');
+        $viewRenderer = new View(SEMBER_ROOT . '/system/_views');
         $this->response = $viewRenderer->render($view, $data);
 
         return $this;
@@ -87,7 +87,7 @@ class Response
     {
         http_response_code($status);
 
-        $viewRenderer = new View(SEMBER_ROOT . '/app/views');
+        $viewRenderer = new View(SEMBER_ROOT . '/app/_views');
         $this->response = $viewRenderer->render($view, $data);
 
         return $this;

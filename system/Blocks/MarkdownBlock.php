@@ -20,12 +20,12 @@ class MarkdownBlock implements Block
 
     // Injected JS
     public array $js = [
-        '/assets/admin/js/blocks/markdown.js'
+        '/system/js/blocks/markdown.js'
     ];
 
     // Injected CSS
     public array $css = [
-        '/assets/admin/css/blocks/markdown.css'
+        '/system/css/blocks/markdown.css'
     ];
 
     /**

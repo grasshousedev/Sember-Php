@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{ page_title }} &mdash; {{ site_name }}</title>
+    <link rel="stylesheet" href="/system/fa/css/all.min.css">
+    <link rel="stylesheet" href="/system/css/style.css">
+    {% for css in injected_css %}
+        <link rel="stylesheet" href="{{ asset(css) }}">
+    {% endfor %}
+
+    <script src="{{ asset('/system/js/utils.js') }}"></script>
+
+    {% if is_editor %}
+        <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+        <script src="https://unpkg.com/htmx.org/dist/ext/path-deps.js"></script>
+        <script src="{{ asset('/system/js/editor.js') }}"></script>
+
+        <script>
+          htmx.on('htmx:configRequest', (event) => {
+            event.detail.headers['X-CSRFToken'] = '{{ csrf_token() }}';
+          })
+        </script>
+    {% endif %}
+
+    {% if is_settings %}
+        <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+        <script src="{{ asset('/system/js/settings.js') }}"></script>
+
+        <script>
+          htmx.on('htmx:configRequest', (event) => {
+            event.detail.headers['X-CSRFToken'] = '{{ csrf_token() }}';
+          })
+        </script>
+    {% endif %}
+
+    {% if is_posts %}
+        <script src="{{  asset('/system/js/posts.js') }}"></script>
+    {% endif %}
+
+    {% for js in injected_js %}
+        <script type="module" src="{{ asset(js) }}"></script>
+    {% endfor %}
+</head>
+<body>

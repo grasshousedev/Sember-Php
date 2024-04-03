@@ -21,12 +21,12 @@ class CodeBlock implements Block
 
     // Injected JS
     public array $js = [
-        '/assets/admin/js/blocks/code.js'
+        '/system/js/blocks/code.js'
     ];
 
     // Injected CSS
     public array $css = [
-        '/assets/admin/css/blocks/code.css'
+        '/system/css/blocks/code.css'
     ];
 
     /**

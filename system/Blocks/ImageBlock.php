@@ -24,12 +24,12 @@ class ImageBlock implements Block
 
     // Injected JS
     public array $js = [
-        '/assets/admin/js/blocks/image.js'
+        '/system/js/blocks/image.js'
     ];
 
     // Injected CSS
     public array $css = [
-        '/assets/admin/css/blocks/image.css'
+        '/system/css/blocks/image.css'
     ];
 
     /**

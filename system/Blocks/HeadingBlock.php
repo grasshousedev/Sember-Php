@@ -24,12 +24,12 @@ class HeadingBlock implements Block
 
     // Injected JS
     public array $js = [
-        '/assets/admin/js/blocks/heading.js'
+        '/system/js/blocks/heading.js'
     ];
 
     // Injected CSS
     public array $css = [
-        '/assets/admin/css/blocks/heading.css'
+        '/system/css/blocks/heading.css'
     ];
 
     /**

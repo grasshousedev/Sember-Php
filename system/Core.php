@@ -30,6 +30,16 @@ class Core
             symlink(SEMBER_ROOT . '/storage/files', SEMBER_ROOT . '/public/files');
         }
 
+        // System assets
+        if (!is_link(SEMBER_ROOT . '/public/system')) {
+            symlink(SEMBER_ROOT . '/system/_assets', SEMBER_ROOT . '/public/system');
+        }
+
+        // App assets
+        if (!is_link(SEMBER_ROOT . '/public/app')) {
+            symlink(SEMBER_ROOT . '/app/_assets', SEMBER_ROOT . '/public/app');
+        }
+
         // Run migrations
         $db = new Database();
         $executed_migrations = $db->find(Migration::class)
