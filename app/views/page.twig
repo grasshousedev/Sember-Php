@@ -1,0 +1,12 @@
+{% include 'partials/header.twig' %}
+
+<div class="posts">
+    <article class="post">
+        <div class="wrap">
+            <h2 class="title"><a href="/{{ post.data.slug }}">{{ post.data.title }}</a></h2>
+            <div class="body">{{ post.data.html | raw }}</div>
+        </div>
+    </article>
+</div>
+
+{% include 'partials/footer.twig' %}

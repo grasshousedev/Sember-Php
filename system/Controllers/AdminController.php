@@ -31,7 +31,7 @@ readonly class AdminController
             return $response->redirect("/admin/signin");
         }
 
-        return $response->redirect("/admin/posts");
+        return $response->redirect("/admin/posts?type=post");
     }
 
     /**
@@ -94,7 +94,7 @@ readonly class AdminController
             })
             ->toArray();
 
-        $site_name = Meta::find("where meta_name = ?", ["site_name"]);
+        $site_name = Meta::find("where meta_name = ?", ["site_name"])?->get("meta_value") ?? "";
 
         return $response->systemView("admin/posts", [
             "post_type" => Config::get("post_types")[$request->input('type') ?? "post"],
@@ -104,7 +104,7 @@ readonly class AdminController
             "sort_by" => $request->input("sort_by", 'created_at'),
             "sort_order" => $request->input("sort_order", 'desc'),
             "posts" => $posts,
-            "site_name" => $site_name?->get("meta_value") ?? "",
+            "site_name" => $site_name,
             "url" => $request->protocol() . "://" . $request->hostname(),
             "url_without_protocol" => $request->hostname(),
         ]);
@@ -113,10 +113,11 @@ readonly class AdminController
     /**
      * Create a new post.
      *
+     * @param Request $request
      * @param Response $response
      * @return Response
      */
-    public function createPost(Response $response): Response
+    public function createPost(Request $request, Response $response): Response
     {
         $user = User::current();
 
@@ -129,8 +130,9 @@ readonly class AdminController
                 new Post([
                     "title" => "",
                     "slug" => "",
-                    "content" => json_encode([BlockHelper::new("markdown")]),
+                    "content" => json_encode([BlockHelper::new("paragraph")]),
                     "status" => "draft",
+                    "type" => $request->input('type', 'post'),
                     "user_id" => $user->get("id"),
                     "created_at" => time(),
                     "updated_at" => time(),
@@ -140,7 +142,7 @@ readonly class AdminController
             return $response->redirect("/admin/posts/edit/{$id}");
         }
 
-        return $response->redirect("/admin/posts");
+        return $response->redirect("/admin/posts?type=" . $request->input('type', 'post'));
     }
 
     /**
@@ -159,10 +161,10 @@ readonly class AdminController
         $post = $this->db->findOne(Post::class, "where id = ?", [$id]);
 
         if (!$post) {
-            return $response->redirect("/admin/posts");
+            return $response->redirect("/admin/posts?type=post");
         }
 
-        $site_name = Meta::find("where meta_name = ?", ["site_name",]);
+        $site_name = Meta::find("where meta_name = ?", ["site_name"]);
 
         return $response->systemView("admin/edit-post", [
             "id" => $id,
@@ -192,12 +194,12 @@ readonly class AdminController
         $post = $this->db->findOne(Post::class, "where id = ?", [$id]);
 
         if (!$post) {
-            return $response->redirect("/admin/posts");
+            return $response->redirect("/admin/posts?type=post");
         }
 
         $this->db->delete($post);
 
-        return $response->redirect("/admin/posts");
+        return $response->redirect("/admin/posts?type=" . $post->get("type"));
     }
 
     /**

@@ -9,47 +9,61 @@
             <table class="posts-table">
                 <thead>
                     <tr>
-                        <th colspan="3">Title</th>
-                        <th>Status</th>
-                        <th>Published at</th>
-                        <th>Created at</th>
-                        <th>Views</th>
+                        {% for k, col in post_type.table.columns %}
+                            {% if k is same as 'title' %}
+                                <th colspan="3">{{ col }}</th>
+                            {% else %}
+                                <th>{{ col }}</th>
+                            {% endif %}
+                        {% endfor %}
                     </tr>
                 </thead>
                 <tbody>
                     {% for post in posts %}
                         <tr class="post" data-status="{{ post.data.status }}">
-                            <td colspan="3" style="min-width: 300px;">
-                                <a href="/admin/posts/edit/{{ post.data.id }}">
-                                    {% if post.data.title is same as '' %}
-                                        Untitled...
-                                    {% else %}
-                                        {{ post.data.title  }}
-                                    {% endif %}
-                                </a>
-                            </td>
-                            <td style="width: 100px;" class="status">
-                                {% if post.data.status is same as 'published' %}
-                                    <span>Published</span>
-                                {% elseif post.data.status is same as 'scheduled' %}
-                                    <span>Scheduled</span>
+                            {% for k, col in post_type.table.columns %}
+                                {% if k is same as 'title' %}
+                                    <td colspan="3" style="min-width: 300px;">
+                                        <a href="/admin/posts/edit/{{ post.data.id }}">
+                                            {% if post.data.title is same as '' %}
+                                                Untitled...
+                                            {% else %}
+                                                {{ post.data.title  }}
+                                            {% endif %}
+                                        </a>
+                                    </td>
+                                {% elseif k is same as 'status' %}
+                                    <td style="width: 100px;" class="status">
+                                        {% if post.data.status is same as 'published' %}
+                                            <span>Published</span>
+                                        {% elseif post.data.status is same as 'scheduled' %}
+                                            <span>Scheduled</span>
+                                        {% else %}
+                                            <span>Draft</span>
+                                        {% endif %}
+                                    </td>
+                                {% elseif k is same as 'created_at' %}
+                                    <td style="width: 125px;">
+                                        {{ post.data.created_at|date('M jS, Y') }}
+                                    </td>
+                                {% elseif k is same as 'published_at' %}
+                                    <td style="width: 125px;">
+                                        {% if post.data.published_at and (post.data.status is same as 'published' or post.data.status is same as 'scheduled')%}
+                                            {{ post.data.published_at|date('M jS, Y') }}
+                                        {% else %}
+                                            &mdash;
+                                        {% endif %}
+                                    </td>
+                                {% elseif k is same as 'updated_at' %}
+                                    <td style="width: 125px;">
+                                        {{ post.data.updated_at|date('M jS, Y') }}
+                                    </td>
                                 {% else %}
-                                    <span>Draft</span>
+                                    <td style="width: 90px;">
+                                        {{ post.data[k] }}
+                                    </td>
                                 {% endif %}
-                            </td>
-                            <td style="width: 125px;">
-                                {% if post.data.published_at and (post.data.status is same as 'published' or post.data.status is same as 'scheduled')%}
-                                    {{ post.data.published_at|date('M jS, Y') }}
-                                {% else %}
-                                    &mdash;
-                                {% endif %}
-                            </td>
-                            <td style="width: 125px;">
-                                {{ post.data.created_at|date('M jS, Y') }}
-                            </td>
-                            <td style="width: 90px;">
-                                {{ post.data.views ?? 0 }}
-                            </td>
+                            {% endfor %}
                         </tr>
                     {% endfor %}
                 </tbody>

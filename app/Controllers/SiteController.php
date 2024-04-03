@@ -30,28 +30,23 @@ readonly class SiteController
         // Total posts
         $total_posts = $this->db->count(
             model: Post::class,
-            query: "where status = ? and published_at <= ?",
-            data: ["published", time()]
+            query: "where type = ? and status = ? and published_at <= ?",
+            data: ["post", "published", time()]
         );
 
         // Posts
-        $posts = $this->db
-            ->find(
-                model: Post::class,
-                query: "where status = ? and published_at <= ? order by published_at desc limit ? offset ?",
-                data: ["published", time(), $limit, $offset]
+        $posts = Post::findAll(
+                query: "where type = ? and status = ? and published_at <= ? order by published_at desc limit ? offset ?",
+                params: ["post", "published", time(), $limit, $offset]
             )
             ->map(function (Post $post) {
                 $post->set("html", $post->renderHtml());
 
                 return $post;
             })
-            ->orderBy("published_at", "desc")
             ->toArray();
 
-        $site_title = $this->db->findOne(Meta::class, "where meta_name = ?", [
-            "site_name",
-        ]);
+        $site_title = Meta::find("where meta_name = ?", ["site_name"]);
 
         return $response->view("home", [
             "page_title" => false,
@@ -66,30 +61,10 @@ readonly class SiteController
         ]);
     }
 
-    public function about(Response $response): Response
-    {
-        $site_title = $this->db->findOne(Meta::class, "where meta_name = ?", [
-            "site_name",
-        ]);
-
-        $site_description = $this->db->findOne(
-            Meta::class,
-            "where meta_name = ?",
-            ["site_description"]
-        );
-
-        return $response->view("about", [
-            "page_title" => "About",
-            "site_name" => $site_title->get("meta_value"),
-            "site_description" => (new Parsedown())->text(
-                $site_description?->get("meta_value") ?? ""
-            ),
-        ]);
-    }
-
     /**
      * Shows a post.
      *
+     * @param Request $request
      * @param Response $response
      * @param string $slug
      * @return Response
@@ -97,16 +72,14 @@ readonly class SiteController
     public function post(Request $request, Response $response, string $slug): Response
     {
         if (User::current()) {
-            $post = $this->db->findOne(
-                model: Post::class,
+            $post = Post::find(
                 query: "where slug = ?",
-                data: [$slug]
+                params: [$slug]
             );
         } else {
-            $post = $this->db->findOne(
-                model: Post::class,
+            $post = Post::find(
                 query: "where slug = ? and status = ? and published_at <= ?",
-                data: [$slug, "published", time()]
+                params: [$slug, "published", time()]
             );
         }
 
@@ -125,10 +98,9 @@ readonly class SiteController
 
         $post->set("html", $post->renderHtml());
 
-        $site_title = $this->db->findOne(
-            model: Meta::class,
+        $site_title = Meta::find(
             query: "where meta_name = ?",
-            data: ["site_name"]
+            params: ["site_name"]
         );
 
         $post_type = $post->get("type") ?? "post";

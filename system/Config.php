@@ -16,8 +16,6 @@ class Config
             $config = array_merge_recursive($config, require SEMBER_ROOT . '/app/config.php');
         }
 
-        ray($config);
-
         return $config[$key] ?? $default;
     }
 

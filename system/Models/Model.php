@@ -52,9 +52,9 @@ class Model
     /**
      * @param string $query
      * @param array $params
-     * @return T
+     * @return ?T
      */
-    public static function find(string $query, array $params = []): static
+    public static function find(string $query, array $params = []): ?static
     {
         return (new Database())->findOne(static::class, $query, $params);
     }
