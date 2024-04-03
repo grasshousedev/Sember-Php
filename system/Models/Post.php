@@ -35,7 +35,7 @@ class Post extends Model
 
     public static function findOne(string $query, array $params = []): ?static
     {
-        $post = self::findOne($query, $params);
+        $post = parent::findOne($query, $params);
 
         // Increment view count for every query to this post for non-authenticated users
         if ($post && !User::current()) {
