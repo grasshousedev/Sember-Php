@@ -3,6 +3,7 @@
 namespace Sember\System\Models;
 
 use Sember\System\Config;
+use Sember\System\Request;
 
 /**
  * @extends Model<Post>
@@ -30,5 +31,23 @@ class Post extends Model
         }
 
         return $html;
+    }
+
+    public static function findOne(string $query, array $params = []): ?static
+    {
+        $post = self::findOne($query, $params);
+
+        // Increment view count for every query to this post for non-authenticated users
+        if ($post && !User::current()) {
+            $cookie_k = "has_read_" . $post->get("id");
+
+            if (!(new Request)->cookie()->has($cookie_k)) {
+                (new Request)->cookie()->set($cookie_k, "yes", time() + 60 * 60 * 24 * 30);
+                $post->set("views", ($post->get("views") ?? 0) + 1);
+                $post->update();
+            }
+        }
+
+        return $post;
     }
 }

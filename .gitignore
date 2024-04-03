@@ -1,6 +1,8 @@
 .idea/
+.ddev/
 storage/
 vendor/
 /public/files
 /public/app
 /public/system
+/ray.php
